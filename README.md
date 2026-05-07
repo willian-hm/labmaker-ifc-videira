@@ -1,2 +1,2 @@
-# wiki-print3d-ifc
+# labmaker-ifcvideira
 Projeto de Extensão de Wikipedia de Impressão 3D
