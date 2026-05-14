@@ -1,0 +1,49 @@
+site_name: Wiki Impressão 3D
+site_description: Documentação sobre impressão 3D
+site_author: Everton, Alexandre, Willian
+
+theme:
+  name: material
+  language: pt-BR
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+  palette:
+    - scheme: default
+      primary: '#096318'
+      accent: '#7F7F7F'
+      toggle:
+        icon: material/weather-night
+        name: Modo escuro
+    - scheme: slate
+      primary: '#096318'
+      accent: '#7F7F7F'
+      toggle:
+        icon: material/weather-night
+        name: Modo escuro
+
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Início: index.md
+  - Introdução: introdução.md
+  - Como Funciona: como-funciona.md
+  - Desenho 3D: desenho-3d.md
+  - Fatiador: fatiador.md
+  - G-code: gcode.md
+  - Filamentos: filamentos.md
+  - Pós Impressão: pos-impressao.md
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - tables
+  - pymdownx.superfences
+  - pymdownx.details
