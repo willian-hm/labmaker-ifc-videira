@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Desenho 3D • LabMaker IFC</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#fff;
+      color:#111;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    /* ===== BACKGROUND ===== */
+
+    .bg-grid{
+      position:fixed;
+      inset:0;
+
+      z-index:-2;
+
+      background-image:
+      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+
+      background-size:40px 40px;
+
+      mask-image:
+      radial-gradient(circle at center, black 35%, transparent 100%);
+    }
+
+    .blur-circle{
+      position:fixed;
+
+      width:500px;
+      height:500px;
+
+      border-radius:50%;
+
+      background:#00000010;
+
+      filter:blur(120px);
+
+      z-index:-1;
+    }
+
+    .circle1{
+      top:-200px;
+      left:-100px;
+    }
+
+    .circle2{
+      bottom:-200px;
+      right:-100px;
+    }
+
+    /* ===== NAV ===== */
+
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+
+      width:100%;
+
+      padding:22px 8%;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      background:rgba(255,255,255,0.7);
+
+      backdrop-filter:blur(12px);
+
+      border-bottom:1px solid #eee;
+
+      z-index:1000;
+    }
+
+    .logo{
+      font-size:1.6rem;
+      font-weight:800;
+      letter-spacing:-2px;
+    }
+
+    .logo span{
+      font-weight:300;
+    }
+
+    nav ul{
+      display:flex;
+      gap:35px;
+      list-style:none;
+    }
+
+    nav a{
+      color:#666;
+      transition:.3s;
+      font-weight:500;
+    }
+
+    nav a:hover{
+      color:#111;
+    }
+
+    /* ===== HERO ===== */
+
+    .doc-hero{
+      min-height:95vh;
+
+      padding:
+      180px 8% 120px;
+
+      display:flex;
+      align-items:center;
+    }
+
+    .doc-hero-content{
+      max-width:850px;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+
+      padding:10px 18px;
+
+      border:1px solid #e5e5e5;
+      border-radius:999px;
+
+      margin-bottom:35px;
+
+      background:#fafafa;
+
+      color:#666;
+
+      font-size:0.9rem;
+    }
+
+    .mini-dot{
+      width:8px;
+      height:8px;
+
+      border-radius:50%;
+
+      background:#111;
+    }
+
+    .doc-hero h1{
+      font-size:6rem;
+
+      line-height:0.92;
+
+      letter-spacing:-5px;
+
+      margin-bottom:30px;
+    }
+
+    .doc-hero p{
+      font-size:1.2rem;
+
+      line-height:1.9;
+
+      color:#666;
+
+      max-width:700px;
+    }
+
+    /* ===== SECTION ===== */
+
+    .doc-section{
+      padding:120px 8%;
+    }
+
+    .doc-grid{
+      display:grid;
+
+      grid-template-columns:
+      1.1fr 1fr;
+
+      gap:80px;
+
+      align-items:center;
+    }
+
+    .doc-label{
+      font-size:0.8rem;
+
+      letter-spacing:2px;
+
+      font-weight:700;
+
+      color:#777;
+    }
+
+    .doc-text h2{
+      font-size:4rem;
+
+      line-height:1;
+
+      letter-spacing:-3px;
+
+      margin:
+      20px 0 30px;
+    }
+
+    .doc-text p{
+      font-size:1.05rem;
+
+      line-height:1.9;
+
+      color:#666;
+
+      margin-bottom:20px;
+    }
+
+    .doc-visual{
+      position:relative;
+    }
+
+    .doc-visual img{
+      width:100%;
+      height:420px;
+
+      object-fit:cover;
+
+      border-radius:35px;
+
+      border:1px solid #ececec;
+
+      box-shadow:
+      0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    /* ===== CARDS ===== */
+
+    .doc-cards-section{
+      padding:120px 8%;
+    }
+
+    .section-header{
+      margin-bottom:70px;
+    }
+
+    .section-header h2{
+      font-size:4rem;
+
+      letter-spacing:-3px;
+
+      margin-bottom:20px;
+    }
+
+    .section-header p{
+      color:#666;
+
+      line-height:1.8;
+
+      max-width:700px;
+    }
+
+    .cards{
+      display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(280px,1fr));
+
+      gap:25px;
+    }
+
+    .card{
+      padding:35px;
+
+      border-radius:30px;
+
+      background:#fafafa;
+
+      border:1px solid #ececec;
+
+      transition:0.4s;
+
+      position:relative;
+
+      overflow:hidden;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+
+      background:white;
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.05);
+    }
+
+    .card::before{
+      content:"";
+
+      position:absolute;
+
+      width:200px;
+      height:200px;
+
+      border-radius:50%;
+
+      background:#00000006;
+
+      top:-80px;
+      right:-80px;
+
+      filter:blur(50px);
+    }
+
+    .icon{
+      width:65px;
+      height:65px;
+
+      border-radius:20px;
+
+      background:#111;
+
+      color:white;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      font-size:1.5rem;
+
+      margin-bottom:25px;
+    }
+
+    .card h3{
+      font-size:1.6rem;
+
+      margin-bottom:15px;
+
+      letter-spacing:-1px;
+    }
+
+    .card p{
+      color:#666;
+
+      line-height:1.8;
+    }
+
+    /* ===== TABLE ===== */
+
+    .table-wrapper{
+      overflow:auto;
+
+      margin-top:40px;
+
+      border-radius:30px;
+
+      border:1px solid #ececec;
+    }
+
+    table{
+      width:100%;
+
+      border-collapse:collapse;
+
+      background:#fafafa;
+    }
+
+    th{
+      background:#111;
+
+      color:white;
+
+      text-align:left;
+
+      padding:20px;
+    }
+
+    td{
+      padding:20px;
+
+      border-top:1px solid #e5e5e5;
+
+      color:#666;
+    }
+
+    /* ===== LIST ===== */
+
+    .list-box{
+      margin-top:35px;
+
+      padding:40px;
+
+      border-radius:35px;
+
+      background:#fafafa;
+
+      border:1px solid #ececec;
+    }
+
+    .list-box h3{
+      font-size:2rem;
+
+      margin-bottom:25px;
+
+      letter-spacing:-2px;
+    }
+
+    .list-box ul,
+    .list-box ol{
+      padding-left:20px;
+    }
+
+    .list-box li{
+      color:#666;
+
+      line-height:1.9;
+
+      margin-bottom:15px;
+    }
+
+    /* ===== NAVIGATION ===== */
+
+    .doc-navigation{
+      padding:120px 8%;
+    }
+
+    .nav-grid{
+      display:grid;
+
+      grid-template-columns:1fr 1fr;
+
+      gap:25px;
+    }
+
+    .nav-card{
+      padding:40px;
+
+      border-radius:35px;
+
+      background:#fafafa;
+
+      border:1px solid #ececec;
+
+      transition:.4s;
+
+      position:relative;
+
+      overflow:hidden;
+    }
+
+    .nav-card:hover{
+      transform:translateY(-8px);
+
+      background:white;
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.05);
+    }
+
+    .nav-label{
+      font-size:0.85rem;
+
+      color:#888;
+
+      margin-bottom:20px;
+
+      display:block;
+
+      letter-spacing:1px;
+
+      font-weight:700;
+    }
+
+    .nav-card h3{
+      font-size:2rem;
+
+      letter-spacing:-2px;
+
+      margin-bottom:15px;
+    }
+
+    .nav-card p{
+      color:#666;
+
+      line-height:1.8;
+    }
+
+    /* ===== FOOTER ===== */
+
+    footer{
+      padding:70px 8%;
+
+      border-top:1px solid #eee;
+
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+
+      gap:20px;
+
+      color:#666;
+    }
+
+    /* ===== RESPONSIVO ===== */
+
+    @media(max-width:1000px){
+
+      nav ul{
+        display:none;
+      }
+
+      .doc-grid{
+        grid-template-columns:1fr;
+      }
+
+      .doc-hero h1{
+        font-size:4rem;
+      }
+
+      .doc-text h2{
+        font-size:3rem;
+      }
+
+      .section-header h2{
+        font-size:3rem;
+      }
+
+      .nav-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="bg-grid"></div>
+
+  <div class="blur-circle circle1"></div>
+  <div class="blur-circle circle2"></div>
+
+  <!-- NAV -->
+
+  <nav>
+
+    <div class="logo">
+      Lab<span>Maker</span>
+    </div>
+
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="documentacao.html">Documentação</a></li>
+    </ul>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="doc-hero reveal">
+
+    <div class="doc-hero-content">
+
+      <div class="tag">
+
+        <div class="mini-dot"></div>
+
+        Modelagem • Design 3D
+
+      </div>
+
+      <h1>
+        Desenho<br>
+        3D
+      </h1>
+
+      <p>
+        Conheça as ferramentas, formatos e práticas
+        utilizadas para criar modelos preparados
+        para impressão 3D.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- SECTION -->
+
+  <section class="doc-section">
+
+    <div class="doc-grid">
+
+      <div class="doc-text reveal">
+
+        <span class="doc-label">
+          MODELAGEM DIGITAL
+        </span>
+
+        <h2>
+          A base da impressão
+        </h2>
+
+        <p>
+          Todo objeto impresso começa em um software
+          de modelagem tridimensional.
+        </p>
+
+        <p>
+          A qualidade do modelo impacta diretamente
+          na resistência, acabamento e precisão da peça.
+        </p>
+
+        <p>
+          Por isso, entender modelagem 3D é essencial
+          para obter bons resultados.
+        </p>
+
+      </div>
+
+      <div class="doc-visual reveal">
+
+        <img
+          src="https://ecdd.blog/wp-content/uploads/sites/2/2021/04/modelo-3d-lowpoly-1024x576.jpg"
+          alt="Modelagem 3D"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SOFTWARES -->
+
+  <section class="doc-cards-section">
+
+    <div class="section-header reveal">
+
+      <h2>
+        Softwares
+      </h2>
+
+      <p>
+        Existem ferramentas para iniciantes,
+        estudantes e profissionais da indústria.
+      </p>
+
+    </div>
+
+    <div class="cards">
+
+      <div class="card reveal">
+
+        <div class="icon">🧩</div>
+
+        <h3>Tinkercad</h3>
+
+        <p>
+          Plataforma simples e intuitiva,
+          ideal para quem está começando.
+        </p>
+
+      </div>
+
+      <div class="card reveal">
+
+        <div class="icon">⚙️</div>
+
+        <h3>Fusion 360</h3>
+
+        <p>
+          Software CAD profissional com
+          modelagem paramétrica avançada.
+        </p>
+
+      </div>
+
+      <div class="card reveal">
+
+        <div class="icon">🎨</div>
+
+        <h3>Blender</h3>
+
+        <p>
+          Ferramenta poderosa para escultura,
+          animação e modelagem artística.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FORMATOS -->
+
+  <section class="doc-section">
+
+    <div class="section-header reveal">
+
+      <h2>
+        Formatos de Arquivo
+      </h2>
+
+      <p>
+        Cada formato possui características
+        específicas para modelagem e impressão.
+      </p>
+
+    </div>
+
+    <div class="cards">
+
+      <div class="card reveal">
+
+        <h3>STL</h3>
+
+        <p>
+          Formato mais comum na impressão 3D.
+          Armazena apenas a geometria do modelo.
+        </p>
+
+      </div>
+
+      <div class="card reveal">
+
+        <h3>3MF</h3>
+
+        <p>
+          Formato moderno com suporte
+          para cores, materiais e texturas.
+        </p>
+
+      </div>
+
+      <div class="card reveal">
+
+        <h3>OBJ</h3>
+
+        <p>
+          Muito usado em visualização e
+          renderização tridimensional.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- DESIGN -->
+
+  <section class="doc-section">
+
+    <div class="section-header reveal">
+
+      <h2>
+        Design para Impressão
+      </h2>
+
+      <p>
+        Algumas boas práticas ajudam a melhorar
+        resistência, acabamento e eficiência.
+      </p>
+
+    </div>
+
+    <div class="cards">
+
+      <div class="card reveal">
+
+        <h3>Suportes</h3>
+
+        <p>
+          Estruturas temporárias ajudam na impressão
+          de áreas suspensas e overhangs.
+        </p>
+
+      </div>
+
+      <div class="card reveal">
+
+        <h3>Infill</h3>
+
+        <p>
+          Define a estrutura interna da peça,
+          influenciando resistência e peso.
+        </p>
+
+      </div>
+
+      <div class="card reveal">
+
+        <h3>Orientação</h3>
+
+        <p>
+          A posição da peça altera acabamento,
+          força mecânica e tempo de impressão.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- TABELA -->
+
+  <section class="doc-section">
+
+    <div class="section-header reveal">
+
+      <h2>
+        Comparação de Softwares
+      </h2>
+
+    </div>
+
+    <div class="table-wrapper reveal">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Software</th>
+            <th>Nível</th>
+            <th>Preço</th>
+            <th>Ideal para</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Tinkercad</td>
+            <td>Iniciante</td>
+            <td>Gratuito</td>
+            <td>Educação e peças simples</td>
+          </tr>
+
+          <tr>
+            <td>Fusion 360</td>
+            <td>Intermediário</td>
+            <td>Gratuito para estudantes</td>
+            <td>Projetos mecânicos</td>
+          </tr>
+
+          <tr>
+            <td>Blender</td>
+            <td>Avançado</td>
+            <td>Gratuito</td>
+            <td>Arte e modelagem orgânica</td>
+          </tr>
+
+          <tr>
+            <td>Onshape</td>
+            <td>Avançado</td>
+            <td>Pago</td>
+            <td>Colaboração industrial</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+  <!-- DICAS -->
+
+  <section class="doc-section">
+
+    <div class="list-box reveal">
+
+      <h3>
+        Dicas de Modelagem
+      </h3>
+
+      <ol>
+
+        <li>
+          Planeje a orientação da peça antes da impressão.
+        </li>
+
+        <li>
+          Evite áreas suspensas desnecessárias.
+        </li>
+
+        <li>
+          Use espessuras adequadas para maior resistência.
+        </li>
+
+        <li>
+          Faça testes com modelos simples primeiro.
+        </li>
+
+        <li>
+          Exporte arquivos com boa resolução.
+        </li>
+
+      </ol>
+
+    </div>
+
+  </section>
+
+  <!-- NAVIGATION -->
+
+  <section class="doc-navigation">
+
+    <div class="nav-grid">
+
+      <a href="como-funciona.html" class="nav-card reveal">
+
+        <span class="nav-label">
+          ← PÁGINA ANTERIOR
+        </span>
+
+        <h3>
+          Como Funciona
+        </h3>
+
+        <p>
+          Veja o fluxo completo da impressão 3D
+          camada por camada.
+        </p>
+
+      </a>
+
+      <a href="fatiador.html" class="nav-card reveal">
+
+        <span class="nav-label">
+          PRÓXIMA PÁGINA →
+        </span>
+
+        <h3>
+          Fatiador
+        </h3>
+
+        <p>
+          Aprenda como transformar modelos
+          em instruções para a impressora.
+        </p>
+
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div>
+      <strong>LabMaker IFC</strong><br>
+      Sala G02 • IFC Videira
+    </div>
+
+    <div>
+      © 2026 • Laboratório Maker
+    </div>
+
+  </footer>
+
+  <!-- ANIMATION -->
+
+  <script>
+
+    const elements =
+    document.querySelectorAll(
+      '.reveal'
+    );
+
+    const observer =
+    new IntersectionObserver(entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          entry.target.style.opacity = '1';
+
+          entry.target.style.transform =
+          'translateY(0px)';
+
+        }
+
+      });
+
+    });
+
+    elements.forEach(el => {
+
+      el.style.opacity = '0';
+
+      el.style.transform =
+      'translateY(40px)';
+
+      el.style.transition =
+      '0.9s ease';
+
+      observer.observe(el);
+
+    });
+
+  </script>
+
+</body>
+
+</html>

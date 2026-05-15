@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Como Funciona • LabMaker IFC</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#fff;
+      color:#111;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    /* ===== BACKGROUND ===== */
+
+    .bg-grid{
+      position:fixed;
+      inset:0;
+
+      z-index:-2;
+
+      background-image:
+      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+
+      background-size:40px 40px;
+
+      mask-image:
+      radial-gradient(circle at center, black 35%, transparent 100%);
+    }
+
+    .blur-circle{
+      position:fixed;
+
+      width:500px;
+      height:500px;
+
+      border-radius:50%;
+
+      background:#00000010;
+
+      filter:blur(120px);
+
+      z-index:-1;
+    }
+
+    .circle1{
+      top:-200px;
+      left:-100px;
+    }
+
+    .circle2{
+      bottom:-200px;
+      right:-100px;
+    }
+
+    /* ===== NAV ===== */
+
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+
+      width:100%;
+
+      padding:22px 8%;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      background:rgba(255,255,255,0.7);
+
+      backdrop-filter:blur(12px);
+
+      border-bottom:1px solid #eee;
+
+      z-index:1000;
+    }
+
+    .logo{
+      font-size:1.6rem;
+      font-weight:800;
+      letter-spacing:-2px;
+    }
+
+    .logo span{
+      font-weight:300;
+    }
+
+    nav ul{
+      display:flex;
+      gap:35px;
+      list-style:none;
+    }
+
+    nav a{
+      color:#666;
+      transition:.3s;
+      font-weight:500;
+    }
+
+    nav a:hover{
+      color:#111;
+    }
+
+    /* ===== HERO ===== */
+
+    .doc-hero{
+      min-height:95vh;
+
+      padding:
+      180px 8% 120px;
+
+      display:flex;
+      align-items:center;
+    }
+
+    .doc-hero-content{
+      max-width:850px;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+
+      padding:10px 18px;
+
+      border:1px solid #e5e5e5;
+      border-radius:999px;
+
+      margin-bottom:35px;
+
+      background:#fafafa;
+
+      color:#666;
+
+      font-size:0.9rem;
+    }
+
+    .mini-dot{
+      width:8px;
+      height:8px;
+
+      border-radius:50%;
+
+      background:#111;
+    }
+
+    .doc-hero h1{
+      font-size:6rem;
+
+      line-height:0.92;
+
+      letter-spacing:-5px;
+
+      margin-bottom:30px;
+    }
+
+    .doc-hero p{
+      font-size:1.2rem;
+
+      line-height:1.9;
+
+      color:#666;
+
+      max-width:700px;
+    }
+
+    /* ===== SECTION ===== */
+
+    .doc-section{
+      padding:120px 8%;
+    }
+
+    .doc-grid{
+      display:grid;
+
+      grid-template-columns:
+      1.1fr 1fr;
+
+      gap:80px;
+
+      align-items:center;
+    }
+
+    .doc-label{
+      font-size:0.8rem;
+
+      letter-spacing:2px;
+
+      font-weight:700;
+
+      color:#777;
+    }
+
+    .doc-text h2{
+      font-size:4rem;
+
+      line-height:1;
+
+      letter-spacing:-3px;
+
+      margin:
+      20px 0 30px;
+    }
+
+    .doc-text p{
+      font-size:1.05rem;
+
+      line-height:1.9;
+
+      color:#666;
+
+      margin-bottom:20px;
+    }
+
+    .doc-visual{
+      position:relative;
+    }
+
+    .doc-visual img{
+      width:100%;
+      height:500px;
+
+      object-fit:cover;
+
+      border-radius:35px;
+
+      border:1px solid #ececec;
+
+      box-shadow:
+      0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    /* ===== STEPS ===== */
+
+    .steps-section{
+      padding:120px 8%;
+    }
+
+    .section-header{
+      margin-bottom:70px;
+    }
+
+    .section-header h2{
+      font-size:4rem;
+
+      letter-spacing:-3px;
+
+      margin-bottom:20px;
+    }
+
+    .section-header p{
+      color:#666;
+
+      line-height:1.8;
+
+      max-width:700px;
+    }
+
+    .steps{
+      display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(280px,1fr));
+
+      gap:25px;
+    }
+
+    .step{
+      padding:35px;
+
+      border-radius:30px;
+
+      background:#fafafa;
+
+      border:1px solid #ececec;
+
+      transition:0.4s;
+
+      position:relative;
+
+      overflow:hidden;
+    }
+
+    .step:hover{
+      transform:translateY(-8px);
+
+      background:white;
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.05);
+    }
+
+    .step-number{
+      font-size:4rem;
+
+      font-weight:800;
+
+      letter-spacing:-4px;
+
+      color:#11111110;
+
+      margin-bottom:10px;
+    }
+
+    .step h3{
+      font-size:1.5rem;
+
+      margin-bottom:15px;
+
+      letter-spacing:-1px;
+    }
+
+    .step p{
+      color:#666;
+
+      line-height:1.8;
+    }
+
+    /* ===== INFO ===== */
+
+    .info-section{
+      padding:120px 8%;
+    }
+
+    .info-grid{
+      display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(320px,1fr));
+
+      gap:25px;
+    }
+
+    .info-box{
+      padding:40px;
+
+      border-radius:35px;
+
+      background:#fafafa;
+
+      border:1px solid #ececec;
+    }
+
+    .info-box h3{
+      font-size:2rem;
+
+      margin-bottom:20px;
+
+      letter-spacing:-2px;
+    }
+
+    .info-box ul{
+      padding-left:20px;
+    }
+
+    .info-box li{
+      color:#666;
+
+      line-height:1.8;
+
+      margin-bottom:14px;
+    }
+
+    /* ===== IMAGE ===== */
+
+    .image-section{
+      padding:0 8% 120px;
+    }
+
+    .image-section img{
+      width: 100%;
+      height: 700px;
+
+      object-fit:cover;
+
+      border-radius:35px;
+
+      border:1px solid #ececec;
+
+      box-shadow:
+      0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    /* ===== NAVIGATION ===== */
+
+    .doc-navigation{
+      padding:120px 8%;
+    }
+
+    .nav-grid{
+      display:grid;
+
+      grid-template-columns:1fr 1fr;
+
+      gap:25px;
+    }
+
+    .nav-card{
+      padding:40px;
+
+      border-radius:35px;
+
+      background:#fafafa;
+
+      border:1px solid #ececec;
+
+      transition:.4s;
+
+      position:relative;
+
+      overflow:hidden;
+    }
+
+    .nav-card:hover{
+      transform:translateY(-8px);
+
+      background:white;
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.05);
+    }
+
+    .nav-label{
+      font-size:0.85rem;
+
+      color:#888;
+
+      margin-bottom:20px;
+
+      display:block;
+
+      letter-spacing:1px;
+
+      font-weight:700;
+    }
+
+    .nav-card h3{
+      font-size:2rem;
+
+      letter-spacing:-2px;
+
+      margin-bottom:15px;
+    }
+
+    .nav-card p{
+      color:#666;
+
+      line-height:1.8;
+    }
+
+    /* ===== FOOTER ===== */
+
+    footer{
+      padding:70px 8%;
+
+      border-top:1px solid #eee;
+
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+
+      gap:20px;
+
+      color:#666;
+    }
+
+    /* ===== RESPONSIVO ===== */
+
+    @media(max-width:1000px){
+
+      nav ul{
+        display:none;
+      }
+
+      .doc-grid{
+        grid-template-columns:1fr;
+      }
+
+      .doc-hero h1{
+        font-size:4rem;
+      }
+
+      .doc-text h2{
+        font-size:3rem;
+      }
+
+      .section-header h2{
+        font-size:3rem;
+      }
+
+      .nav-grid{
+        grid-template-columns:1fr;
+      }
+
+      .doc-visual img,
+      .image-section img{
+        height:auto;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="bg-grid"></div>
+
+  <div class="blur-circle circle1"></div>
+  <div class="blur-circle circle2"></div>
+
+  <!-- NAV -->
+
+  <nav>
+
+    <div class="logo">
+      Lab<span>Maker</span>
+    </div>
+
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="documentacao.html">Documentação</a></li>
+    </ul>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="doc-hero reveal">
+
+    <div class="doc-hero-content">
+
+      <div class="tag">
+
+        <div class="mini-dot"></div>
+
+        Processo • Impressão 3D
+
+      </div>
+
+      <h1>
+        Como Funciona<br>
+        a Impressão 3D
+      </h1>
+
+      <p>
+        Entenda como modelos digitais se transformam
+        em objetos físicos através de processos modernos
+        de fabricação aditiva.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- SECTION -->
+
+  <section class="doc-section">
+
+    <div class="doc-grid">
+
+      <div class="doc-text reveal">
+
+        <span class="doc-label">
+          PROCESSO DIGITAL
+        </span>
+
+        <h2>
+          Do modelo à peça
+        </h2>
+
+        <p>
+          A impressão 3D começa com um modelo digital
+          criado em softwares de modelagem ou baixado
+          de bibliotecas online.
+        </p>
+
+        <p>
+          Depois disso, o arquivo passa por um slicer,
+          responsável por dividir o objeto em centenas
+          de camadas.
+        </p>
+
+        <p>
+          Por fim, a impressora interpreta o G-code
+          e inicia a construção física camada por camada.
+        </p>
+
+      </div>
+
+      <div class="doc-visual reveal">
+
+        <img
+          src="https://blog.eletrogate.com/wp-content/uploads/2021/06/3.gif"
+          alt="Impressão 3D funcionando"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- STEPS -->
+
+  <section class="steps-section">
+
+    <div class="section-header reveal">
+
+      <h2>
+        Fluxo Completo
+      </h2>
+
+      <p>
+        Veja as principais etapas do processo
+        de fabricação utilizando impressão 3D.
+      </p>
+
+    </div>
+
+    <div class="steps">
+
+      <div class="step reveal">
+
+        <div class="step-number">01</div>
+
+        <h3>Modelo 3D</h3>
+
+        <p>
+          Criar ou baixar um modelo digital
+          em softwares CAD ou bibliotecas online.
+        </p>
+
+      </div>
+
+      <div class="step reveal">
+
+        <div class="step-number">02</div>
+
+        <h3>Exportação</h3>
+
+        <p>
+          O projeto é exportado em formatos
+          como STL ou 3MF.
+        </p>
+
+      </div>
+
+      <div class="step reveal">
+
+        <div class="step-number">03</div>
+
+        <h3>Fatiamento</h3>
+
+        <p>
+          O slicer converte o objeto em camadas
+          e gera o G-code da impressão.
+        </p>
+
+      </div>
+
+      <div class="step reveal">
+
+        <div class="step-number">04</div>
+
+        <h3>Impressão</h3>
+
+        <p>
+          A impressora deposita material
+          camada por camada até finalizar a peça.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- IMAGE -->
+
+  <section class="image-section reveal">
+
+    <img
+      src="https://cdn.shopify.com/s/files/1/0311/1180/7114/articles/slicer13-1_600x.png"
+      alt="Fluxo da impressão 3D" 
+    >
+
+  </section>
+
+  <!-- INFO -->
+
+  <section class="info-section">
+
+    <div class="section-header reveal">
+
+      <h2>
+        Tecnologias
+      </h2>
+
+      <p>
+        Diferentes métodos são utilizados
+        para fabricar peças com níveis variados
+        de precisão e resistência.
+      </p>
+
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-box reveal">
+
+        <h3>FDM / FFF</h3>
+
+        <ul>
+          <li>Filamento plástico aquecido</li>
+          <li>Baixo custo operacional</li>
+          <li>Ideal para prototipagem</li>
+          <li>Tecnologia mais popular</li>
+        </ul>
+
+      </div>
+
+      <div class="info-box reveal">
+
+        <h3>SLA / DLP</h3>
+
+        <ul>
+          <li>Resina líquida UV</li>
+          <li>Alta precisão</li>
+          <li>Detalhes extremamente finos</li>
+          <li>Acabamento superior</li>
+        </ul>
+
+      </div>
+
+      <div class="info-box reveal">
+
+        <h3>SLS</h3>
+
+        <ul>
+          <li>Fusão de pó com laser</li>
+          <li>Peças resistentes</li>
+          <li>Uso industrial</li>
+          <li>Sem necessidade de suporte</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- NAVIGATION -->
+
+  <section class="doc-navigation">
+
+    <div class="nav-grid">
+
+      <a href="introducao.html" class="nav-card reveal">
+
+        <span class="nav-label">
+          ← PÁGINA ANTERIOR
+        </span>
+
+        <h3>
+          Introdução
+        </h3>
+
+        <p>
+          Volte para os conceitos iniciais
+          sobre impressão 3D.
+        </p>
+
+      </a>
+
+      <a href="desenho-3d.html" class="nav-card reveal">
+
+        <span class="nav-label">
+          PRÓXIMA PÁGINA →
+        </span>
+
+        <h3>
+          Desenho 3D
+        </h3>
+
+        <p>
+          Aprenda sobre modelagem e criação
+          de objetos tridimensionais.
+        </p>
+
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div>
+      <strong>LabMaker IFC</strong><br>
+      Sala G02 • IFC Videira
+    </div>
+
+    <div>
+      © 2026 • Laboratório Maker
+    </div>
+
+  </footer>
+
+  <!-- ANIMATION -->
+
+  <script>
+
+    const elements =
+    document.querySelectorAll(
+      '.reveal'
+    );
+
+    const observer =
+    new IntersectionObserver(entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          entry.target.style.opacity = '1';
+
+          entry.target.style.transform =
+          'translateY(0px)';
+
+        }
+
+      });
+
+    });
+
+    elements.forEach(el => {
+
+      el.style.opacity = '0';
+
+      el.style.transform =
+      'translateY(40px)';
+
+      el.style.transition =
+      '0.9s ease';
+
+      observer.observe(el);
+
+    });
+
+  </script>
+
+</body>
+
+</html>         

@@ -1,864 +1,749 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>LabMaker IFC</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    body{
-      font-family:'Inter',sans-serif;
-      background:#ffffff;
-      color:#111111;
-      overflow-x:hidden;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    /* ===== BACKGROUND ===== */
-
-    .bg-grid{
-      position:fixed;
-      inset:0;
-      z-index:-2;
-
-      background-image:
-      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-
-      background-size:40px 40px;
-
-      mask-image:radial-gradient(circle at center, black 35%, transparent 100%);
-    }
-
-    .blur-circle{
-      position:fixed;
-      width:500px;
-      height:500px;
-      border-radius:50%;
-      background:#00000010;
-      filter:blur(120px);
-      z-index:-1;
-    }
-
-    .circle1{
-      top:-200px;
-      left:-100px;
-    }
-
-    .circle2{
-      bottom:-200px;
-      right:-100px;
-    }
-
-    /* ===== NAV ===== */
-
-    nav{
-      position:fixed;
-      top:0;
-      left:0;
-
-      width:100%;
-
-      padding:22px 8%;
-
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-
-      background:rgba(255,255,255,0.7);
-      backdrop-filter:blur(12px);
-
-      border-bottom:1px solid #eeeeee;
-
-      z-index:1000;
-    }
-
-    .logo{
-      font-size:1.6rem;
-      font-weight:800;
-      letter-spacing:-2px;
-    }
-
-    .logo span{
-      font-weight:300;
-    }
-
-    nav ul{
-      display:flex;
-      gap:35px;
-      list-style:none;
-    }
-
-    nav a{
-      text-decoration:none;
-      color:#666;
-      transition:0.3s;
-      font-weight:500;
-    }
-
-    nav a:hover{
-      color:#000;
-    }
-
-    /* ===== HERO ===== */
-
-    .hero{
-      min-height:100vh;
-
-      padding:0 8%;
-
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-
-      gap:80px;
-    }
-
-    .hero-text{
-      max-width:700px;
-    }
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-
-      padding:10px 18px;
-
-      border:1px solid #e5e5e5;
-      border-radius:999px;
-
-      margin-bottom:30px;
-
-      color:#666;
-      font-size:0.9rem;
-
-      background:#fafafa;
-    }
-
-    .mini-dot{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:#111;
-    }
-
-    .hero h1{
-      font-size:6rem;
-      line-height:0.95;
-
-      letter-spacing:-5px;
-
-      margin-bottom:30px;
-    }
-
-    .hero p{
-      font-size:1.1rem;
-      line-height:1.8;
-      color:#666;
-
-      max-width:600px;
-
-      margin-bottom:40px;
-    }
-
-    .buttons{
-      display:flex;
-      gap:20px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      padding:16px 28px;
-      border-radius:18px;
-
-      font-weight:600;
-      font-size:1rem;
-
-      cursor:pointer;
-      transition:0.3s;
-    }
-
-    .black{
-      background:#111;
-      color:white;
-      border:none;
-    }
-
-    .black:hover{
-      transform:translateY(-3px);
-      box-shadow:0 10px 30px rgba(0,0,0,0.15);
-    }
-
-    .white{
-      background:white;
-      border:1px solid #ddd;
-      color:#111;
-    }
-
-    .white:hover{
-      background:#f7f7f7;
-    }
-
-    /* ===== OBJECT ===== */
-
-    .object{
-      width:350px;
-      height:350px;
-
-      border-radius:40px;
-
-      background:
-      linear-gradient(
-        145deg,
-        #ffffff,
-        #f0f0f0
-      );
-
-      border:1px solid #e5e5e5;
-
-      box-shadow:
-      40px 40px 80px #d9d9d9,
-      -20px -20px 60px #ffffff;
-
-      position:relative;
-
-      animation:float 5s ease-in-out infinite;
-    }
-
-    .object::before{
-      content:"";
-
-      position:absolute;
-      inset:30px;
-
-      border-radius:25px;
-      border:1px solid #ddd;
-    }
-
-    @keyframes float{
-
-      0%,100%{
-        transform:translateY(0px) rotate(0deg);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>LabMaker IFC</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <style>
+      .hero h1 {
+        font-size: 5rem;
       }
 
-      50%{
-        transform:translateY(-20px) rotate(4deg);
+      /* ===== BACKGROUND ===== */
+
+      .bg-grid {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+
+        background-size: 40px 40px;
+
+        mask-image: radial-gradient(
+          circle at center,
+          black 35%,
+          transparent 100%
+        );
       }
 
-    }
-
-    /* ===== SECTIONS ===== */
-
-    section{
-      padding:120px 8%;
-    }
-
-    .section-header{
-      margin-bottom:70px;
-    }
-
-    .section-header h2{
-      font-size:4rem;
-      letter-spacing:-3px;
-      margin-bottom:20px;
-    }
-
-    .section-header p{
-      color:#666;
-      line-height:1.8;
-      max-width:700px;
-    }
-
-    /* ===== CARDS ===== */
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:25px;
-    }
-
-    .card{
-      padding:35px;
-
-      border-radius:30px;
-
-      background:#fafafa;
-
-      border:1px solid #ececec;
-
-      transition:0.4s;
-    }
-
-    .card:hover{
-      transform:translateY(-8px);
-
-      background:white;
-
-      box-shadow:
-      0 15px 40px rgba(0,0,0,0.05);
-    }
-
-    .icon{
-      width:65px;
-      height:65px;
-
-      border-radius:20px;
-
-      background:#111;
-      color:white;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      font-size:1.5rem;
-
-      margin-bottom:25px;
-    }
-
-    .card h3{
-      font-size:1.5rem;
-      margin-bottom:15px;
-      letter-spacing:-1px;
-    }
-
-    .card p{
-      color:#666;
-      line-height:1.8;
-    }
-
-    /* ===== SHOWCASE ===== */
-
-    .showcase{
-      display:grid;
-      grid-template-columns:2fr 1fr 1fr;
-      gap:25px;
-    }
-
-    .box{
-      min-height:250px;
-
-      border-radius:35px;
-
-      background:#fafafa;
-
-      border:1px solid #ececec;
-
-      padding:35px;
-
-      transition:0.4s;
-
-      position:relative;
-      overflow:hidden;
-    }
-
-    .box:hover{
-      transform:translateY(-8px);
-      background:white;
-    }
-
-    .box.big{
-      min-height:520px;
-    }
-
-    .box::before{
-      content:"";
-
-      position:absolute;
-
-      width:250px;
-      height:250px;
-
-      border-radius:50%;
-
-      background:#00000008;
-
-      filter:blur(80px);
-
-      top:-80px;
-      right:-80px;
-    }
-
-    .box h3{
-      font-size:2rem;
-      margin-bottom:15px;
-      letter-spacing:-2px;
-    }
-
-    .box p{
-      color:#666;
-      line-height:1.8;
-    }
-
-    /* ===== FOOTER ===== */
-
-    footer{
-      padding:60px 8%;
-
-      border-top:1px solid #eee;
-
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-
-      gap:20px;
-
-      color:#666;
-    }
-
-    /* ===== RESPONSIVO ===== */
-
-    @media(max-width:1000px){
-
-      nav ul{
-        display:none;
+      .blur-circle {
+        position: fixed;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: #00000010;
+        filter: blur(120px);
+        z-index: -1;
       }
 
-      .hero{
-        flex-direction:column;
-        justify-content:center;
-        text-align:center;
+      .circle1 {
+        top: -200px;
+        left: -100px;
       }
 
-      .buttons{
-        justify-content:center;
+      .circle2 {
+        bottom: -200px;
+        right: -100px;
       }
 
-      .hero h1{
-        font-size:4rem;
+      /* ===== NAV ===== */
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+
+        padding: 22px 8%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+
+        border-bottom: 1px solid #eeeeee;
+
+        z-index: 1000;
       }
 
-      .section-header h2{
-        font-size:3rem;
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -2px;
       }
 
-      .showcase{
-        grid-template-columns:1fr;
+      .logo span {
+        font-weight: 300;
       }
 
-      .object{
-        width:280px;
-        height:280px;
+      nav ul {
+        display: flex;
+        gap: 35px;
+        list-style: none;
       }
 
-    }
+      nav a {
+        text-decoration: none;
+        color: #666;
+        transition: 0.3s;
+        font-weight: 500;
+      }
 
-  </style>
-</head>
+      nav a:hover {
+        color: #000;
+      }
 
-<body>
+      /* ===== HERO ===== */
 
-  <div class="bg-grid"></div>
+      .hero {
+        min-height: 100vh;
 
-  <div class="blur-circle circle1"></div>
-  <div class="blur-circle circle2"></div>
+        padding: 0 8%;
 
-  <!-- NAV -->
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-  <nav>
+        gap: 80px;
+      }
 
-    <div class="logo">
-      Lab<span>Maker</span>
-    </div>
+      .hero-text {
+        max-width: 700px;
+      }
 
-    <ul>
-      <li><a href="#">Início</a></li>
-      <li><a href="#">Projetos</a></li>
-      <li><a href="#">Tecnologias</a></li>
-      <li><a href="#">Galeria</a></li>
-      <li><a href="#">Contato</a></li>
-    </ul>
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
 
-  </nav>
+        padding: 10px 18px;
 
-  <!-- HERO -->
+        border: 1px solid #e5e5e5;
+        border-radius: 999px;
 
-  <section class="hero">
+        margin-bottom: 30px;
 
-    <div class="hero-text">
+        color: #666;
+        font-size: 0.9rem;
 
-      <div class="tag">
-        <div class="mini-dot"></div>
-        IFC Videira • Sala G02
-      </div>
+        background: #fafafa;
+      }
 
-      <h1>
-        Design.<br>
-        Tecnologia.<br>
-        Fabricação.
-      </h1>
+      .mini-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #111;
+      }
 
-      <p>
-        A LabMaker é um espaço voltado para inovação,
-        prototipagem, impressão 3D e desenvolvimento
-        de projetos criativos utilizando tecnologias
-        modernas de fabricação digital.
-      </p>
+      .hero h1 {
+        font-size: 6rem;
+        line-height: 0.95;
 
-      <div class="buttons">
-        <button class="btn black">
-          Explorar laboratório
-        </button>
+        letter-spacing: -5px;
 
-        <button class="btn white">
-          Ver projetos
-        </button>
-      </div>
+        margin-bottom: 30px;
+      }
 
-    </div>
+      .hero p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #666;
 
-    <div class="object"></div>
+        max-width: 600px;
 
-  </section>
+        margin-bottom: 40px;
+      }
 
-  <!-- TECNOLOGIAS -->
+      .buttons {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
 
-  <section>
+      .btn {
+        padding: 16px 28px;
+        border-radius: 18px;
 
-    <div class="section-header">
+        font-weight: 600;
+        font-size: 1rem;
 
-      <h2>
-        Tecnologias
-      </h2>
+        cursor: pointer;
+        transition: 0.3s;
+      }
 
-      <p>
-        Um ambiente moderno focado em criatividade,
-        engenharia e fabricação digital.
-      </p>
+      .black {
+        background: #111;
+        color: white;
+        border: none;
+      }
 
-    </div>
+      .black:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
 
-    <div class="cards">
+      .white {
+        background: white;
+        border: 1px solid #ddd;
+        color: #111;
+      }
 
-      <div class="card">
+      .white:hover {
+        background: #f7f7f7;
+      }
 
-        <div class="icon">🖨️</div>
+      /* ===== OBJECT ===== */
 
-        <h3>Impressão 3D</h3>
+      .object {
+        width: 350px;
+        height: 350px;
+
+        border-radius: 40px;
+
+        background: linear-gradient(145deg, #ffffff, #f0f0f0);
+
+        border: 1px solid #e5e5e5;
+
+        box-shadow:
+          40px 40px 80px #d9d9d9,
+          -20px -20px 60px #ffffff;
+
+        position: relative;
+
+        animation: float 5s ease-in-out infinite;
+      }
+
+      .object::before {
+        content: "";
+
+        position: absolute;
+        inset: 30px;
+
+        border-radius: 25px;
+        border: 1px solid #ddd;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+          transform: translateY(-20px) rotate(4deg);
+        }
+      }
+
+      /* ===== SECTIONS ===== */
+
+      section {
+        padding: 120px 8%;
+      }
+
+      .section-header {
+        margin-bottom: 70px;
+      }
+
+      .section-header h2 {
+        font-size: 4rem;
+        letter-spacing: -3px;
+        margin-bottom: 20px;
+      }
+
+      .section-header p {
+        color: #666;
+        line-height: 1.8;
+        max-width: 700px;
+      }
+
+      /* ===== CARDS ===== */
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+      }
+
+      .card {
+        padding: 35px;
+
+        border-radius: 30px;
+
+        background: #fafafa;
+
+        border: 1px solid #ececec;
+
+        transition: 0.4s;
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+
+        background: white;
+
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+      }
+
+      .icon {
+        width: 65px;
+        height: 65px;
+
+        border-radius: 20px;
+
+        background: #111;
+        color: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 1.5rem;
+
+        margin-bottom: 25px;
+      }
+
+      .card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+      }
+
+      .card p {
+        color: #666;
+        line-height: 1.8;
+      }
+
+      /* ===== SHOWCASE ===== */
+
+      .showcase {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 25px;
+      }
+
+      .box {
+        min-height: 250px;
+
+        border-radius: 35px;
+
+        background: #fafafa;
+
+        border: 1px solid #ececec;
+
+        padding: 35px;
+
+        transition: 0.4s;
+
+        position: relative;
+        overflow: hidden;
+      }
+
+      .box:hover {
+        transform: translateY(-8px);
+        background: white;
+      }
+
+      .box.big {
+        min-height: 520px;
+      }
+
+      .box::before {
+        content: "";
+
+        position: absolute;
+
+        width: 250px;
+        height: 250px;
+
+        border-radius: 50%;
+
+        background: #00000008;
+
+        filter: blur(80px);
+
+        top: -80px;
+        right: -80px;
+      }
+
+      .box h3 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        letter-spacing: -2px;
+      }
+
+      .box p {
+        color: #666;
+        line-height: 1.8;
+      }
+
+      /* ===== FOOTER ===== */
+
+      footer {
+        padding: 60px 8%;
+
+        border-top: 1px solid #eee;
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        gap: 20px;
+
+        color: #666;
+      }
+
+      /* ===== RESPONSIVO ===== */
+
+      @media (max-width: 1000px) {
+        nav ul {
+          display: none;
+        }
+
+        .hero {
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+        }
+
+        .buttons {
+          justify-content: center;
+        }
+
+        .hero h1 {
+          font-size: 4rem;
+        }
+
+        .section-header h2 {
+          font-size: 3rem;
+        }
+
+        .showcase {
+          grid-template-columns: 1fr;
+        }
+
+        .object {
+          width: 280px;
+          height: 280px;
+        }
+      }
+
+      /* ===== DOC CARDS ===== */
+
+      .docs-cards .doc-card {
+        text-decoration: none;
+        color: inherit;
+
+        display: flex;
+        flex-direction: column;
+
+        min-height: 280px;
+
+        position: relative;
+        overflow: hidden;
+      }
+
+      .docs-cards .doc-card::after {
+        content: "";
+
+        position: absolute;
+        inset: 0;
+
+        background: linear-gradient(135deg, transparent, rgba(0, 0, 0, 0.015));
+
+        opacity: 0;
+        transition: 0.4s;
+      }
+
+      .docs-cards .doc-card:hover::after {
+        opacity: 1;
+      }
+
+      .doc-card h3 {
+        margin-bottom: 12px;
+      }
+
+      .doc-card p {
+        flex: 1;
+      }
+
+      .doc-link {
+        margin-top: 25px;
+
+        font-weight: 600;
+        color: #111;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        transition: 0.3s;
+      }
+
+      .doc-card:hover .doc-link {
+        transform: translateX(6px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="bg-grid"></div>
+
+    <div class="blur-circle circle1"></div>
+    <div class="blur-circle circle2"></div>
+
+    <!-- NAV -->
+
+    <nav>
+      <div class="logo">Lab<span>Maker</span></div>
+
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="documentacao.html">Documentação</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="hero">
+      <div class="hero-text">
+        <div class="tag">
+          <div class="mini-dot"></div>
+          IFC Videira • Sala G02
+        </div>
+
+        <h1>
+          Design.<br />
+          Tecnologia.<br />
+          Fabricação.
+        </h1>
 
         <p>
-          Desenvolvimento de peças físicas e
-          prototipagem utilizando tecnologia FDM.
-        </p>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">⚡</div>
-
-        <h3>Eletrônica</h3>
-
-        <p>
-          Criação de sistemas inteligentes,
-          automação e projetos embarcados.
-        </p>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">🎨</div>
-
-        <h3>Modelagem 3D</h3>
-
-        <p>
-          Construção de modelos digitais para
-          impressão e fabricação.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- DOCUMENTAÇÃO -->
-
-  <section>
-
-    <div class="section-header">
-
-      <h2>
-        Documentação
-      </h2>
-
-      <p>
-        Acesse nossa completa documentação sobre impressão 3D,
-        desde conceitos básicos até técnicas avançadas de fabricação digital.
-      </p>
-
-    </div>
-
-    <div class="cards">
-
-      <div class="card">
-
-        <div class="icon">📚</div>
-
-        <h3>Wiki de Impressão 3D</h3>
-
-        <p>
-          Página principal com todos os tópicos disponíveis
-          sobre impressão 3D e fabricação digital.
-        </p>
-
-        <a href="docs.html?file=index.md" class="btn white" style="display:inline-block; margin-top:15px;">
-          Acessar Wiki
-        </a>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">🎯</div>
-
-        <h3>Introdução</h3>
-
-        <p>
-          Conceitos básicos e aplicações da impressão 3D,
-          principais tecnologias e casos de uso.
-        </p>
-
-        <a href="docs.html?file=introdução.md" class="btn white" style="display:inline-block; margin-top:15px;">
-          Ler Introdução
-        </a>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">⚙️</div>
-
-        <h3>Como Funciona</h3>
-
-        <p>
-          O fluxo completo do processo de impressão 3D,
-          desde o modelo digital até a peça final.
-        </p>
-
-        <a href="docs.html?file=como-funciona.md" class="btn white" style="display:inline-block; margin-top:15px;">
-          Ver Processo
-        </a>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">🎨</div>
-
-        <h3>Modelagem 3D</h3>
-
-        <p>
-          Ferramentas e formatos para criação de modelos
-          digitais para impressão 3D.
-        </p>
-
-        <a href="docs.html?file=desenho-3d.md" class="btn white" style="display:inline-block; margin-top:15px;">
-          Aprender Modelagem
-        </a>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">🔪</div>
-
-        <h3>Fatiamento</h3>
-
-        <p>
-          Processo de preparação do modelo para impressão,
-          configurações e otimização.
-        </p>
-
-        <a href="docs.html?file=fatiador.md" class="btn white" style="display:inline-block; margin-top:15px;">
-          Sobre Fatiamento
-        </a>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">💻</div>
-
-        <h3>G-code</h3>
-
-        <p>
-          Linguagem de comandos para impressoras 3D,
-          estrutura e parâmetros principais.
-        </p>
-
-        <a href="docs.html?file=gcode.md" class="btn white" style="display:inline-block; margin-top:15px;">
-          Entender G-code
-        </a>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">🧵</div>
-
-        <h3>Filamentos</h3>
-
-        <p>
-          Tipos de materiais e suas características,
-          aplicações e recomendações de uso.
-        </p>
-
-        <a href="docs.html?file=filamentos.md" class="btn white" style="display:inline-block; margin-top:15px;">
-          Ver Materiais
-        </a>
-
-      </div>
-
-      <div class="card">
-
-        <div class="icon">🔧</div>
-
-        <h3>Pós-processamento</h3>
-
-        <p>
-          Técnicas de finalização e acabamento
-          das peças impressas em 3D.
-        </p>
-
-        <a href="docs.html?file=pos-impressao.md" class="btn white" style="display:inline-block; margin-top:15px;">
-          Aprender Pós-processo
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- SHOWCASE -->
-
-  <section>
-
-    <div class="section-header">
-
-      <h2>
-        Projetos & Experiências
-      </h2>
-
-      <p>
-        Projetos desenvolvidos dentro da LabMaker
-        envolvendo criatividade, engenharia e inovação.
-      </p>
-
-    </div>
-
-    <div class="showcase">
-
-      <div class="box big">
-
-        <h3>
-          Fabricação Digital
-        </h3>
-
-        <p>
-          Desenvolvimento de protótipos,
-          peças técnicas e projetos
-          educacionais utilizando tecnologias
+          A LabMaker é um espaço voltado para inovação, prototipagem, impressão
+          3D e desenvolvimento de projetos criativos utilizando tecnologias
           modernas de fabricação digital.
         </p>
 
+        <div class="buttons">
+        
+          <a href="documentacao.html" class="btn white">Ver documentação</a>
+        </div>
       </div>
 
-      <div class="box">
+      <div class="object"></div>
+    </section>
 
-        <h3>Robótica</h3>
+    <!-- TECNOLOGIAS -->
+
+    <section>
+      <div class="section-header">
+        <h2>Tecnologias</h2>
 
         <p>
-          Sistemas automatizados e projetos
-          inteligentes.
+          Um ambiente moderno focado em criatividade, engenharia e fabricação
+          digital.
         </p>
-
       </div>
 
-      <div class="box">
+      <div class="cards">
+        <div class="card">
+          <div class="icon">🖨️</div>
 
-        <h3>Projetos</h3>
+          <h3>Impressão 3D</h3>
+
+          <p>
+            Desenvolvimento de peças físicas e prototipagem utilizando
+            tecnologia FDM.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">⚡</div>
+
+          <h3>Eletrônica</h3>
+
+          <p>
+            Criação de sistemas inteligentes, automação e projetos embarcados.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🎨</div>
+
+          <h3>Modelagem 3D</h3>
+
+          <p>Construção de modelos digitais para impressão e fabricação.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCUMENTAÇÃO -->
+
+    <section>
+      <div class="section-header">
+        <h2>Documentação</h2>
 
         <p>
-          Desenvolvimento criativo aplicado
-          em soluções reais.
+          Acesse nossa completa documentação sobre impressão 3D, desde conceitos
+          básicos até técnicas avançadas de fabricação digital.
         </p>
-
       </div>
 
-    </div>
+      <div class="cards docs-cards">
+        <a href="documentacao.html" class="card doc-card">
+          <div class="icon">📚</div>
 
-  </section>
+          <h3>Wiki de Impressão 3D</h3>
 
-  <!-- FOOTER -->
+          <p>
+            Página principal com todos os tópicos disponíveis sobre impressão 3D
+            e fabricação digital.
+          </p>
 
-  <footer>
+          <span class="doc-link"> Explorar → </span>
+        </a>
 
-    <div>
-      <strong>LabMaker IFC</strong><br>
-      Sala G02 • IFC Videira
-    </div>
+        <a href="introducao.html" class="card doc-card">
+          <div class="icon">🎯</div>
 
-    <div>
-      © 2026 • Laboratório Maker
-    </div>
+          <h3>Introdução</h3>
 
-  </footer>
+          <p>
+            Conceitos básicos e aplicações da impressão 3D, principais
+            tecnologias e casos de uso.
+          </p>
 
-  <script>
+          <span class="doc-link"> Ler mais → </span>
+        </a>
 
-    // reveal animation
+        <a href="como-funciona.html" class="card doc-card">
+          <div class="icon">⚙️</div>
 
-    const elements = document.querySelectorAll(
-      '.card, .box, .section-header'
-    );
+          <h3>Como Funciona</h3>
 
-    const observer = new IntersectionObserver(entries => {
+          <p>
+            O fluxo completo do processo de impressão 3D, desde o modelo digital
+            até a peça final.
+          </p>
 
-      entries.forEach(entry => {
+          <span class="doc-link"> Ver processo → </span>
+        </a>
 
-        if(entry.isIntersecting){
+        <a href="desenho-3d.html" class="card doc-card">
+          <div class="icon">🎨</div>
 
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0px)';
+          <h3>Modelagem 3D</h3>
 
-        }
+          <p>
+            Ferramentas e formatos para criação de modelos digitais para
+            impressão 3D.
+          </p>
 
+          <span class="doc-link"> Aprender → </span>
+        </a>
+
+        <a href="fatiador.html" class="card doc-card">
+          <div class="icon">🔪</div>
+
+          <h3>Fatiamento</h3>
+
+          <p>
+            Processo de preparação do modelo para impressão, configurações e
+            otimização.
+          </p>
+
+          <span class="doc-link"> Abrir → </span>
+        </a>
+
+        <a href="gcode.html" class="card doc-card">
+          <div class="icon">💻</div>
+
+          <h3>G-code</h3>
+
+          <p>
+            Linguagem de comandos para impressoras 3D, estrutura e parâmetros
+            principais.
+          </p>
+
+          <span class="doc-link"> Entender → </span>
+        </a>
+
+        <a href="filamentos.html" class="card doc-card">
+          <div class="icon">🧵</div>
+
+          <h3>Filamentos</h3>
+
+          <p>
+            Tipos de materiais e suas características, aplicações e
+            recomendações de uso.
+          </p>
+
+          <span class="doc-link"> Ver materiais → </span>
+        </a>
+
+        <a href="pos-impressao.html" class="card doc-card">
+          <div class="icon">🔧</div>
+
+          <h3>Pós-processamento</h3>
+
+          <p>Técnicas de finalização e acabamento das peças impressas em 3D.</p>
+
+          <span class="doc-link"> Aprender → </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+      <div>
+        <strong>LabMaker IFC</strong><br />
+        Sala G02 • IFC Videira
+      </div>
+
+      <div>© 2026 • Laboratório Maker</div>
+    </footer>
+
+    <script>
+      // reveal animation
+
+      const elements = document.querySelectorAll(
+        ".card, .box, .section-header",
+      );
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0px)";
+          }
+        });
       });
 
-    });
+      elements.forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(40px)";
+        el.style.transition = "0.9s ease";
 
-    elements.forEach(el => {
-
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(40px)';
-      el.style.transition = '0.9s ease';
-
-      observer.observe(el);
-
-    });
-
-  </script>
-
-</body>
+        observer.observe(el);
+      });
+    </script>
+  </body>
 </html>
