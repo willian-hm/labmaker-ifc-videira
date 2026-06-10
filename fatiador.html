@@ -35,6 +35,16 @@
       overflow-x:hidden;
     }
 
+    .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+      }
+
+      .logo span {
+        font-weight: 300; /* ou 400 se quiser menos diferença */
+      }
+
     a{
       text-decoration:none;
       color:inherit;
@@ -129,13 +139,13 @@
     }
 
     nav a{
-      color:#666;
+      color:#111;
       transition:.3s;
       font-weight:500;
     }
 
     nav a:hover{
-      color:#111;
+      color:#666;
     }
 
     /* ===== HERO ===== */
@@ -536,11 +546,11 @@
   <!-- NAV -->
 
   <nav>
-
-    <div class="logo">
-      Lab<span>Maker</span>
-    </div>
-
+    <a href="index.html">
+      <div class="logo">
+        Lab<span>Maker</span>
+      </div>
+    </a>
     <ul>
       <li><a href="index.html">Início</a></li>
       <li><a href="documentacao.html">Documentação</a></li>

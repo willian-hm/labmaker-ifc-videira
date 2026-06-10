@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Primeira Impressão 3D • Chaveirinho</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: #fff;
+        color: #111;
+        overflow-x: hidden;
+      }
+
+      .bg-grid {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(
+          circle at center,
+          black 35%,
+          transparent 100%
+        );
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 22px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid #eee;
+        z-index: 1000;
+      }
+
+      .hero {
+        min-height: 95vh;
+        padding: 180px 8% 120px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: 5.5rem;
+        line-height: 0.95;
+        letter-spacing: -4px;
+        margin-bottom: 25px;
+      }
+
+      .hero p {
+        max-width: 750px;
+        color: #666;
+        line-height: 1.9;
+        font-size: 1.2rem;
+      }
+
+      .tag {
+        display: inline-flex;
+        gap: 10px;
+        padding: 10px 18px;
+        border: 1px solid #e5e5e5;
+        border-radius: 999px;
+        margin-bottom: 30px;
+        background: #fafafa;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .section {
+        padding: 120px 8%;
+      }
+
+      .section h2 {
+        font-size: 3.5rem;
+        letter-spacing: -3px;
+        margin-bottom: 20px;
+      }
+
+      .section p {
+        color: #666;
+        line-height: 1.9;
+        max-width: 800px;
+        margin-bottom: 40px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+      }
+
+      .card {
+        padding: 35px;
+        border-radius: 30px;
+        background: #fafafa;
+        border: 1px solid #ececec;
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        background: #fff;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+      }
+
+      .step {
+        font-weight: 800;
+        color: #111;
+        margin-bottom: 10px;
+      }
+
+      .card h3 {
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+
+      .card p {
+        color: #666;
+        line-height: 1.7;
+      }
+
+      .doc-navigation {
+        padding: 120px 8%;
+      }
+
+      .nav-grid {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 25px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .nav-card {
+        padding: 40px;
+
+        border-radius: 35px;
+
+        background: #fafafa;
+
+        border: 1px solid #ececec;
+
+        transition: 0.4s;
+
+        position: relative;
+
+        overflow: hidden;
+      }
+
+      .nav-card:hover {
+        transform: translateY(-8px);
+
+        background: white;
+
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+      }
+
+      .nav-label {
+        font-size: 0.85rem;
+
+        color: #888;
+
+        margin-bottom: 20px;
+
+        display: block;
+
+        letter-spacing: 1px;
+
+        font-weight: 700;
+      }
+
+      .nav-card h3 {
+        font-size: 2rem;
+
+        letter-spacing: -2px;
+
+        margin-bottom: 15px;
+      }
+
+      .nav-card p {
+        color: #666;
+
+        line-height: 1.8;
+      }
+
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+      }
+
+      .logo span {
+        font-weight: 300; /* ou 400 se quiser menos diferença */
+      }
+
+      nav a:hover {
+        text-decoration: none;
+        color: #666;
+        transition: 0.3s;
+        font-weight: 500;
+      }
+
+      footer {
+        padding: 60px 8%;
+        border-top: 1px solid #eee;
+        color: #666;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      @media (max-width: 900px) {
+        .hero h1 {
+          font-size: 3.5rem;
+        }
+        .section h2 {
+          font-size: 2.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="bg-grid"></div>
+
+    <!-- NAV -->
+    <nav>
+      <a href="index.html">
+        <div class="logo">Lab<span>Maker</span></div>
+      </a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="tag">
+          🚀 Primeira Impressão 3D • Chaveirinho Personalizado
+        </div>
+
+        <h1>
+          Crie seu<br />
+          chaveiro 3D
+        </h1>
+
+        <p>
+          Neste guia você vai aprender a modelar um chaveiro personalizado no
+          <strong>Tinkercad</strong> e preparar o arquivo para impressão na
+          <strong>Bambu Lab</strong>, desde o zero até o envio para a
+          impressora.
+        </p>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="section">
+      <h2>Ferramentas</h2>
+
+      <p>
+        Vamos usar duas ferramentas principais:
+        <br /><br />
+        •
+        <a href="https://www.tinkercad.com" target="_blank"
+          ><strong>Tinkercad</strong></a
+        >
+        para modelagem 3D<br />
+        •
+        <a href="https://bambulab.com" target="_blank"
+          ><strong>Bambu Lab</strong></a
+        >
+        + Bambu Studio para impressão
+      </p>
+    </section>
+
+    <!-- PASSO A PASSO -->
+    <section class="section">
+      <h2>Passo a passo</h2>
+
+      <p>
+        Aqui está o fluxo completo para criar seu chaveiro personalizado. (Esse
+        processo será gravado e transformado em GIF tutorial também.)
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="step">PASSO 1</div>
+          <h3>Base do chaveiro</h3>
+          <p>
+            Pegue a forma de <strong>retângulo</strong> no Tinkercad e modele
+            como uma pequena “medalha” base. Ajuste altura e largura até ficar
+            proporcional.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="step">PASSO 2</div>
+          <h3>Texto personalizado</h3>
+          <p>
+            Use a ferramenta de texto e escreva o nome desejado. Altere para
+            modo <strong>“Hole” (orifício)</strong> e posicione no centro da
+            base.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="step">PASSO 3</div>
+          <h3>Furo do chaveiro</h3>
+          <p>
+            Adicione um cilindro pequeno, também em modo <strong>Hole</strong>,
+            para criar o espaço do chaveiro na lateral.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="step">PASSO 4</div>
+          <h3>Exportação STL</h3>
+          <p>
+            Baixe o modelo final no formato <strong>.STL</strong> para levar ao
+            slicer.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="step">PASSO 5</div>
+          <h3>Bambu Studio</h3>
+          <p>
+            Instale o <strong>Bambu Studio</strong> para preparar a impressão.
+            Caso não tenha, baixe pelo site oficial da Bambu Lab.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="step">PASSO 6</div>
+          <h3>Configuração</h3>
+          <p>
+            Configure o ambiente, escolha o tipo de impressora e verifique o
+            filamento.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="step">PASSO 7</div>
+          <h3>Fatiamento</h3>
+          <p>
+            Faça o slicing no Bambu Studio com configurações básicas (camadas
+            padrão e preenchimento leve).
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="step">PASSO 8</div>
+          <h3>Exportar GCODE</h3>
+          <p>
+            Exporte o arquivo final como <strong>.GCODE</strong> pronto para
+            impressão.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="step">PASSO 9</div>
+          <h3>Impressão</h3>
+          <p>
+            Envie para a impressora Bambu Lab via cartão de memória ou conexão
+            Wi-Fi e inicie a impressão.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION -->
+
+    <section class="doc-navigation">
+      <div class="nav-grid">
+        <a href="pos-impressao.html" class="nav-card reveal">
+          <span class="nav-label"> ← PÁGINA ANTERIOR </span>
+
+          <h3>Pós Impressão</h3>
+
+          <p>
+            Aprenda técnicas de acabamento, lixamento e finalização profissional
+            das peças impressas.
+          </p>
+        </a>
+
+        <a href="bambu-lab.html" class="nav-card reveal">
+          <span class="nav-label"> PRÓXIMA PÁGINA → </span>
+
+          <h3>Bambu Lab & Studio</h3>
+
+          <p>
+            Conheça o ecossistema da Bambu Lab e o software Bambu Studio para
+            impressão 3D.
+          </p>
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <strong>LabMaker IFC</strong><br />
+        Guia de Introdução à Impressão 3D
+      </div>
+
+      <div>© 2026 • Projeto Educacional</div>
+    </footer>
+  </body>
+</html>

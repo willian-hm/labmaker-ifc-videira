@@ -20,6 +20,16 @@
         font-size: 5rem;
       }
 
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+      }
+
+      .logo span {
+        font-weight: 300; /* ou 400 se quiser menos diferença */
+      }
+
       /* ===== BACKGROUND ===== */
 
       .bg-grid {
@@ -101,13 +111,13 @@
 
       nav a {
         text-decoration: none;
-        color: #666;
+        color: #111;
         transition: 0.3s;
         font-weight: 500;
       }
 
       nav a:hover {
-        color: #000;
+        color: #666;
       }
 
       /* ===== HERO ===== */
@@ -512,7 +522,9 @@
     <!-- NAV -->
 
     <nav>
-      <div class="logo">Lab<span>Maker</span></div>
+      <a href="index.html">
+        <div class="logo">Lab<span>Maker</span></div>
+      </a>
 
       <ul>
         <li><a href="index.html">Início</a></li>
@@ -542,7 +554,6 @@
         </p>
 
         <div class="buttons">
-        
           <a href="documentacao.html" class="btn white">Ver documentação</a>
         </div>
       </div>

@@ -1,957 +1,816 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Filamentos • LabMaker IFC</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:'Inter',sans-serif;
-      background:#fff;
-      color:#111;
-      overflow-x:hidden;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    img{
-      max-width:100%;
-      display:block;
-    }
-
-    .bg-grid{
-      position:fixed;
-      inset:0;
-
-      z-index:-2;
-
-      background-image:
-      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-
-      background-size:40px 40px;
-
-      mask-image:
-      radial-gradient(circle at center, black 35%, transparent 100%);
-    }
-
-    .blur-circle{
-      position:fixed;
-
-      width:500px;
-      height:500px;
-
-      border-radius:50%;
-
-      background:#00000010;
-
-      filter:blur(120px);
-
-      z-index:-1;
-    }
-
-    .circle1{
-      top:-200px;
-      left:-100px;
-    }
-
-    .circle2{
-      bottom:-200px;
-      right:-100px;
-    }
-
-    nav{
-      position:fixed;
-      top:0;
-      left:0;
-
-      width:100%;
-
-      padding:22px 8%;
-
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-
-      background:rgba(255,255,255,0.7);
-
-      backdrop-filter:blur(12px);
-
-      border-bottom:1px solid #eee;
-
-      z-index:1000;
-    }
-
-    .logo{
-      font-size:1.6rem;
-      font-weight:800;
-      letter-spacing:-2px;
-    }
-
-    .logo span{
-      font-weight:300;
-    }
-
-    nav ul{
-      display:flex;
-      gap:35px;
-      list-style:none;
-    }
-
-    nav a{
-      color:#666;
-      transition:.3s;
-      font-weight:500;
-    }
-
-    nav a:hover{
-      color:#111;
-    }
-
-    .doc-hero{
-      min-height:95vh;
-
-      padding:
-      180px 8% 120px;
-
-      display:flex;
-      align-items:center;
-    }
-
-    .doc-hero-content{
-      max-width:850px;
-    }
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-
-      padding:10px 18px;
-
-      border:1px solid #e5e5e5;
-      border-radius:999px;
-
-      margin-bottom:35px;
-
-      background:#fafafa;
-
-      color:#666;
-
-      font-size:0.9rem;
-    }
-
-    .mini-dot{
-      width:8px;
-      height:8px;
-
-      border-radius:50%;
-
-      background:#111;
-    }
-
-    .doc-hero h1{
-      font-size:6rem;
-
-      line-height:0.92;
-
-      letter-spacing:-5px;
-
-      margin-bottom:30px;
-    }
-
-    .doc-hero p{
-      font-size:1.2rem;
-
-      line-height:1.9;
-
-      color:#666;
-
-      max-width:700px;
-    }
-
-    .doc-section{
-      padding:120px 8%;
-    }
-
-    .doc-grid{
-      display:grid;
-
-      grid-template-columns:
-      1.1fr 1fr;
-
-      gap:80px;
-
-      align-items:center;
-    }
-
-    .doc-label{
-      font-size:0.8rem;
-
-      letter-spacing:2px;
-
-      font-weight:700;
-
-      color:#777;
-    }
-
-    .doc-text h2{
-      font-size:4rem;
-
-      line-height:1;
-
-      letter-spacing:-3px;
-
-      margin:
-      20px 0 30px;
-    }
-
-    .doc-text p{
-      font-size:1.05rem;
-
-      line-height:1.9;
-
-      color:#666;
-
-      margin-bottom:20px;
-    }
-
-    .doc-visual img{
-      width:100%;
-      height:500px;
-
-      object-fit:cover;
-
-      border-radius:35px;
-
-      border:1px solid #ececec;
-
-      box-shadow:
-      0 20px 60px rgba(0,0,0,0.08);
-    }
-
-    .cards-section{
-      padding:120px 8%;
-    }
-
-    .section-header{
-      margin-bottom:70px;
-    }
-
-    .section-header h2{
-      font-size:4rem;
-
-      letter-spacing:-3px;
-
-      margin-bottom:20px;
-    }
-
-    .section-header p{
-      color:#666;
-
-      line-height:1.8;
-
-      max-width:700px;
-    }
-
-    .cards{
-      display:grid;
-
-      grid-template-columns:
-      repeat(auto-fit,minmax(280px,1fr));
-
-      gap:25px;
-    }
-
-    .card{
-      padding:35px;
-
-      border-radius:30px;
-
-      background:#fafafa;
-
-      border:1px solid #ececec;
-
-      transition:0.4s;
-
-      position:relative;
-
-      overflow:hidden;
-    }
-
-    .card:hover{
-      transform:translateY(-8px);
-
-      background:white;
-
-      box-shadow:
-      0 15px 40px rgba(0,0,0,0.05);
-    }
-
-    .icon{
-      width:65px;
-      height:65px;
-
-      border-radius:20px;
-
-      background:#111;
-
-      color:white;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      font-size:1.5rem;
-
-      margin-bottom:25px;
-    }
-
-    .card h3{
-      font-size:1.6rem;
-
-      margin-bottom:15px;
-
-      letter-spacing:-1px;
-    }
-
-    .card p{
-      color:#666;
-
-      line-height:1.8;
-    }
-
-    .table-section{
-      padding:120px 8%;
-    }
-
-    table{
-      width:100%;
-
-      border-collapse:collapse;
-
-      background:#fafafa;
-
-      border-radius:30px;
-
-      overflow:hidden;
-
-      border:1px solid #ececec;
-    }
-
-    th{
-      text-align:left;
-
-      padding:24px;
-
-      background:#111;
-
-      color:white;
-
-      font-size:0.95rem;
-    }
-
-    td{
-      padding:24px;
-
-      border-top:1px solid #e8e8e8;
-
-      color:#666;
-
-      line-height:1.7;
-    }
-
-    .tips-section{
-      padding:120px 8%;
-    }
-
-    .tips-grid{
-      display:grid;
-
-      grid-template-columns:
-      repeat(auto-fit,minmax(320px,1fr));
-
-      gap:25px;
-    }
-
-    .tip-box{
-      padding:40px;
-
-      border-radius:35px;
-
-      background:#fafafa;
-
-      border:1px solid #ececec;
-    }
-
-    .tip-box h3{
-      font-size:2rem;
-
-      margin-bottom:25px;
-
-      letter-spacing:-2px;
-    }
-
-    .tip-box ul{
-      padding-left:20px;
-    }
-
-    .tip-box li{
-      color:#666;
-
-      line-height:1.9;
-
-      margin-bottom:12px;
-    }
-
-    .doc-navigation{
-      padding:120px 8%;
-    }
-
-    .nav-grid{
-      display:grid;
-
-      grid-template-columns:1fr 1fr;
-
-      gap:25px;
-    }
-
-    .nav-card{
-      padding:40px;
-
-      border-radius:35px;
-
-      background:#fafafa;
-
-      border:1px solid #ececec;
-
-      transition:.4s;
-    }
-
-    .nav-card:hover{
-      transform:translateY(-8px);
-
-      background:white;
-
-      box-shadow:
-      0 15px 40px rgba(0,0,0,0.05);
-    }
-
-    .nav-label{
-      font-size:0.85rem;
-
-      color:#888;
-
-      margin-bottom:20px;
-
-      display:block;
-
-      letter-spacing:1px;
-
-      font-weight:700;
-    }
-
-    .nav-card h3{
-      font-size:2rem;
-
-      letter-spacing:-2px;
-
-      margin-bottom:15px;
-    }
-
-    .nav-card p{
-      color:#666;
-
-      line-height:1.8;
-    }
-
-    footer{
-      padding:70px 8%;
-
-      border-top:1px solid #eee;
-
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-
-      gap:20px;
-
-      color:#666;
-    }
-
-    @media(max-width:1000px){
-
-      nav ul{
-        display:none;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Filamentos • LabMaker IFC</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      .doc-grid{
-        grid-template-columns:1fr;
+      html {
+        scroll-behavior: smooth;
       }
 
-      .doc-hero h1{
-        font-size:4rem;
+      body {
+        font-family: "Inter", sans-serif;
+        background: #fff;
+        color: #111;
+        overflow-x: hidden;
       }
 
-      .doc-text h2,
-      .section-header h2{
-        font-size:3rem;
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -2px;
       }
 
-      .nav-grid{
-        grid-template-columns:1fr;
+      .logo span {
+        font-weight: 300; /* ou 400 se quiser menos diferença */
       }
 
-      table{
-        display:block;
-        overflow-x:auto;
+      a {
+        text-decoration: none;
+        color: inherit;
       }
 
-    }
+      img {
+        max-width: 100%;
+        display: block;
+      }
 
-  </style>
+      .bg-grid {
+        position: fixed;
+        inset: 0;
 
-</head>
+        z-index: -2;
 
-<body>
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 
-  <div class="bg-grid"></div>
+        background-size: 40px 40px;
 
-  <div class="blur-circle circle1"></div>
-  <div class="blur-circle circle2"></div>
+        mask-image: radial-gradient(
+          circle at center,
+          black 35%,
+          transparent 100%
+        );
+      }
 
-  <nav>
+      .blur-circle {
+        position: fixed;
 
-    <div class="logo">
-      Lab<span>Maker</span>
-    </div>
+        width: 500px;
+        height: 500px;
 
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="documentacao.html">Documentação</a></li>
-    </ul>
+        border-radius: 50%;
 
-  </nav>
+        background: #00000010;
 
-  <section class="doc-hero reveal">
+        filter: blur(120px);
 
-    <div class="doc-hero-content">
+        z-index: -1;
+      }
 
-      <div class="tag">
+      .circle1 {
+        top: -200px;
+        left: -100px;
+      }
 
-        <div class="mini-dot"></div>
+      .circle2 {
+        bottom: -200px;
+        right: -100px;
+      }
 
-        Materiais • Filamentos
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
 
-      </div>
+        width: 100%;
 
-      <h1>
-        Filamentos<br>
-        para Impressão 3D
-      </h1>
+        padding: 22px 8%;
 
-      <p>
-        Conheça os materiais mais utilizados
-        na impressão 3D e descubra como cada
-        filamento influencia resistência,
-        acabamento e qualidade final.
-      </p>
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-    </div>
+        background: rgba(255, 255, 255, 0.7);
 
-  </section>
+        backdrop-filter: blur(12px);
 
-  <section class="doc-section">
+        border-bottom: 1px solid #eee;
 
-    <div class="doc-grid">
+        z-index: 1000;
+      }
 
-      <div class="doc-text reveal">
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+      }
 
-        <span class="doc-label">
-          MATERIAIS
-        </span>
+      .logo span {
+        font-weight: 300;
+      }
 
-        <h2>
-          Escolha o material certo
-        </h2>
+      nav ul {
+        display: flex;
+        gap: 35px;
+        list-style: none;
+      }
 
-        <p>
-          Cada filamento possui propriedades
-          específicas de resistência, flexibilidade
-          e temperatura.
-        </p>
+      nav a {
+        color: #111;
+        transition: 0.3s;
+        font-weight: 500;
+      }
 
-        <p>
-          A escolha correta impacta diretamente
-          no desempenho da peça impressa.
-        </p>
+      nav a:hover {
+        color: #666;
+      }
 
-        <p>
-          Desde protótipos simples até peças
-          técnicas e funcionais, o material
-          define a aplicação final.
-        </p>
+      .doc-hero {
+        min-height: 95vh;
 
-      </div>
+        padding: 180px 8% 120px;
 
-      <div class="doc-visual reveal">
+        display: flex;
+        align-items: center;
+      }
 
-        <img
-          src="https://wishbox.net.br/wp-content/uploads/2016/05/1-filamentos-para-impressao-3d.jpg"
-          alt="Filamentos para impressão 3D"
-        >
+      .doc-hero-content {
+        max-width: 850px;
+      }
 
-      </div>
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
 
-    </div>
+        padding: 10px 18px;
 
-  </section>
+        border: 1px solid #e5e5e5;
+        border-radius: 999px;
 
-  <section class="cards-section">
+        margin-bottom: 35px;
 
-    <div class="section-header reveal">
+        background: #fafafa;
 
-      <h2>
-        Tipos Comuns
-      </h2>
+        color: #666;
 
-      <p>
-        Os principais materiais utilizados
-        atualmente em impressoras 3D FDM.
-      </p>
+        font-size: 0.9rem;
+      }
 
-    </div>
+      .mini-dot {
+        width: 8px;
+        height: 8px;
 
-    <div class="cards">
+        border-radius: 50%;
 
-      <div class="card reveal">
+        background: #111;
+      }
 
-        <div class="icon">🌱</div>
+      .doc-hero h1 {
+        font-size: 6rem;
 
-        <h3>PLA</h3>
+        line-height: 0.92;
 
-        <p>
-          Fácil de imprimir, biodegradável
-          e perfeito para iniciantes.
-        </p>
+        letter-spacing: -5px;
 
-      </div>
+        margin-bottom: 30px;
+      }
 
-      <div class="card reveal">
+      .doc-hero p {
+        font-size: 1.2rem;
 
-        <div class="icon">⚙️</div>
+        line-height: 1.9;
 
-        <h3>PETG</h3>
+        color: #666;
 
-        <p>
-          Excelente resistência ao impacto
-          e ótima durabilidade.
-        </p>
+        max-width: 700px;
+      }
 
-      </div>
+      .doc-section {
+        padding: 120px 8%;
+      }
 
-      <div class="card reveal">
+      .doc-grid {
+        display: grid;
 
-        <div class="icon">🔥</div>
+        grid-template-columns: 1.1fr 1fr;
 
-        <h3>ABS</h3>
+        gap: 80px;
 
-        <p>
-          Material resistente e utilizado
-          em peças funcionais e técnicas.
-        </p>
+        align-items: center;
+      }
 
-      </div>
+      .doc-label {
+        font-size: 0.8rem;
 
-      <div class="card reveal">
+        letter-spacing: 2px;
 
-        <div class="icon">🌀</div>
+        font-weight: 700;
 
-        <h3>TPU</h3>
+        color: #777;
+      }
 
-        <p>
-          Filamento flexível ideal para
-          peças elásticas e resistentes.
-        </p>
+      .doc-text h2 {
+        font-size: 4rem;
 
-      </div>
+        line-height: 1;
 
-      <div class="card reveal">
+        letter-spacing: -3px;
 
-        <div class="icon">💪</div>
+        margin: 20px 0 30px;
+      }
 
-        <h3>Nylon</h3>
+      .doc-text p {
+        font-size: 1.05rem;
 
-        <p>
-          Alta resistência mecânica e
-          excelente durabilidade.
-        </p>
+        line-height: 1.9;
 
-      </div>
+        color: #666;
 
-      <div class="card reveal">
+        margin-bottom: 20px;
+      }
 
-        <div class="icon">☀️</div>
+      .doc-visual img {
+        width: 100%;
+        height: 500px;
 
-        <h3>ASA</h3>
+        object-fit: cover;
 
-        <p>
-          Material resistente aos raios UV
-          e aplicações externas.
-        </p>
+        border-radius: 35px;
 
-      </div>
+        border: 1px solid #ececec;
 
-    </div>
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      }
 
-  </section>
+      .cards-section {
+        padding: 120px 8%;
+      }
 
-  <section class="table-section">
+      .section-header {
+        margin-bottom: 70px;
+      }
 
-    <div class="section-header reveal">
+      .section-header h2 {
+        font-size: 4rem;
 
-      <h2>
-        Comparação
-      </h2>
+        letter-spacing: -3px;
 
-      <p>
-        Compare propriedades importantes
-        entre os principais materiais.
-      </p>
+        margin-bottom: 20px;
+      }
 
-    </div>
+      .section-header p {
+        color: #666;
 
-    <table class="reveal">
+        line-height: 1.8;
 
-      <thead>
+        max-width: 700px;
+      }
 
-        <tr>
-          <th>Material</th>
-          <th>Temperatura</th>
-          <th>Resistência</th>
-          <th>Flexibilidade</th>
-        </tr>
+      .cards {
+        display: grid;
 
-      </thead>
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 
-      <tbody>
+        gap: 25px;
+      }
 
-        <tr>
-          <td>PLA</td>
-          <td>190-210°C</td>
-          <td>Baixa</td>
-          <td>Rígido</td>
-        </tr>
+      .card {
+        padding: 35px;
 
-        <tr>
-          <td>PETG</td>
-          <td>220-240°C</td>
-          <td>Média-Alta</td>
-          <td>Semi-rígido</td>
-        </tr>
+        border-radius: 30px;
 
-        <tr>
-          <td>ABS</td>
-          <td>240-260°C</td>
-          <td>Alta</td>
-          <td>Rígido</td>
-        </tr>
+        background: #fafafa;
 
-        <tr>
-          <td>TPU</td>
-          <td>220-240°C</td>
-          <td>Alta</td>
-          <td>Flexível</td>
-        </tr>
+        border: 1px solid #ececec;
 
-        <tr>
-          <td>Nylon</td>
-          <td>250-280°C</td>
-          <td>Muito Alta</td>
-          <td>Semi-flexível</td>
-        </tr>
+        transition: 0.4s;
 
-      </tbody>
+        position: relative;
 
-    </table>
+        overflow: hidden;
+      }
 
-  </section>
+      .card:hover {
+        transform: translateY(-8px);
 
-  <section class="tips-section">
+        background: white;
 
-    <div class="section-header reveal">
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+      }
 
-      <h2>
-        Armazenamento
-      </h2>
+      .icon {
+        width: 65px;
+        height: 65px;
 
-      <p>
-        Umidade e temperatura influenciam
-        diretamente na qualidade da impressão.
-      </p>
+        border-radius: 20px;
 
-    </div>
+        background: #111;
 
-    <div class="tips-grid">
+        color: white;
 
-      <div class="tip-box reveal">
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        <h3>
-          Cuidados
-        </h3>
+        font-size: 1.5rem;
 
-        <ul>
-          <li>Armazene em ambiente seco</li>
-          <li>Use sílica ou dessecantes</li>
-          <li>Evite exposição ao sol</li>
-          <li>Proteja contra poeira</li>
-          <li>Mantenha em embalagens fechadas</li>
-        </ul>
+        margin-bottom: 25px;
+      }
 
-      </div>
+      .card h3 {
+        font-size: 1.6rem;
 
-      <div class="tip-box reveal">
+        margin-bottom: 15px;
 
-        <h3>
-          Dicas Técnicas
-        </h3>
+        letter-spacing: -1px;
+      }
 
-        <ul>
-          <li>Seque materiais higroscópicos</li>
-          <li>Verifique o diâmetro do filamento</li>
-          <li>Limpe o bico regularmente</li>
-          <li>Use temperaturas adequadas</li>
-          <li>Teste configurações antes da peça final</li>
-        </ul>
+      .card p {
+        color: #666;
 
-      </div>
+        line-height: 1.8;
+      }
 
-    </div>
+      .table-section {
+        padding: 120px 8%;
+      }
 
-  </section>
+      table {
+        width: 100%;
 
-  <section class="doc-navigation">
+        border-collapse: collapse;
 
-    <div class="nav-grid">
+        background: #fafafa;
 
-      <a href="gcode.html" class="nav-card reveal">
+        border-radius: 30px;
 
-        <span class="nav-label">
-          ← PÁGINA ANTERIOR
-        </span>
+        overflow: hidden;
 
-        <h3>
-          G-code
-        </h3>
+        border: 1px solid #ececec;
+      }
 
-        <p>
-          Explore os comandos que controlam
-          todos os movimentos da impressora.
-        </p>
+      th {
+        text-align: left;
 
-      </a>
+        padding: 24px;
 
-      <a href="pos-impressao.html" class="nav-card reveal">
+        background: #111;
 
-        <span class="nav-label">
-          PRÓXIMA PÁGINA →
-        </span>
+        color: white;
 
-        <h3>
-          Pós-impressão
-        </h3>
+        font-size: 0.95rem;
+      }
 
-        <p>
-          Aprenda técnicas de acabamento,
-          limpeza e tratamento das peças.
-        </p>
+      td {
+        padding: 24px;
 
-      </a>
+        border-top: 1px solid #e8e8e8;
 
-    </div>
+        color: #666;
 
-  </section>
+        line-height: 1.7;
+      }
 
-  <footer>
+      .tips-section {
+        padding: 120px 8%;
+      }
 
-    <div>
-      <strong>LabMaker IFC</strong><br>
-      Sala G02 • IFC Videira
-    </div>
+      .tips-grid {
+        display: grid;
 
-    <div>
-      © 2026 • Laboratório Maker
-    </div>
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 
-  </footer>
+        gap: 25px;
+      }
 
-  <script>
+      .tip-box {
+        padding: 40px;
 
-    const elements =
-    document.querySelectorAll(
-      '.reveal'
-    );
+        border-radius: 35px;
 
-    const observer =
-    new IntersectionObserver(entries => {
+        background: #fafafa;
 
-      entries.forEach(entry => {
+        border: 1px solid #ececec;
+      }
 
-        if(entry.isIntersecting){
+      .tip-box h3 {
+        font-size: 2rem;
 
-          entry.target.style.opacity = '1';
+        margin-bottom: 25px;
 
-          entry.target.style.transform =
-          'translateY(0px)';
+        letter-spacing: -2px;
+      }
 
+      .tip-box ul {
+        padding-left: 20px;
+      }
+
+      .tip-box li {
+        color: #666;
+
+        line-height: 1.9;
+
+        margin-bottom: 12px;
+      }
+
+      .doc-navigation {
+        padding: 120px 8%;
+      }
+
+      .nav-grid {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 25px;
+      }
+
+      .nav-card {
+        padding: 40px;
+
+        border-radius: 35px;
+
+        background: #fafafa;
+
+        border: 1px solid #ececec;
+
+        transition: 0.4s;
+      }
+
+      .nav-card:hover {
+        transform: translateY(-8px);
+
+        background: white;
+
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+      }
+
+      .nav-label {
+        font-size: 0.85rem;
+
+        color: #888;
+
+        margin-bottom: 20px;
+
+        display: block;
+
+        letter-spacing: 1px;
+
+        font-weight: 700;
+      }
+
+      .nav-card h3 {
+        font-size: 2rem;
+
+        letter-spacing: -2px;
+
+        margin-bottom: 15px;
+      }
+
+      .nav-card p {
+        color: #666;
+
+        line-height: 1.8;
+      }
+
+      footer {
+        padding: 70px 8%;
+
+        border-top: 1px solid #eee;
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        gap: 20px;
+
+        color: #666;
+      }
+
+      @media (max-width: 1000px) {
+        nav ul {
+          display: none;
         }
 
+        .doc-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .doc-hero h1 {
+          font-size: 4rem;
+        }
+
+        .doc-text h2,
+        .section-header h2 {
+          font-size: 3rem;
+        }
+
+        .nav-grid {
+          grid-template-columns: 1fr;
+        }
+
+        table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="bg-grid"></div>
+
+    <div class="blur-circle circle1"></div>
+    <div class="blur-circle circle2"></div>
+
+    <nav>
+      <a href="index.html">
+        <div class="logo">Lab<span>Maker</span></div>
+      </a>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="documentacao.html">Documentação</a></li>
+      </ul>
+    </nav>
+
+    <section class="doc-hero reveal">
+      <div class="doc-hero-content">
+        <div class="tag">
+          <div class="mini-dot"></div>
+
+          Materiais • Filamentos
+        </div>
+
+        <h1>
+          Filamentos<br />
+          para Impressão 3D
+        </h1>
+
+        <p>
+          Conheça os materiais mais utilizados na impressão 3D e descubra como
+          cada filamento influencia resistência, acabamento e qualidade final.
+        </p>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <div class="doc-grid">
+        <div class="doc-text reveal">
+          <span class="doc-label"> MATERIAIS </span>
+
+          <h2>Escolha o material certo</h2>
+
+          <p>
+            Cada filamento possui propriedades específicas de resistência,
+            flexibilidade e temperatura.
+          </p>
+
+          <p>
+            A escolha correta impacta diretamente no desempenho da peça
+            impressa.
+          </p>
+
+          <p>
+            Desde protótipos simples até peças técnicas e funcionais, o material
+            define a aplicação final.
+          </p>
+        </div>
+
+        <div class="doc-visual reveal">
+          <img
+            src="https://wishbox.net.br/wp-content/uploads/2016/05/1-filamentos-para-impressao-3d.jpg"
+            alt="Filamentos para impressão 3D"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="cards-section">
+      <div class="section-header reveal">
+        <h2>Tipos Comuns</h2>
+
+        <p>
+          Os principais materiais utilizados atualmente em impressoras 3D FDM.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="icon">🌱</div>
+
+          <h3>PLA</h3>
+
+          <p>Fácil de imprimir, biodegradável e perfeito para iniciantes.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon">⚙️</div>
+
+          <h3>PETG</h3>
+
+          <p>Excelente resistência ao impacto e ótima durabilidade.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon">🔥</div>
+
+          <h3>ABS</h3>
+
+          <p>Material resistente e utilizado em peças funcionais e técnicas.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon">🌀</div>
+
+          <h3>TPU</h3>
+
+          <p>Filamento flexível ideal para peças elásticas e resistentes.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon">💪</div>
+
+          <h3>Nylon</h3>
+
+          <p>Alta resistência mecânica e excelente durabilidade.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon">☀️</div>
+
+          <h3>ASA</h3>
+
+          <p>Material resistente aos raios UV e aplicações externas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="table-section">
+      <div class="section-header reveal">
+        <h2>Comparação</h2>
+
+        <p>Compare propriedades importantes entre os principais materiais.</p>
+      </div>
+
+      <table class="reveal">
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Temperatura</th>
+            <th>Resistência</th>
+            <th>Flexibilidade</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>PLA</td>
+            <td>190-210°C</td>
+            <td>Baixa</td>
+            <td>Rígido</td>
+          </tr>
+
+          <tr>
+            <td>PETG</td>
+            <td>220-240°C</td>
+            <td>Média-Alta</td>
+            <td>Semi-rígido</td>
+          </tr>
+
+          <tr>
+            <td>ABS</td>
+            <td>240-260°C</td>
+            <td>Alta</td>
+            <td>Rígido</td>
+          </tr>
+
+          <tr>
+            <td>TPU</td>
+            <td>220-240°C</td>
+            <td>Alta</td>
+            <td>Flexível</td>
+          </tr>
+
+          <tr>
+            <td>Nylon</td>
+            <td>250-280°C</td>
+            <td>Muito Alta</td>
+            <td>Semi-flexível</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="tips-section">
+      <div class="section-header reveal">
+        <h2>Armazenamento</h2>
+
+        <p>
+          Umidade e temperatura influenciam diretamente na qualidade da
+          impressão.
+        </p>
+      </div>
+
+      <div class="tips-grid">
+        <div class="tip-box reveal">
+          <h3>Cuidados</h3>
+
+          <ul>
+            <li>Armazene em ambiente seco</li>
+            <li>Use sílica ou dessecantes</li>
+            <li>Evite exposição ao sol</li>
+            <li>Proteja contra poeira</li>
+            <li>Mantenha em embalagens fechadas</li>
+          </ul>
+        </div>
+
+        <div class="tip-box reveal">
+          <h3>Dicas Técnicas</h3>
+
+          <ul>
+            <li>Seque materiais higroscópicos</li>
+            <li>Verifique o diâmetro do filamento</li>
+            <li>Limpe o bico regularmente</li>
+            <li>Use temperaturas adequadas</li>
+            <li>Teste configurações antes da peça final</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-navigation">
+      <div class="nav-grid">
+        <a href="gcode.html" class="nav-card reveal">
+          <span class="nav-label"> ← PÁGINA ANTERIOR </span>
+
+          <h3>G-code</h3>
+
+          <p>
+            Explore os comandos que controlam todos os movimentos da impressora.
+          </p>
+        </a>
+
+        <a href="pos-impressao.html" class="nav-card reveal">
+          <span class="nav-label"> PRÓXIMA PÁGINA → </span>
+
+          <h3>Pós-impressão</h3>
+
+          <p>Aprenda técnicas de acabamento, limpeza e tratamento das peças.</p>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <strong>LabMaker IFC</strong><br />
+        Sala G02 • IFC Videira
+      </div>
+
+      <div>© 2026 • Laboratório Maker</div>
+    </footer>
+
+    <script>
+      const elements = document.querySelectorAll(".reveal");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+
+            entry.target.style.transform = "translateY(0px)";
+          }
+        });
       });
 
-    });
+      elements.forEach((el) => {
+        el.style.opacity = "0";
 
-    elements.forEach(el => {
+        el.style.transform = "translateY(40px)";
 
-      el.style.opacity = '0';
+        el.style.transition = "0.9s ease";
 
-      el.style.transform =
-      'translateY(40px)';
-
-      el.style.transition =
-      '0.9s ease';
-
-      observer.observe(el);
-
-    });
-
-  </script>
-
-</body>
-
+        observer.observe(el);
+      });
+    </script>
+  </body>
 </html>

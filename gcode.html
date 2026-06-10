@@ -1,726 +1,632 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>G-code • LabMaker IFC</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:'Inter',sans-serif;
-      background:#fff;
-      color:#111;
-      overflow-x:hidden;
-    }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    img{
-      max-width:100%;
-      display:block;
-    }
-
-    pre{
-      background:#fafafa;
-
-      border:1px solid #ececec;
-
-      padding:30px;
-
-      border-radius:25px;
-
-      overflow:auto;
-
-      margin:30px 0;
-
-      line-height:1.7;
-    }
-
-    code{
-      font-family:monospace;
-      color:#222;
-    }
-
-    /* ===== BACKGROUND ===== */
-
-    .bg-grid{
-      position:fixed;
-      inset:0;
-
-      z-index:-2;
-
-      background-image:
-      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-
-      background-size:40px 40px;
-
-      mask-image:
-      radial-gradient(circle at center, black 35%, transparent 100%);
-    }
-
-    .blur-circle{
-      position:fixed;
-
-      width:500px;
-      height:500px;
-
-      border-radius:50%;
-
-      background:#00000010;
-
-      filter:blur(120px);
-
-      z-index:-1;
-    }
-
-    .circle1{
-      top:-200px;
-      left:-100px;
-    }
-
-    .circle2{
-      bottom:-200px;
-      right:-100px;
-    }
-
-    /* ===== NAV ===== */
-
-    nav{
-      position:fixed;
-      top:0;
-      left:0;
-
-      width:100%;
-
-      padding:22px 8%;
-
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-
-      background:rgba(255,255,255,0.7);
-
-      backdrop-filter:blur(12px);
-
-      border-bottom:1px solid #eee;
-
-      z-index:1000;
-    }
-
-    .logo{
-      font-size:1.6rem;
-      font-weight:800;
-      letter-spacing:-2px;
-    }
-
-    .logo span{
-      font-weight:300;
-    }
-
-    nav ul{
-      display:flex;
-      gap:35px;
-      list-style:none;
-    }
-
-    nav a{
-      color:#666;
-      transition:.3s;
-      font-weight:500;
-    }
-
-    nav a:hover{
-      color:#111;
-    }
-
-    /* ===== HERO ===== */
-
-    .doc-hero{
-      min-height:90vh;
-
-      padding:
-      180px 8% 100px;
-
-      display:flex;
-      align-items:center;
-    }
-
-    .doc-hero-content{
-      max-width:850px;
-    }
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-
-      padding:10px 18px;
-
-      border:1px solid #e5e5e5;
-      border-radius:999px;
-
-      margin-bottom:35px;
-
-      background:#fafafa;
-
-      color:#666;
-
-      font-size:0.9rem;
-    }
-
-    .mini-dot{
-      width:8px;
-      height:8px;
-
-      border-radius:50%;
-
-      background:#111;
-    }
-
-    .doc-hero h1{
-      font-size:6rem;
-
-      line-height:0.92;
-
-      letter-spacing:-5px;
-
-      margin-bottom:30px;
-    }
-
-    .doc-hero p{
-      font-size:1.2rem;
-
-      line-height:1.9;
-
-      color:#666;
-
-      max-width:720px;
-    }
-
-    /* ===== IMAGE ===== */
-
-    .hero-image{
-      padding:0 8% 80px;
-    }
-
-    .hero-image img{
-      width:100%;
-      height:520px;
-
-      object-fit:cover;
-
-      border-radius:40px;
-
-      border:1px solid #ececec;
-
-      box-shadow:
-      0 20px 60px rgba(0,0,0,0.08);
-    }
-
-    /* ===== CONTENT ===== */
-
-    .content-section{
-      padding:40px 8% 120px;
-    }
-
-    .content{
-      max-width:1000px;
-      margin:auto;
-    }
-
-    .content h2{
-      font-size:3.5rem;
-
-      letter-spacing:-3px;
-
-      margin:
-      90px 0 25px;
-    }
-
-    .content h3{
-      font-size:2rem;
-
-      letter-spacing:-2px;
-
-      margin:
-      50px 0 20px;
-    }
-
-    .content h4{
-      font-size:1.3rem;
-
-      margin:
-      40px 0 15px;
-    }
-
-    .content p{
-      color:#666;
-
-      line-height:1.9;
-
-      font-size:1.05rem;
-
-      margin-bottom:20px;
-    }
-
-    .content ul{
-      padding-left:22px;
-
-      margin-bottom:25px;
-    }
-
-    .content li{
-      color:#666;
-
-      line-height:1.9;
-
-      margin-bottom:12px;
-    }
-
-    /* ===== NAVIGATION ===== */
-
-    .doc-navigation{
-      padding:0 8% 120px;
-    }
-
-    .nav-grid{
-      display:grid;
-
-      grid-template-columns:1fr 1fr;
-
-      gap:25px;
-    }
-
-    .nav-card{
-      padding:40px;
-
-      border-radius:35px;
-
-      background:#fafafa;
-
-      border:1px solid #ececec;
-
-      transition:.4s;
-    }
-
-    .nav-card:hover{
-      transform:translateY(-8px);
-
-      background:white;
-
-      box-shadow:
-      0 15px 40px rgba(0,0,0,0.05);
-    }
-
-    .nav-label{
-      font-size:0.85rem;
-
-      color:#888;
-
-      margin-bottom:20px;
-
-      display:block;
-
-      letter-spacing:1px;
-
-      font-weight:700;
-    }
-
-    .nav-card h3{
-      font-size:2rem;
-
-      letter-spacing:-2px;
-
-      margin-bottom:15px;
-    }
-
-    .nav-card p{
-      color:#666;
-
-      line-height:1.8;
-    }
-
-    /* ===== FOOTER ===== */
-
-    footer{
-      padding:70px 8%;
-
-      border-top:1px solid #eee;
-
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-
-      gap:20px;
-
-      color:#666;
-    }
-
-    /* ===== RESPONSIVO ===== */
-
-    @media(max-width:1000px){
-
-      nav ul{
-        display:none;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>G-code • LabMaker IFC</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      .doc-hero h1{
-        font-size:4rem;
+      html {
+        scroll-behavior: smooth;
       }
 
-      .content h2{
-        font-size:2.7rem;
+      body {
+        font-family: "Inter", sans-serif;
+        background: #fff;
+        color: #111;
+        overflow-x: hidden;
       }
 
-      .nav-grid{
-        grid-template-columns:1fr;
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -2px;
       }
 
-      .hero-image img{
-        height:320px;
+      .logo span {
+        font-weight: 300; /* ou 400 se quiser menos diferença */
       }
 
-    }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
 
-  </style>
+      img {
+        max-width: 100%;
+        display: block;
+      }
 
-</head>
+      pre {
+        background: #fafafa;
 
-<body>
+        border: 1px solid #ececec;
 
-  <div class="bg-grid"></div>
+        padding: 30px;
 
-  <div class="blur-circle circle1"></div>
-  <div class="blur-circle circle2"></div>
+        border-radius: 25px;
 
-  <!-- NAV -->
+        overflow: auto;
 
-  <nav>
+        margin: 30px 0;
 
-    <div class="logo">
-      Lab<span>Maker</span>
-    </div>
+        line-height: 1.7;
+      }
 
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="documentacao.html">Documentação</a></li>
-    </ul>
+      code {
+        font-family: monospace;
+        color: #222;
+      }
 
-  </nav>
+      /* ===== BACKGROUND ===== */
 
-  <!-- HERO -->
+      .bg-grid {
+        position: fixed;
+        inset: 0;
 
-  <section class="doc-hero reveal">
+        z-index: -2;
 
-    <div class="doc-hero-content">
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 
-      <div class="tag">
+        background-size: 40px 40px;
 
-        <div class="mini-dot"></div>
+        mask-image: radial-gradient(
+          circle at center,
+          black 35%,
+          transparent 100%
+        );
+      }
 
-        Linguagem • Impressão 3D
+      .blur-circle {
+        position: fixed;
 
+        width: 500px;
+        height: 500px;
+
+        border-radius: 50%;
+
+        background: #00000010;
+
+        filter: blur(120px);
+
+        z-index: -1;
+      }
+
+      .circle1 {
+        top: -200px;
+        left: -100px;
+      }
+
+      .circle2 {
+        bottom: -200px;
+        right: -100px;
+      }
+
+      /* ===== NAV ===== */
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+
+        padding: 22px 8%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        background: rgba(255, 255, 255, 0.7);
+
+        backdrop-filter: blur(12px);
+
+        border-bottom: 1px solid #eee;
+
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+      }
+
+      .logo span {
+        font-weight: 300;
+      }
+
+      nav ul {
+        display: flex;
+        gap: 35px;
+        list-style: none;
+      }
+
+      nav a {
+        color: #111;
+        transition: 0.3s;
+        font-weight: 500;
+      }
+
+      nav a:hover {
+        color: #666;
+      }
+
+      /* ===== HERO ===== */
+
+      .doc-hero {
+        min-height: 90vh;
+
+        padding: 180px 8% 100px;
+
+        display: flex;
+        align-items: center;
+      }
+
+      .doc-hero-content {
+        max-width: 850px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+
+        padding: 10px 18px;
+
+        border: 1px solid #e5e5e5;
+        border-radius: 999px;
+
+        margin-bottom: 35px;
+
+        background: #fafafa;
+
+        color: #666;
+
+        font-size: 0.9rem;
+      }
+
+      .mini-dot {
+        width: 8px;
+        height: 8px;
+
+        border-radius: 50%;
+
+        background: #111;
+      }
+
+      .doc-hero h1 {
+        font-size: 6rem;
+
+        line-height: 0.92;
+
+        letter-spacing: -5px;
+
+        margin-bottom: 30px;
+      }
+
+      .doc-hero p {
+        font-size: 1.2rem;
+
+        line-height: 1.9;
+
+        color: #666;
+
+        max-width: 720px;
+      }
+
+      /* ===== IMAGE ===== */
+
+      .hero-image {
+        padding: 0 8% 80px;
+      }
+
+      .hero-image img {
+        width: 100%;
+        height: 520px;
+
+        object-fit: cover;
+
+        border-radius: 40px;
+
+        border: 1px solid #ececec;
+
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      }
+
+      /* ===== CONTENT ===== */
+
+      .content-section {
+        padding: 40px 8% 120px;
+      }
+
+      .content {
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      .content h2 {
+        font-size: 3.5rem;
+
+        letter-spacing: -3px;
+
+        margin: 90px 0 25px;
+      }
+
+      .content h3 {
+        font-size: 2rem;
+
+        letter-spacing: -2px;
+
+        margin: 50px 0 20px;
+      }
+
+      .content h4 {
+        font-size: 1.3rem;
+
+        margin: 40px 0 15px;
+      }
+
+      .content p {
+        color: #666;
+
+        line-height: 1.9;
+
+        font-size: 1.05rem;
+
+        margin-bottom: 20px;
+      }
+
+      .content ul {
+        padding-left: 22px;
+
+        margin-bottom: 25px;
+      }
+
+      .content li {
+        color: #666;
+
+        line-height: 1.9;
+
+        margin-bottom: 12px;
+      }
+
+      /* ===== NAVIGATION ===== */
+
+      .doc-navigation {
+        padding: 0 8% 120px;
+      }
+
+      .nav-grid {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 25px;
+      }
+
+      .nav-card {
+        padding: 40px;
+
+        border-radius: 35px;
+
+        background: #fafafa;
+
+        border: 1px solid #ececec;
+
+        transition: 0.4s;
+      }
+
+      .nav-card:hover {
+        transform: translateY(-8px);
+
+        background: white;
+
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+      }
+
+      .nav-label {
+        font-size: 0.85rem;
+
+        color: #888;
+
+        margin-bottom: 20px;
+
+        display: block;
+
+        letter-spacing: 1px;
+
+        font-weight: 700;
+      }
+
+      .nav-card h3 {
+        font-size: 2rem;
+
+        letter-spacing: -2px;
+
+        margin-bottom: 15px;
+      }
+
+      .nav-card p {
+        color: #666;
+
+        line-height: 1.8;
+      }
+
+      /* ===== FOOTER ===== */
+
+      footer {
+        padding: 70px 8%;
+
+        border-top: 1px solid #eee;
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        gap: 20px;
+
+        color: #666;
+      }
+
+      /* ===== RESPONSIVO ===== */
+
+      @media (max-width: 1000px) {
+        nav ul {
+          display: none;
+        }
+
+        .doc-hero h1 {
+          font-size: 4rem;
+        }
+
+        .content h2 {
+          font-size: 2.7rem;
+        }
+
+        .nav-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-image img {
+          height: 320px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="bg-grid"></div>
+
+    <div class="blur-circle circle1"></div>
+    <div class="blur-circle circle2"></div>
+
+    <!-- NAV -->
+
+    <nav>
+      <a href="index.html">
+        <div class="logo">Lab<span>Maker</span></div>
+      </a>
+
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="documentacao.html">Documentação</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="doc-hero reveal">
+      <div class="doc-hero-content">
+        <div class="tag">
+          <div class="mini-dot"></div>
+
+          Linguagem • Impressão 3D
+        </div>
+
+        <h1>G-code</h1>
+
+        <p>
+          Entenda como a impressora 3D interpreta comandos, controla movimentos,
+          temperaturas e executa cada camada da impressão.
+        </p>
       </div>
+    </section>
 
-      <h1>
-        G-code
-      </h1>
+    <!-- IMAGE -->
 
-      <p>
-        Entenda como a impressora 3D interpreta comandos,
-        controla movimentos, temperaturas e executa cada
-        camada da impressão.
-      </p>
+    <section class="hero-image reveal">
+      <img
+        src="https://lh7-us.googleusercontent.com/BEtpVjzCqU-dNkGhNjBKjdaSLXBoleL5n3yhIqgVFT1Klk6zYd99KxPuuiVfIR52pdV0JBPG4IbUXQ8IkAkI1NtKBTXoGRmQtFKTvAWuNfvT_4YvSDYI0DDJCStGk3n9byY-GH1JpTtNZvuM2zZ2mWs"
+        alt="Código G-code"
+      />
+    </section>
 
-    </div>
+    <!-- CONTENT -->
 
-  </section>
+    <section class="content-section">
+      <div class="content">
+        <h2 class="reveal">O que é?</h2>
 
-  <!-- IMAGE -->
+        <p class="reveal">
+          O G-code é uma linguagem utilizada para controlar máquinas CNC e
+          impressoras 3D. Ele define todos os movimentos, temperaturas e ações
+          executadas durante a impressão.
+        </p>
 
-  <section class="hero-image reveal">
+        <h2 class="reveal">Estrutura básica</h2>
 
-    <img
-      src="https://lh7-us.googleusercontent.com/BEtpVjzCqU-dNkGhNjBKjdaSLXBoleL5n3yhIqgVFT1Klk6zYd99KxPuuiVfIR52pdV0JBPG4IbUXQ8IkAkI1NtKBTXoGRmQtFKTvAWuNfvT_4YvSDYI0DDJCStGk3n9byY-GH1JpTtNZvuM2zZ2mWs"
-      alt="Código G-code"
-    >
-
-  </section>
-
-  <!-- CONTENT -->
-
-  <section class="content-section">
-
-    <div class="content">
-
-      <h2 class="reveal">
-        O que é?
-      </h2>
-
-      <p class="reveal">
-        O G-code é uma linguagem utilizada para controlar
-        máquinas CNC e impressoras 3D. Ele define todos os
-        movimentos, temperaturas e ações executadas durante
-        a impressão.
-      </p>
-
-      <h2 class="reveal">
-        Estrutura básica
-      </h2>
-
-      <pre class="reveal"><code>G21 ; Unidades em milímetros
+        <pre class="reveal"><code>G21 ; Unidades em milímetros
 G90 ; Coordenadas absolutas
 M82 ; Extrusor em modo absoluto
 G28 ; Home de todos os eixos
 G1 Z0.2 ; Levantar bico
 G1 X0 Y0 ; Ir para origem</code></pre>
 
-      <h2 class="reveal">
-        Calibração e teste
-      </h2>
+        <h2 class="reveal">Calibração e teste</h2>
 
-      <pre class="reveal"><code>M106 S255 ; Ventilador máximo
+        <pre class="reveal"><code>M106 S255 ; Ventilador máximo
 G1 X100 Y100 F3000 ; Movimento rápido
 G1 X0 Y0 F3000 ; Retornar
 M107 ; Desligar ventilador</code></pre>
 
-      <h2 class="reveal">
-        Impressão principal
-      </h2>
+        <h2 class="reveal">Impressão principal</h2>
 
-      <pre class="reveal"><code>M190 S60 ; Esperar base
+        <pre class="reveal"><code>M190 S60 ; Esperar base
 M109 T0 S210 ; Esperar extrusor
 G1 X0 Y0 F3000 ; Posicionar
 G1 Z0.3 F900 ; Ajustar altura
 G92 E0 ; Resetar extrusor
 G1 E10 F300 ; Extruir material</code></pre>
 
-      <h2 class="reveal">
-        Comandos finais
-      </h2>
+        <h2 class="reveal">Comandos finais</h2>
 
-      <pre class="reveal"><code>M104 S0 ; Desligar extrusor
+        <pre class="reveal"><code>M104 S0 ; Desligar extrusor
 M140 S0 ; Desligar base
 M107 ; Ventilador OFF
 G1 Z10 ; Levantar bico
 M84 ; Desligar motores</code></pre>
 
-      <h2 class="reveal">
-        Principais comandos
-      </h2>
+        <h2 class="reveal">Principais comandos</h2>
 
-      <h3 class="reveal">
-        Movimento
-      </h3>
+        <h3 class="reveal">Movimento</h3>
 
-      <pre class="reveal"><code>G0 X10 Y10 Z10
+        <pre class="reveal"><code>G0 X10 Y10 Z10
 G1 X10 Y10 Z10 F1800</code></pre>
 
-      <h3 class="reveal">
-        Extrusão
-      </h3>
+        <h3 class="reveal">Extrusão</h3>
 
-      <pre class="reveal"><code>G1 E10 F300
+        <pre class="reveal"><code>G1 E10 F300
 G1 E-5 F1800
 G92 E0</code></pre>
 
-      <h3 class="reveal">
-        Temperatura
-      </h3>
+        <h3 class="reveal">Temperatura</h3>
 
-      <pre class="reveal"><code>M109 S210
+        <pre class="reveal"><code>M109 S210
 M190 S60
 M104 S210
 M140 S60</code></pre>
 
-      <h3 class="reveal">
-        Ventilação
-      </h3>
+        <h3 class="reveal">Ventilação</h3>
 
-      <pre class="reveal"><code>M106 S255
+        <pre class="reveal"><code>M106 S255
 M107</code></pre>
 
-      <h2 class="reveal">
-        Configurações por material
-      </h2>
+        <h2 class="reveal">Configurações por material</h2>
 
-      <h3 class="reveal">
-        PLA
-      </h3>
+        <h3 class="reveal">PLA</h3>
 
-      <ul class="reveal">
-        <li>Extrusor: 190°C a 210°C</li>
-        <li>Base: 50°C a 60°C</li>
-        <li>Boa ventilação</li>
-        <li>Fácil de imprimir</li>
-      </ul>
+        <ul class="reveal">
+          <li>Extrusor: 190°C a 210°C</li>
+          <li>Base: 50°C a 60°C</li>
+          <li>Boa ventilação</li>
+          <li>Fácil de imprimir</li>
+        </ul>
 
-      <h3 class="reveal">
-        PETG
-      </h3>
+        <h3 class="reveal">PETG</h3>
 
-      <ul class="reveal">
-        <li>Extrusor: 220°C a 240°C</li>
-        <li>Base: 70°C a 80°C</li>
-        <li>Maior resistência</li>
-        <li>Menos ventilação</li>
-      </ul>
+        <ul class="reveal">
+          <li>Extrusor: 220°C a 240°C</li>
+          <li>Base: 70°C a 80°C</li>
+          <li>Maior resistência</li>
+          <li>Menos ventilação</li>
+        </ul>
 
-      <h3 class="reveal">
-        ABS
-      </h3>
+        <h3 class="reveal">ABS</h3>
 
-      <ul class="reveal">
-        <li>Extrusor: 240°C a 260°C</li>
-        <li>Base: 90°C a 110°C</li>
-        <li>Necessita ambiente fechado</li>
-        <li>Maior resistência térmica</li>
-      </ul>
+        <ul class="reveal">
+          <li>Extrusor: 240°C a 260°C</li>
+          <li>Base: 90°C a 110°C</li>
+          <li>Necessita ambiente fechado</li>
+          <li>Maior resistência térmica</li>
+        </ul>
 
-      <h2 class="reveal">
-        Otimização
-      </h2>
+        <h2 class="reveal">Otimização</h2>
 
-      <ul class="reveal">
-        <li>Reduzir movimentos desnecessários</li>
-        <li>Melhorar trajetórias</li>
-        <li>Controlar velocidade em detalhes</li>
-        <li>Otimizar retrações</li>
-        <li>Evitar desperdício de material</li>
-      </ul>
+        <ul class="reveal">
+          <li>Reduzir movimentos desnecessários</li>
+          <li>Melhorar trajetórias</li>
+          <li>Controlar velocidade em detalhes</li>
+          <li>Otimizar retrações</li>
+          <li>Evitar desperdício de material</li>
+        </ul>
+      </div>
+    </section>
 
-    </div>
+    <!-- NAVIGATION -->
 
-  </section>
+    <section class="doc-navigation">
+      <div class="nav-grid">
+        <a href="fatiador.html" class="nav-card reveal">
+          <span class="nav-label"> ← PÁGINA ANTERIOR </span>
 
-  <!-- NAVIGATION -->
+          <h3>Fatiador</h3>
 
-  <section class="doc-navigation">
+          <p>Descubra como o slicer transforma modelos 3D em instruções.</p>
+        </a>
 
-    <div class="nav-grid">
+        <a href="filamentos.html" class="nav-card reveal">
+          <span class="nav-label"> PRÓXIMA PÁGINA → </span>
 
-      <a href="fatiador.html" class="nav-card reveal">
+          <h3>Filamentos</h3>
 
-        <span class="nav-label">
-          ← PÁGINA ANTERIOR
-        </span>
+          <p>Conheça os materiais utilizados nas impressoras 3D FDM.</p>
+        </a>
+      </div>
+    </section>
 
-        <h3>
-          Fatiador
-        </h3>
+    <!-- FOOTER -->
 
-        <p>
-          Descubra como o slicer transforma
-          modelos 3D em instruções.
-        </p>
+    <footer>
+      <div>
+        <strong>LabMaker IFC</strong><br />
+        Sala G02 • IFC Videira
+      </div>
 
-      </a>
+      <div>© 2026 • Laboratório Maker</div>
+    </footer>
 
-      <a href="filamentos.html" class="nav-card reveal">
+    <!-- ANIMATION -->
 
-        <span class="nav-label">
-          PRÓXIMA PÁGINA →
-        </span>
+    <script>
+      const elements = document.querySelectorAll(".reveal");
 
-        <h3>
-          Filamentos
-        </h3>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
 
-        <p>
-          Conheça os materiais utilizados
-          nas impressoras 3D FDM.
-        </p>
-
-      </a>
-
-    </div>
-
-  </section>
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    <div>
-      <strong>LabMaker IFC</strong><br>
-      Sala G02 • IFC Videira
-    </div>
-
-    <div>
-      © 2026 • Laboratório Maker
-    </div>
-
-  </footer>
-
-  <!-- ANIMATION -->
-
-  <script>
-
-    const elements =
-    document.querySelectorAll(
-      '.reveal'
-    );
-
-    const observer =
-    new IntersectionObserver(entries => {
-
-      entries.forEach(entry => {
-
-        if(entry.isIntersecting){
-
-          entry.target.style.opacity = '1';
-
-          entry.target.style.transform =
-          'translateY(0px)';
-
-        }
-
+            entry.target.style.transform = "translateY(0px)";
+          }
+        });
       });
 
-    });
+      elements.forEach((el) => {
+        el.style.opacity = "0";
 
-    elements.forEach(el => {
+        el.style.transform = "translateY(40px)";
 
-      el.style.opacity = '0';
+        el.style.transition = "0.9s ease";
 
-      el.style.transform =
-      'translateY(40px)';
-
-      el.style.transition =
-      '0.9s ease';
-
-      observer.observe(el);
-
-    });
-
-  </script>
-
-</body>
-
+        observer.observe(el);
+      });
+    </script>
+  </body>
 </html>
