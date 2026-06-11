@@ -3,249 +3,273 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Primeira Impressão 3D • Chaveirinho</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: "Inter", sans-serif;
-        background: #fff;
-        color: #111;
-        overflow-x: hidden;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: "Inter", sans-serif; background: #ffffff; color: #111111; overflow-x: hidden; }
 
       .bg-grid {
-        position: fixed;
-        inset: 0;
-        z-index: -2;
+        position: fixed; inset: 0; z-index: -2;
         background-image:
-          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+          linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
         background-size: 40px 40px;
-        mask-image: radial-gradient(
-          circle at center,
-          black 35%,
-          transparent 100%
-        );
+        mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
       }
 
       nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 22px 8%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid #eee;
+        position: fixed; top: 0; left: 0; width: 100%;
+        padding: 24px 8%;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(255,255,255,0.72);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid #ececec;
         z-index: 1000;
       }
 
+      .logo { font-size: 1.6rem; font-weight: 900; letter-spacing: -2px; }
+      .logo span { font-weight: 300; }
+      nav a { text-decoration: none; color: inherit; }
+
+      /* ── HERO ── */
       .hero {
-        min-height: 95vh;
-        padding: 180px 8% 120px;
-        display: flex;
-        align-items: center;
+        min-height: 100vh;
+        padding: 190px 8% 120px;
+        display: flex; align-items: center;
       }
-
-      .hero h1 {
-        font-size: 5.5rem;
-        line-height: 0.95;
-        letter-spacing: -4px;
-        margin-bottom: 25px;
-      }
-
-      .hero p {
-        max-width: 750px;
-        color: #666;
-        line-height: 1.9;
-        font-size: 1.2rem;
-      }
-
+      .hero-content { max-width: 900px; }
       .tag {
-        display: inline-flex;
-        gap: 10px;
-        padding: 10px 18px;
-        border: 1px solid #e5e5e5;
-        border-radius: 999px;
-        margin-bottom: 30px;
-        background: #fafafa;
-        color: #666;
-        font-size: 0.9rem;
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 12px 20px; border-radius: 999px;
+        background: #fafafa; border: 1px solid #ececec;
+        font-size: 0.92rem; color: #666; margin-bottom: 35px;
       }
-
-      .section {
-        padding: 120px 8%;
+      .hero h1 {
+        font-size: 6rem; line-height: 0.92; letter-spacing: -5px; margin-bottom: 30px;
       }
+      .hero p { max-width: 760px; color: #666; line-height: 1.9; font-size: 1.15rem; }
 
-      .section h2 {
-        font-size: 3.5rem;
-        letter-spacing: -3px;
-        margin-bottom: 20px;
-      }
+      /* ── SECTION ── */
+      .section { padding: 120px 8%; }
+      .section-header { margin-bottom: 70px; }
+      .section h2 { font-size: 4rem; letter-spacing: -4px; margin-bottom: 20px; }
+      .section-description { max-width: 820px; color: #666; line-height: 1.9; font-size: 1.05rem; }
 
-      .section p {
-        color: #666;
-        line-height: 1.9;
-        max-width: 800px;
-        margin-bottom: 40px;
-      }
-
-      .grid {
+      /* ── TOOL CARDS ── */
+      .tools-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
       }
 
-      .card {
-        padding: 35px;
+      .tool-card {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 36px 32px;
         border-radius: 30px;
         background: #fafafa;
         border: 1px solid #ececec;
-        transition: 0.3s;
-      }
-
-      .card:hover {
-        transform: translateY(-6px);
-        background: #fff;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
-      }
-
-      .step {
-        font-weight: 800;
-        color: #111;
-        margin-bottom: 10px;
-      }
-
-      .card h3 {
-        margin-bottom: 15px;
-        font-size: 1.4rem;
-      }
-
-      .card p {
-        color: #666;
-        line-height: 1.7;
-      }
-
-      .doc-navigation {
-        padding: 120px 8%;
-      }
-
-      .nav-grid {
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-
-        gap: 25px;
-      }
-
-      a {
         text-decoration: none;
         color: inherit;
-      }
-
-      .nav-card {
-        padding: 40px;
-
-        border-radius: 35px;
-
-        background: #fafafa;
-
-        border: 1px solid #ececec;
-
-        transition: 0.4s;
-
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
         position: relative;
-
         overflow: hidden;
       }
 
-      .nav-card:hover {
-        transform: translateY(-8px);
-
-        background: white;
-
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+      .tool-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 30px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
       }
 
-      .nav-label {
-        font-size: 0.85rem;
+      .tool-card:hover {
+        transform: translateY(-6px);
+        background: #ffffff;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.07);
+      }
 
-        color: #888;
+      .tool-card:hover .tool-arrow { opacity: 1; transform: translate(2px, -2px); }
 
-        margin-bottom: 20px;
+      .tool-icon {
+        width: 52px; height: 52px;
+        border-radius: 16px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
 
+      .tool-icon.tinkercad { background: #fff0e0; }
+      .tool-icon.bambu-studio { background: #e6f4ea; }
+      .tool-icon.bambu-lab { background: #e8f0fe; }
+
+      .tool-body { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+
+      .tool-label {
+        font-size: 0.75rem; font-weight: 800;
+        letter-spacing: 1.5px; color: #aaa;
+        text-transform: uppercase;
+      }
+
+      .tool-card h3 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.5px; }
+
+      .tool-card p { font-size: 0.92rem; color: #666; line-height: 1.75; }
+
+      .tool-arrow {
+        margin-top: auto;
+        font-size: 0.85rem; font-weight: 700;
+        color: #aaa;
+        display: flex; align-items: center; gap: 6px;
+        opacity: 0;
+        transform: translate(0, 0);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      /* ── STEPS ── */
+      .steps-container { display: flex; flex-direction: column; gap: 30px; }
+
+      .step-card {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+        gap: 40px;
+        align-items: start;
+        padding: 35px;
+        border-radius: 38px;
+        background: #fafafa;
+        border: 1px solid #ececec;
+        transition: 0.35s ease;
+      }
+
+      .step-card:hover {
+        transform: translateY(-4px);
+        background: #ffffff;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+      }
+
+      .step-image {
+        width: 100%;
+        aspect-ratio: 16/10;
+        border-radius: 24px;
+        overflow: hidden;
+        background: #f2f2f2;
+        border: 1px solid #e5e5e5;
+        flex-shrink: 0;
+      }
+
+      .step-image img {
+        width: 100%; height: 100%;
+        object-fit: contain;
         display: block;
-
-        letter-spacing: 1px;
-
-        font-weight: 700;
+        background: white;
       }
 
-      .nav-card h3 {
+      .step-content { display: flex; flex-direction: column; padding-top: 4px; }
+
+      .step-number {
+        font-size: 0.78rem; font-weight: 800;
+        letter-spacing: 2px; color: #bbb;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+      }
+
+      .step-content h3 {
         font-size: 2rem;
-
-        letter-spacing: -2px;
-
-        margin-bottom: 15px;
+        line-height: 1.05;
+        letter-spacing: -1.5px;
+        margin-bottom: 16px;
       }
 
-      .nav-card p {
-        color: #666;
+      .step-content p { color: #555; line-height: 1.85; font-size: 0.97rem; margin-bottom: 12px; }
+      .step-content p:last-child { margin-bottom: 0; }
 
-        line-height: 1.8;
+      /* keyboard shortcut pill */
+      .kbd-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+      .kbd {
+        display: inline-flex; align-items: center; gap: 5px;
+        padding: 5px 12px;
+        border-radius: 8px;
+        background: #f0f0f0;
+        border: 1px solid #e0e0e0;
+        font-size: 0.78rem; font-weight: 700;
+        color: #444;
+        letter-spacing: 0.3px;
       }
-
-      .logo {
-        font-size: 1.6rem;
+      .kbd .key {
+        background: #fff;
+        border: 1px solid #d5d5d5;
+        border-radius: 5px;
+        padding: 1px 6px;
+        font-size: 0.72rem;
         font-weight: 800;
-        letter-spacing: -2px;
+        box-shadow: 0 1px 0 #ccc;
       }
 
-      .logo span {
-        font-weight: 300; /* ou 400 se quiser menos diferença */
+      /* tip box */
+      .tip {
+        margin-top: 16px;
+        padding: 14px 18px;
+        border-radius: 14px;
+        background: #f5f9ff;
+        border: 1px solid #ddeeff;
+        font-size: 0.88rem;
+        color: #446;
+        line-height: 1.7;
       }
+      .tip strong { color: #224; }
 
-      nav a:hover {
-        text-decoration: none;
-        color: #666;
-        transition: 0.3s;
-        font-weight: 500;
+      /* ── DOC NAV ── */
+      .doc-navigation { padding: 120px 8%; }
+      .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+
+      .nav-card {
+        padding: 45px; border-radius: 35px;
+        background: #fafafa; border: 1px solid #ececec;
+        transition: 0.35s; text-decoration: none; color: inherit;
       }
+      .nav-card:hover {
+        transform: translateY(-6px); background: white;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.05);
+      }
+      .nav-label { display: block; margin-bottom: 20px; font-size: 0.82rem; font-weight: 800; color: #888; letter-spacing: 1px; }
+      .nav-card h3 { font-size: 2rem; letter-spacing: -2px; margin-bottom: 14px; }
+      .nav-card p { color: #666; line-height: 1.8; }
 
+      /* ── FOOTER ── */
       footer {
         padding: 60px 8%;
-        border-top: 1px solid #eee;
-        color: #666;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 20px;
+        border-top: 1px solid #ececec;
+        display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+        gap: 20px; color: #666;
+      }
+      footer strong { color: #111; }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1200px) {
+        .hero h1 { font-size: 5rem; }
+        .section h2 { font-size: 3.2rem; }
+        .step-card { grid-template-columns: 1fr; }
+        .tools-grid { grid-template-columns: 1fr; }
       }
 
-      @media (max-width: 900px) {
-        .hero h1 {
-          font-size: 3.5rem;
-        }
-        .section h2 {
-          font-size: 2.5rem;
-        }
+      @media (max-width: 768px) {
+        nav { padding: 20px 6%; }
+        .hero { padding: 170px 6% 100px; }
+        .section, .doc-navigation { padding: 100px 6%; }
+        .hero h1 { font-size: 3.7rem; letter-spacing: -3px; }
+        .section h2 { font-size: 2.7rem; letter-spacing: -2px; }
+        .step-content h3 { font-size: 1.7rem; }
+        .nav-grid { grid-template-columns: 1fr; }
+        footer { flex-direction: column; align-items: flex-start; }
+        .tools-grid { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -262,175 +286,426 @@
 
     <!-- HERO -->
     <section class="hero">
-      <div>
-        <div class="tag">
-          🚀 Primeira Impressão 3D • Chaveirinho Personalizado
-        </div>
-
-        <h1>
-          Crie seu<br />
-          chaveiro 3D
-        </h1>
-
+      <div class="hero-content">
+        <div class="tag">🚀 Primeira Impressão 3D • Chaveirinho Personalizado</div>
+        <h1>Crie seu<br />chaveiro 3D</h1>
         <p>
           Neste guia você vai aprender a modelar um chaveiro personalizado no
           <strong>Tinkercad</strong> e preparar o arquivo para impressão na
-          <strong>Bambu Lab</strong>, desde o zero até o envio para a
-          impressora.
+          <strong>Bambu Lab</strong>, desde o primeiro clique até o envio para a impressora.
         </p>
       </div>
     </section>
 
-    <!-- INTRO -->
+    <!-- FERRAMENTAS -->
     <section class="section">
-      <h2>Ferramentas</h2>
+      <div class="section-header">
+        <h2>Ferramentas</h2>
+        <p class="section-description">
+          Vamos utilizar três ferramentas principais durante o processo de criação e impressão do chaveiro.
+        </p>
+      </div>
 
-      <p>
-        Vamos usar duas ferramentas principais:
-        <br /><br />
-        •
-        <a href="https://www.tinkercad.com" target="_blank"
-          ><strong>Tinkercad</strong></a
-        >
-        para modelagem 3D<br />
-        •
-        <a href="https://bambulab.com" target="_blank"
-          ><strong>Bambu Lab</strong></a
-        >
-        + Bambu Studio para impressão
-      </p>
+      <div class="tools-grid">
+
+        <!-- Card 1 -->
+        <a href="https://www.tinkercad.com" target="_blank"  rel="noopener" class="tool-card">
+          <div class="tool-icon tinkercad">✏️</div>
+          <div class="tool-body">
+            <span class="tool-label">Modelagem 3D</span>
+            <h3>Tinkercad</h3>
+            <p>Plataforma gratuita e online para modelagem 3D. Ideal para iniciantes — sem instalação, roda direto no navegador.</p>
+          </div>
+          <div class="tool-arrow">Acessar tinkercad.com →</div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="https://bambulab.com/pt-BR/download/studio" target="_blank" rel="noopener" class="tool-card">
+          <div class="tool-icon bambu-studio">🟢</div>
+          <div class="tool-body">
+            <span class="tool-label">Fatiador / Slicer</span>
+            <h3>Bambu Studio</h3>
+            <p>Software oficial da Bambu Lab para preparação e fatiamento de arquivos de impressão. Gratuito para download.</p>
+          </div>
+          <div class="tool-arrow">Baixar Bambu Studio →</div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="https://bambulab.com/pt-BR" target="_blank" rel="noopener" class="tool-card">
+          <div class="tool-icon bambu-lab">🖨️</div>
+          <div class="tool-body">
+            <span class="tool-label">Impressora + Filamento</span>
+            <h3>Bambu Lab + PLA</h3>
+            <p>Impressora 3D de alta velocidade com filamento PLA — material fácil de usar, seguro e resistente para chaveiros.</p>
+          </div>
+          <div class="tool-arrow">Conhecer Bambu Lab →</div>
+        </a>
+
+      </div>
     </section>
 
     <!-- PASSO A PASSO -->
     <section class="section">
-      <h2>Passo a passo</h2>
+      <div class="section-header">
+        <h2>Passo a passo</h2>
+        <p class="section-description">
+          Do login no Tinkercad até o arquivo pronto para a impressora — cada etapa detalhada abaixo.
+        </p>
+      </div>
 
-      <p>
-        Aqui está o fluxo completo para criar seu chaveiro personalizado. (Esse
-        processo será gravado e transformado em GIF tutorial também.)
-      </p>
+      <div class="steps-container">
 
-      <div class="grid">
-        <div class="card">
-          <div class="step">PASSO 1</div>
-          <h3>Base do chaveiro</h3>
-          <p>
-            Pegue a forma de <strong>retângulo</strong> no Tinkercad e modele
-            como uma pequena “medalha” base. Ajuste altura e largura até ficar
-            proporcional.
-          </p>
+        <!-- PASSO 1 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/1.png" alt="Passo 1" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 01</div>
+            <h3>Fazendo o Login</h3>
+            <p>Na tela inicial do Tinkercad, escolha como quer entrar no site. Há três caminhos: <strong>Contas pessoais</strong> (email e senha), <strong>Contas de estudante</strong> (vinculadas à escola) ou login rápido com <strong>Google</strong>.</p>
+            <p>Se for a primeira vez, clique em "Criar conta pessoal" e siga o cadastro. Para quem já tem conta, escolha "Entrar" e preencha suas credenciais. O login com Google costuma ser o mais rápido — clique no botão, selecione sua conta e pronto.</p>
+            <div class="tip"><strong>💡 Dica:</strong> Use uma conta que você vai lembrar — seus projetos ficam salvos na nuvem automaticamente, então manter sempre a mesma conta evita perder trabalhos anteriores.</div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="step">PASSO 2</div>
-          <h3>Texto personalizado</h3>
-          <p>
-            Use a ferramenta de texto e escreva o nome desejado. Altere para
-            modo <strong>“Hole” (orifício)</strong> e posicione no centro da
-            base.
-          </p>
+        <!-- PASSO 2 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/2.png" alt="Passo 2" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 02</div>
+            <h3>Criando um Novo Projeto</h3>
+            <p>Com o painel principal aberto, localize o botão azul <strong>"+ Criar"</strong> no canto superior direito. Clique nele — vai abrir um menu com algumas opções.</p>
+            <p>Escolha <strong>"Projeto 3D"</strong>. O Tinkercad vai carregar a área de trabalho em alguns segundos. O projeto já é salvo automaticamente com um nome aleatório; você pode renomeá-lo clicando no título no topo da tela.</p>
+            <div class="tip"><strong>💡 Dica:</strong> Dê um nome descritivo ao projeto logo no início, como "Chaveiro_Seu_Nome", para encontrar facilmente depois na lista de projetos.</div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="step">PASSO 3</div>
-          <h3>Furo do chaveiro</h3>
-          <p>
-            Adicione um cilindro pequeno, também em modo <strong>Hole</strong>,
-            para criar o espaço do chaveiro na lateral.
-          </p>
+        <!-- PASSO 3 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/3.png" alt="Passo 3" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 03</div>
+            <h3>Conhecendo a Área de Trabalho</h3>
+            <p>A tela vai mostrar um grande <strong>plano azul</strong> no centro — essa é a sua "mesa virtual", onde todos os objetos são posicionados. No lado direito fica o painel de <strong>Formas básicas</strong>, sua caixa de ferramentas com cubos, cilindros, esferas e muito mais.</p>
+            <p>Antes de começar, aprenda a navegar — é como segurar a peça na mão e girá-la:</p>
+            <p>
+              🖱️ <strong>Zoom:</strong> gire a rodinha do mouse para aproximar ou afastar.<br />
+              🖱️ <strong>Girar câmera:</strong> clique e segure o botão direito do mouse e arraste.<br />
+              🖱️ <strong>Mover tela:</strong> clique e segure a própria rodinha do mouse (como botão) e arraste.
+            </p>
+            <div class="kbd-row">
+              <span class="kbd"><span class="key">F</span> Focar objeto selecionado</span>
+              <span class="kbd"><span class="key">Ctrl</span> + <span class="key">Z</span> Desfazer</span>
+              <span class="kbd"><span class="key">Ctrl</span> + <span class="key">Y</span> Refazer</span>
+              <span class="kbd"><span class="key">Ctrl</span> + <span class="key">A</span> Selecionar tudo</span>
+            </div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="step">PASSO 4</div>
-          <h3>Exportação STL</h3>
-          <p>
-            Baixe o modelo final no formato <strong>.STL</strong> para levar ao
-            slicer.
-          </p>
+        <!-- PASSO 4 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/4.png" alt="Passo 4" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 04</div>
+            <h3>Colocando a Base do Chaveiro</h3>
+            <p>No painel da direita, localize a forma <strong>"Caixa"</strong> — é um cubo vermelho sólido. Clique nela com o botão esquerdo do mouse, segure e arraste até o centro do plano azul. Solte o botão para posicioná-la.</p>
+            <p>Essa caixa será a base principal do chaveiro — o retângulo que vai servir de fundo para as letras e sustentar o furo da argola.</p>
+            <div class="tip"><strong>💡 Dica:</strong> Posicione a peça no centro do plano para facilitar os próximos ajustes. Se ela cair fora da mesa, simplesmente arraste de volta para o plano azul.</div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="step">PASSO 5</div>
-          <h3>Bambu Studio</h3>
-          <p>
-            Instale o <strong>Bambu Studio</strong> para preparar a impressão.
-            Caso não tenha, baixe pelo site oficial da Bambu Lab.
-          </p>
+        <!-- PASSO 5 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/5.png" alt="Passo 5" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 05</div>
+            <h3>Ajustando o Tamanho da Base</h3>
+            <p>Clique na caixa vermelha para selecioná-la. Vão aparecer quadradinhos brancos e pretos nas arestas e cantos — esses são os <strong>manipuladores de escala</strong>. Arraste-os ou clique diretamente neles para digitar valores exatos.</p>
+            <p>Para o nosso chaveiro, use as seguintes medidas: <strong>130 mm</strong> de comprimento × <strong>50 mm</strong> de largura × <strong>25 mm</strong> de altura. Você também pode digitar as dimensões diretamente na janela que aparece ao selecionar o objeto.</p>
+            <div class="kbd-row">
+              <span class="kbd"><span class="key">L</span> Travar proporções ao redimensionar</span>
+            </div>
+            <div class="tip"><strong>💡 Dica:</strong> Mais tarde vamos reduzir tudo para 50% no Bambu Studio, então não se preocupe com o tamanho final agora — foque nas proporções.</div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="step">PASSO 6</div>
-          <h3>Configuração</h3>
-          <p>
-            Configure o ambiente, escolha o tipo de impressora e verifique o
-            filamento.
-          </p>
+        <!-- PASSO 6 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/6.png" alt="Passo 6" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 06</div>
+            <h3>Adicionando as Letras</h3>
+            <p>Role o painel de formas para baixo até encontrar a opção <strong>"Texto"</strong>. Clique e arraste-a para cima do retângulo vermelho. Ao soltar, vai aparecer um bloco tridimensional escrito <strong>"TEXT"</strong> em letras maiúsculas.</p>
+            <p>Não se preocupe com a posição exata ainda — vamos ajustar nos próximos passos. O importante agora é que o texto esteja em cima (ou próximo) da base.</p>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="step">PASSO 7</div>
-          <h3>Fatiamento</h3>
-          <p>
-            Faça o slicing no Bambu Studio com configurações básicas (camadas
-            padrão e preenchimento leve).
-          </p>
+        <!-- PASSO 7 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/7.png" alt="Passo 7" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 07</div>
+            <h3>Girando o Texto</h3>
+            <p>Se o texto estiver virado para o lado errado, clique nele para selecioná-lo. Vão aparecer <strong>setas curvas</strong> nos cantos superiores — esses são os manipuladores de rotação. Clique em uma delas, segure e arraste para girar a peça.</p>
+            <p>Gire até o texto ficar paralelo ao comprimento do retângulo. Se quiser precisão, você pode digitar o ângulo exato na janelinha que aparece durante a rotação (por exemplo, <strong>0°</strong> para deixar reto).</p>
+            <div class="kbd-row">
+              <span class="kbd">Segure <span class="key">Shift</span> ao girar para travar em 45°</span>
+            </div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="step">PASSO 8</div>
-          <h3>Exportar GCODE</h3>
-          <p>
-            Exporte o arquivo final como <strong>.GCODE</strong> pronto para
-            impressão.
-          </p>
+        <!-- PASSO 8 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/8.png" alt="Passo 8" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 08</div>
+            <h3>Escrevendo o Nome</h3>
+            <p>Com o texto selecionado, uma <strong>janela de opções</strong> abre no canto superior direito da tela. No campo de texto, apague "TEXT" e escreva o que quiser — no nosso exemplo, colocamos <strong>"3D"</strong>. A forma muda em tempo real enquanto você digita.</p>
+            <p>Abaixo do campo de texto, você pode escolher a <strong>Fonte</strong>. Experimente diferentes opções — a <strong>"Sans Mono"</strong> ficou bem bonita para um estilo tecnológico. Depois use os quadradinhos de escala para ajustar o tamanho do texto e posicioná-lo <strong>no lado esquerdo</strong> da base, deixando espaço vazio à direita para o furo da argola.</p>
+            <div class="tip"><strong>💡 Dica:</strong> Fontes mais simples e sem muitos detalhes finos ficam melhores na impressão 3D — letras muito finas podem não sair bem na peça física.</div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="step">PASSO 9</div>
-          <h3>Impressão</h3>
-          <p>
-            Envie para a impressora Bambu Lab via cartão de memória ou conexão
-            Wi-Fi e inicie a impressão.
-          </p>
+        <!-- PASSO 9 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/9.png" alt="Passo 9" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 09</div>
+            <h3>Selecionando Várias Peças</h3>
+            <p>Para selecionar o texto e a base ao mesmo tempo, clique em uma área vazia do plano azul, segure o botão esquerdo do mouse e <strong>arraste criando um retângulo</strong> que envolva as duas peças. Solte o botão.</p>
+            <p>A janela da direita deve mostrar <strong>"Shapes(2)"</strong>, confirmando que o programa reconheceu as duas peças. Com múltiplos objetos selecionados, você pode movê-los juntos ou agrupar.</p>
+            <div class="kbd-row">
+              <span class="kbd"><span class="key">Shift</span> + Clique para adicionar à seleção</span>
+              <span class="kbd"><span class="key">Esc</span> Limpar seleção</span>
+            </div>
+          </div>
         </div>
+
+        <!-- PASSO 10 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/10.png" alt="Passo 10" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 10</div>
+            <h3>Fixando o Texto na Base</h3>
+            <p>Esse passo é <strong>essencial</strong> para uma impressão sem erros. Precisamos "afundar" levemente o texto dentro da base para que os dois objetos se unam corretamente ao agrupar.</p>
+            <p>Clique apenas no texto "3D" para selecioná-lo. Procure a <strong>setinha preta em cone</strong> que flutua acima do objeto — ela controla a altura. Clique e arraste para baixo, abaixando o texto em aproximadamente <strong>–2,25 mm</strong>. Assim o texto fica com a base "cravada" no retângulo, criando um relevo firme e bem-definido.</p>
+            <div class="tip"><strong>⚠️ Importante:</strong> Se o texto ficar totalmente acima da base sem se sobrepor, o agrupamento não vai criar o relevo — as duas peças ficarão separadas na impressão.</div>
+          </div>
+        </div>
+
+        <!-- PASSO 11 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/11.png" alt="Passo 11" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 11</div>
+            <h3>Preparando o Furo do Chaveiro</h3>
+            <p>Volte ao painel lateral e arraste um <strong>Cilindro</strong> para o espaço vazio que deixamos no lado direito da base. Esse cilindro vai funcionar como um "molde" — no próximo passo vamos convertê-lo em um orifício para criar o furo da argola.</p>
+            <p>Por enquanto, qualquer cor está bem. O que importa é posicioná-lo sobre a área direita do retângulo vermelho, centralizado verticalmente.</p>
+          </div>
+        </div>
+
+        <!-- PASSO 12 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/12.png" alt="Passo 12" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 12</div>
+            <h3>Ajustando o Tamanho do Furo</h3>
+            <p>Com o cilindro selecionado, use os quadradinhos de escala para ajustar seu diâmetro. No nosso exemplo, deixamos com cerca de <strong>34,94 mm de largura</strong> — grande o suficiente para passar uma corda ou argola, mas sem deixar as bordas muito finas.</p>
+            <p>Uma boa regra prática: o espaço entre a borda do furo e a borda do chaveiro deve ter pelo menos <strong>4–5 mm</strong> para não quebrar facilmente.</p>
+            <div class="tip"><strong>💡 Dica:</strong> Se quiser um furo menor (só para cordinha fina), use um diâmetro de cerca de 8–10 mm. Para argola de metal padrão, 12–15 mm costuma funcionar melhor no tamanho final de 50%.</div>
+          </div>
+        </div>
+
+        <!-- PASSO 13 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/13.png" alt="Passo 13" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 13</div>
+            <h3>Atravessando o Cilindro</h3>
+            <p>Para o furo funcionar corretamente, o cilindro precisa <strong>atravessar completamente</strong> a base de cima para baixo. Use a setinha de altura (cone) ou os quadradinhos para aumentar a altura do cilindro até ele ultrapassar tanto o topo quanto o fundo do retângulo.</p>
+            <p>Visto de lado, o cilindro deve "vazar" acima e abaixo da base vermelha. Isso garante que o corte será limpo dos dois lados na hora do agrupamento.</p>
+          </div>
+        </div>
+
+        <!-- PASSO 14 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/14.png" alt="Passo 14" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 14</div>
+            <h3>Transformando em Orifício</h3>
+            <p>Com o cilindro selecionado, olhe a janelinha no canto superior direito. Você verá dois botões: <strong>"Sólido"</strong> e <strong>"Orifício"</strong>. Clique em <strong>"Orifício"</strong>.</p>
+            <p>O cilindro vai mudar de aparência — ficará <strong>transparente com listras</strong>, indicando que é um "molde negativo". Isso diz ao Tinkercad: "tudo que estiver dentro desse espaço será removido quando agrupar".</p>
+            <div class="tip"><strong>💡 Dica:</strong> Você pode usar a técnica de Orifício com qualquer forma — cubos, esferas, formas personalizadas. É a base para criar encaixes, ranhuras e recortes complexos.</div>
+          </div>
+        </div>
+
+        <!-- PASSO 15 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/15.png" alt="Passo 15" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 15</div>
+            <h3>Selecionando o Projeto Inteiro</h3>
+            <p>Agora vamos juntar tudo. Clique em uma área vazia do plano e <strong>arraste para criar uma seleção</strong> que envolva todas as peças: o retângulo vermelho, o texto e o cilindro transparente.</p>
+            <p>A janela de propriedades deve mostrar <strong>"Shapes(3)"</strong> — confirmando que as três peças estão selecionadas e prontas para o agrupamento.</p>
+            <div class="kbd-row">
+              <span class="kbd"><span class="key">Ctrl</span> + <span class="key">A</span> Selecionar tudo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASSO 16 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/16.png" alt="Passo 16" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 16</div>
+            <h3>O Agrupamento — A Mágica!</h3>
+            <p>Com tudo selecionado, clique no ícone <strong>"Agrupar"</strong> na barra superior da tela (parece dois quadradinhos se unindo). É aqui que acontece a mágica:</p>
+            <p>O texto é fundido com a base criando um relevo em 3D, e o cilindro transparente "corta" um furo limpo através da peça. O resultado é <strong>um objeto único</strong>, com nome em relevo e furo perfeitinho para a argola.</p>
+            <div class="kbd-row">
+              <span class="kbd"><span class="key">Ctrl</span> + <span class="key">G</span> Agrupar</span>
+              <span class="kbd"><span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">G</span> Desagrupar</span>
+            </div>
+            <div class="tip"><strong>💡 Dica:</strong> Se o resultado não ficou como esperado, use <span style="font-weight:700">Ctrl+Z</span> para desfazer, ajuste as peças e agrupe novamente. Você pode desagrupar (<span style="font-weight:700">Ctrl+Shift+G</span>) a qualquer momento para editar.</div>
+          </div>
+        </div>
+
+        <!-- PASSO 17 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/17.png" alt="Passo 17" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 17</div>
+            <h3>Preparando para Exportar</h3>
+            <p>Seu modelo está pronto! Agora precisamos salvá-lo em um formato que a impressora entenda. No canto superior direito da tela, clique no botão <strong>"Exportar"</strong>.</p>
+            <p>Antes de exportar, certifique-se de que o objeto está <strong>selecionado ou deselecionado conforme a opção</strong> que você vai escolher na janela: "Tudo no Design" exporta o projeto inteiro.</p>
+          </div>
+        </div>
+
+        <!-- PASSO 18 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/18.png" alt="Passo 18" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 18</div>
+            <h3>Escolhendo o Formato .STL</h3>
+            <p>Na janela de exportação, escolha a opção <strong>".STL"</strong>. Esse é o formato universal para impressão 3D — funciona com praticamente qualquer impressora e slicer do mercado. É como o "PDF" do mundo 3D.</p>
+            <p>Clique em "Download" e salve o arquivo em algum lugar fácil de encontrar, como a área de trabalho ou a pasta Downloads.</p>
+            <div class="tip"><strong>💡 Dica:</strong> O Tinkercad também exporta em <strong>.OBJ</strong> e <strong>.SVG</strong>, mas para impressão 3D use sempre o <strong>.STL</strong> — é o mais compatível.</div>
+          </div>
+        </div>
+
+        <!-- PASSO 19 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/19.png" alt="Passo 19" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 19</div>
+            <h3>Abrindo o Bambu Studio</h3>
+            <p>Com o arquivo .STL salvo, abra o <strong>Bambu Studio</strong> no seu computador. Esse é o software que vai "fatiar" (ou seja, dividir) o seu modelo em centenas de camadas finas e gerar as instruções exatas que a impressora vai seguir para construir o chaveiro de baixo para cima.</p>
+            <p>Se ainda não tiver instalado, baixe em <strong>bambulab.com/download/studio</strong>. O processo de instalação é simples como qualquer programa.</p>
+          </div>
+        </div>
+
+        <!-- PASSO 20 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/20.png" alt="Passo 20" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 20</div>
+            <h3>Criando Novo Projeto no Studio</h3>
+            <p>Com o Bambu Studio aberto, clique no botão verde <strong>"Criar Novo Projeto"</strong>. Uma nova janela vai abrir mostrando uma placa quadriculada — essa é a representação virtual da <strong>mesa real da impressora</strong>.</p>
+            <p>No painel esquerdo você já pode ver as configurações da máquina, como o modelo da impressora, o tipo de filamento (PLA) e o perfil de qualidade.</p>
+          </div>
+        </div>
+
+        <!-- PASSO 21 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/21.png" alt="Passo 21" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 21</div>
+            <h3>Importando o Arquivo STL</h3>
+            <p>Localize o arquivo <strong>.STL</strong> que você baixou do Tinkercad e <strong>arraste-o</strong> para o centro da mesa virtual no Bambu Studio. Ele vai aparecer na mesa — provavelmente bem grande no primeiro momento.</p>
+            <p>No painel esquerdo, confirme que o filamento está definido como <strong>PLA</strong> e que o perfil de qualidade está em <strong>"0.20 mm Standard"</strong> (boa qualidade com tempo razoável de impressão).</p>
+          </div>
+        </div>
+
+        <!-- PASSO 22 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/22.png" alt="Passo 22" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 22</div>
+            <h3>Ajustando para o Tamanho Real</h3>
+            <p>O modelo provavelmente veio grande demais para ser um chaveiro real. Clique na ferramenta de <strong>Escala</strong> na barra superior. Marque a opção <strong>"Escala uniforme"</strong> (para não distorcer a peça) e altere qualquer um dos eixos para <strong>50%</strong>.</p>
+            <p>O chaveiro vai encolher automaticamente para um tamanho real — cerca de <strong>6,5 cm</strong> de comprimento, perfeito para prender em uma chave.</p>
+            <div class="tip"><strong>💡 Dica:</strong> Se quiser um chaveiro maior ou menor, ajuste a porcentagem. 40% fica compacto, 60% fica maior e mais visível. Só lembre de verificar se ainda cabe na mesa da impressora.</div>
+          </div>
+        </div>
+
+        <!-- PASSO 23 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/23.png" alt="Passo 23" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 23</div>
+            <h3>Última Conferência</h3>
+            <p>Dê uma volta ao redor do seu chaveiro (usando os mesmos controles de mouse — botão direito para girar, rodinha para zoom) para verificar se está tudo certo: posição centrada na mesa, furo bem formado, letras em relevo visíveis.</p>
+            <p>Estando tudo certo, clique no botão verde <strong>"Fatiar mesa"</strong> no canto superior direito. O programa vai calcular todas as camadas e caminhos da impressora.</p>
+          </div>
+        </div>
+
+        <!-- PASSO 24 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/24.png" alt="Passo 24" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 24</div>
+            <h3>Visualizando as Camadas</h3>
+            <p>Após o fatiamento, a tela muda para a <strong>visualização de camadas</strong>. O chaveiro aparece em cores diferentes representando os percursos da impressora. Uma tabela mostra as estimativas:</p>
+            <p>⏱️ Tempo estimado: <strong>~17 minutos</strong><br />🧵 Filamento gasto: poucos gramas de PLA</p>
+            <p>Use as barrinhas laterais para deslizar camada por camada e ver exatamente como a impressora vai construir o chaveiro — de baixo para cima, linha por linha.</p>
+            <div class="tip"><strong>💡 Dica:</strong> Se o tempo parecer muito alto, tente mudar o perfil de qualidade para <strong>"0.28 mm Draft"</strong> — fica um pouco mais rústico, mas imprime mais rápido.</div>
+          </div>
+        </div>
+
+        <!-- PASSO 25 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/25.png" alt="Passo 25" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 25</div>
+            <h3>Exportando o Arquivo Final</h3>
+            <p>Tudo perfeito? Hora de gerar o arquivo final! No botão verde superior direito, clique na <strong>setinha ao lado</strong> e escolha a opção <strong>"Exportar arquivo fatiado em placas"</strong>.</p>
+            <p>O programa vai gerar um arquivo com extensão <strong>.3mf</strong> ou <strong>.gcode</strong> — esse é o arquivo de impressão definitivo, contendo todas as instruções para a máquina.</p>
+            <div class="tip"><strong>💡 Dica:</strong> Se a impressora estiver conectada à mesma rede Wi-Fi, você pode enviar diretamente pelo botão <strong>"Imprimir"</strong>, sem precisar baixar o arquivo. Muito conveniente!</div>
+          </div>
+        </div>
+
+        <!-- PASSO 26 -->
+        <div class="step-card">
+          <div class="step-image"><img src="assets/img/26.png" alt="Passo 26" /></div>
+          <div class="step-content">
+            <div class="step-number">PASSO 26</div>
+            <h3>Trabalho Concluído! 🎉</h3>
+            <p>O arquivo está pronto. Transfira-o para a impressora via <strong>Wi-Fi</strong>, <strong>cartão de memória</strong> ou <strong>cabo USB</strong> — e acompanhe o seu chaveiro sendo construído camada por camada na tela da máquina.</p>
+            <p>Em cerca de 17 minutos, você terá em mãos uma peça real, personalizada e criada do zero por você. Depois da impressão, basta passar uma lixa fina nas bordas se necessário, colocar a argola e usar!</p>
+            <div class="tip"><strong>🏆 Parabéns!</strong> Você acaba de completar todo o fluxo de modelagem e impressão 3D — do zero até o objeto físico. Agora experimente criar um segundo chaveiro com seu próprio nome, um símbolo ou uma forma diferente. O processo é o mesmo.</div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- NAVIGATION -->
-
+    <!-- NAVEGAÇÃO -->
     <section class="doc-navigation">
       <div class="nav-grid">
-        <a href="pos-impressao.html" class="nav-card reveal">
-          <span class="nav-label"> ← PÁGINA ANTERIOR </span>
-
+        <a href="pos-impressao.html" class="nav-card">
+          <span class="nav-label">← PÁGINA ANTERIOR</span>
           <h3>Pós Impressão</h3>
-
-          <p>
-            Aprenda técnicas de acabamento, lixamento e finalização profissional
-            das peças impressas.
-          </p>
+          <p>Aprenda técnicas de acabamento, lixamento e finalização profissional das peças impressas.</p>
         </a>
-
-        <a href="bambu-lab.html" class="nav-card reveal">
-          <span class="nav-label"> PRÓXIMA PÁGINA → </span>
-
+        <a href="bambu-lab.html" class="nav-card">
+          <span class="nav-label">PRÓXIMA PÁGINA →</span>
           <h3>Bambu Lab & Studio</h3>
-
-          <p>
-            Conheça o ecossistema da Bambu Lab e o software Bambu Studio para
-            impressão 3D.
-          </p>
+          <p>Conheça o ecossistema da Bambu Lab e o software utilizado para impressão 3D.</p>
         </a>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <div>
-        <strong>LabMaker IFC</strong><br />
-        Guia de Introdução à Impressão 3D
-      </div>
-
+      <div><strong>LabMaker IFC</strong><br />Guia de Introdução à Impressão 3D</div>
       <div>© 2026 • Projeto Educacional</div>
     </footer>
   </body>
