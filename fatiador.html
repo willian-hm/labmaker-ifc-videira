@@ -36,14 +36,14 @@
     }
 
     .logo {
-        font-size: 1.6rem;
-        font-weight: 800;
-        letter-spacing: -2px;
-      }
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
 
-      .logo span {
-        font-weight: 300; /* ou 400 se quiser menos diferença */
-      }
+    .logo span {
+      font-weight: 300;
+    }
 
     a{
       text-decoration:none;
@@ -60,76 +60,42 @@
     .bg-grid{
       position:fixed;
       inset:0;
-
       z-index:-2;
-
       background-image:
-      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
       background-size:40px 40px;
-
       mask-image:
-      radial-gradient(circle at center, black 35%, transparent 100%);
+        radial-gradient(circle at center, black 35%, transparent 100%);
     }
 
     .blur-circle{
       position:fixed;
-
       width:500px;
       height:500px;
-
       border-radius:50%;
-
       background:#00000010;
-
       filter:blur(120px);
-
       z-index:-1;
     }
 
-    .circle1{
-      top:-200px;
-      left:-100px;
-    }
-
-    .circle2{
-      bottom:-200px;
-      right:-100px;
-    }
+    .circle1{ top:-200px; left:-100px; }
+    .circle2{ bottom:-200px; right:-100px; }
 
     /* ===== NAV ===== */
 
     nav{
       position:fixed;
-      top:0;
-      left:0;
-
+      top:0; left:0;
       width:100%;
-
       padding:22px 8%;
-
       display:flex;
       justify-content:space-between;
       align-items:center;
-
       background:rgba(255,255,255,0.7);
-
       backdrop-filter:blur(12px);
-
       border-bottom:1px solid #eee;
-
       z-index:1000;
-    }
-
-    .logo{
-      font-size:1.6rem;
-      font-weight:800;
-      letter-spacing:-2px;
-    }
-
-    .logo span{
-      font-weight:300;
     }
 
     nav ul{
@@ -144,345 +110,325 @@
       font-weight:500;
     }
 
-    nav a:hover{
-      color:#666;
-    }
+    nav a:hover{ color:#666; }
 
     /* ===== HERO ===== */
 
     .doc-hero{
       min-height:95vh;
-
-      padding:
-      180px 8% 120px;
-
+      padding:180px 8% 120px;
       display:flex;
       align-items:center;
     }
 
-    .doc-hero-content{
-      max-width:850px;
-    }
+    .doc-hero-content{ max-width:850px; }
 
     .tag{
       display:inline-flex;
       align-items:center;
       gap:10px;
-
       padding:10px 18px;
-
       border:1px solid #e5e5e5;
       border-radius:999px;
-
       margin-bottom:35px;
-
       background:#fafafa;
-
       color:#666;
-
       font-size:0.9rem;
     }
 
     .mini-dot{
-      width:8px;
-      height:8px;
-
+      width:8px; height:8px;
       border-radius:50%;
-
       background:#111;
     }
 
     .doc-hero h1{
       font-size:6rem;
-
       line-height:0.92;
-
       letter-spacing:-5px;
-
       margin-bottom:30px;
     }
 
     .doc-hero p{
       font-size:1.2rem;
-
       line-height:1.9;
-
       color:#666;
-
       max-width:700px;
     }
 
     /* ===== SECTION ===== */
 
-    .doc-section{
-      padding:120px 8%;
-    }
+    .doc-section{ padding:120px 8%; }
 
     .doc-grid{
       display:grid;
-
-      grid-template-columns:
-      1.1fr 1fr;
-
+      grid-template-columns:1.1fr 1fr;
       gap:80px;
-
       align-items:center;
     }
 
+    .doc-grid.reverse{ direction:rtl; }
+    .doc-grid.reverse > *{ direction:ltr; }
+
     .doc-label{
       font-size:0.8rem;
-
       letter-spacing:2px;
-
       font-weight:700;
-
       color:#777;
     }
 
     .doc-text h2{
       font-size:4rem;
-
       line-height:1;
-
       letter-spacing:-3px;
-
-      margin:
-      20px 0 30px;
+      margin:20px 0 30px;
     }
 
     .doc-text p{
       font-size:1.05rem;
-
       line-height:1.9;
-
       color:#666;
-
       margin-bottom:20px;
     }
 
     .doc-visual img{
       width:100%;
       height:420px;
-
       object-fit:cover;
-
       border-radius:35px;
-
       border:1px solid #ececec;
-
-      box-shadow:
-      0 20px 60px rgba(0,0,0,0.08);
+      box-shadow:0 20px 60px rgba(0,0,0,0.08);
     }
 
-    /* ===== CARDS ===== */
-
-    .doc-cards-section{
-      padding:120px 8%;
+    .doc-visual img.auto-height{
+      height:auto;
+      min-height:300px;
     }
 
-    .section-header{
-      margin-bottom:70px;
-    }
+    /* ===== CARDS SECTION ===== */
+
+    .doc-cards-section{ padding:120px 8%; }
+
+    .section-header{ margin-bottom:70px; }
 
     .section-header h2{
       font-size:4rem;
-
       letter-spacing:-3px;
-
       margin-bottom:20px;
     }
 
     .section-header p{
       color:#666;
-
       line-height:1.8;
-
       max-width:700px;
     }
 
     .cards{
       display:grid;
-
-      grid-template-columns:
-      repeat(auto-fit,minmax(280px,1fr));
-
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
       gap:25px;
     }
 
     .card{
       padding:35px;
-
       border-radius:30px;
-
       background:#fafafa;
-
       border:1px solid #ececec;
-
       transition:0.4s;
-
       position:relative;
-
       overflow:hidden;
     }
 
     .card:hover{
       transform:translateY(-8px);
-
       background:white;
-
-      box-shadow:
-      0 15px 40px rgba(0,0,0,0.05);
+      box-shadow:0 15px 40px rgba(0,0,0,0.05);
     }
 
     .card::before{
       content:"";
-
       position:absolute;
-
-      width:200px;
-      height:200px;
-
+      width:200px; height:200px;
       border-radius:50%;
-
       background:#00000006;
-
-      top:-80px;
-      right:-80px;
-
+      top:-80px; right:-80px;
       filter:blur(50px);
     }
 
     .icon{
-      width:65px;
-      height:65px;
-
+      width:65px; height:65px;
       border-radius:20px;
-
       background:#111;
-
       color:white;
-
       display:flex;
       align-items:center;
       justify-content:center;
-
       font-size:1.5rem;
-
       margin-bottom:25px;
     }
 
     .card h3{
       font-size:1.6rem;
-
       margin-bottom:15px;
-
       letter-spacing:-1px;
     }
 
     .card p{
       color:#666;
-
       line-height:1.8;
+    }
+
+    /* ===== PILL BADGE ===== */
+
+    .pill{
+      display:inline-block;
+      font-size:0.72rem;
+      font-weight:700;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      padding:5px 13px;
+      border-radius:999px;
+      margin-bottom:18px;
+    }
+
+    .pill-easy{ background:#e6f9ee; color:#1a7a3c; }
+    .pill-medium{ background:#fff4e0; color:#a05e00; }
+    .pill-hard{ background:#fdeaea; color:#c0392b; }
+
+    /* ===== DETAIL SPLIT (velocidade) ===== */
+
+    .detail-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:25px;
+      margin-top:0;
+    }
+
+    .detail-card{
+      padding:35px;
+      border-radius:30px;
+      background:#fafafa;
+      border:1px solid #ececec;
+      transition:0.4s;
+    }
+
+    .detail-card:hover{
+      transform:translateY(-6px);
+      background:white;
+      box-shadow:0 15px 40px rgba(0,0,0,0.05);
+    }
+
+    .detail-card .detail-icon{
+      font-size:2rem;
+      margin-bottom:18px;
+    }
+
+    .detail-card h4{
+      font-size:1.4rem;
+      letter-spacing:-0.8px;
+      margin-bottom:14px;
+    }
+
+    .detail-card p{
+      color:#666;
+      line-height:1.8;
+      font-size:1rem;
     }
 
     /* ===== LIST ===== */
 
     .list-box{
       padding:40px;
-
       border-radius:35px;
-
       background:#fafafa;
-
       border:1px solid #ececec;
-
-      margin-top:35px;
     }
 
     .list-box h3{
       font-size:2rem;
-
       margin-bottom:25px;
-
       letter-spacing:-2px;
     }
 
-    .list-box ul{
-      padding-left:20px;
-    }
+    .list-box ul{ padding-left:20px; }
 
     .list-box li{
       color:#666;
-
       line-height:1.9;
-
       margin-bottom:15px;
+    }
+
+    /* ===== DARK CALLOUT ===== */
+
+    .callout{
+      padding:50px;
+      border-radius:35px;
+      background:#111;
+      color:#fff;
+      margin-top:0;
+    }
+
+    .callout .doc-label{ color:#666; }
+
+    .callout h2{
+      font-size:3.2rem;
+      line-height:1;
+      letter-spacing:-3px;
+      margin:18px 0 28px;
+      color:#fff;
+    }
+
+    .callout p{
+      font-size:1.05rem;
+      line-height:1.9;
+      color:rgba(255,255,255,0.55);
+      margin-bottom:16px;
+      max-width:680px;
     }
 
     /* ===== NAVIGATION ===== */
 
-    .doc-navigation{
-      padding:120px 8%;
-    }
+    .doc-navigation{ padding:120px 8%; }
 
     .nav-grid{
       display:grid;
-
       grid-template-columns:1fr 1fr;
-
       gap:25px;
     }
 
     .nav-card{
       padding:40px;
-
       border-radius:35px;
-
       background:#fafafa;
-
       border:1px solid #ececec;
-
       transition:.4s;
-
       position:relative;
-
       overflow:hidden;
     }
 
     .nav-card:hover{
       transform:translateY(-8px);
-
       background:white;
-
-      box-shadow:
-      0 15px 40px rgba(0,0,0,0.05);
+      box-shadow:0 15px 40px rgba(0,0,0,0.05);
     }
 
     .nav-label{
       font-size:0.85rem;
-
       color:#888;
-
       margin-bottom:20px;
-
       display:block;
-
       letter-spacing:1px;
-
       font-weight:700;
     }
 
     .nav-card h3{
       font-size:2rem;
-
       letter-spacing:-2px;
-
       margin-bottom:15px;
     }
 
     .nav-card p{
       color:#666;
-
       line-height:1.8;
     }
 
@@ -490,45 +436,38 @@
 
     footer{
       padding:70px 8%;
-
       border-top:1px solid #eee;
-
       display:flex;
       justify-content:space-between;
       flex-wrap:wrap;
-
       gap:20px;
-
       color:#666;
     }
 
-    /* ===== RESPONSIVO ===== */
+    /* ===== DIVIDER ===== */
+
+    .section-divider{
+      margin:0 8%;
+      border:none;
+      border-top:1px solid #eee;
+    }
+
+    /* ===== RESPONSIVE ===== */
 
     @media(max-width:1000px){
 
-      nav ul{
-        display:none;
-      }
+      nav ul{ display:none; }
 
-      .doc-grid{
-        grid-template-columns:1fr;
-      }
+      .doc-grid,
+      .doc-grid.reverse{ grid-template-columns:1fr; direction:ltr; }
 
-      .doc-hero h1{
-        font-size:4rem;
-      }
+      .doc-hero h1{ font-size:4rem; }
+      .doc-text h2{ font-size:3rem; }
+      .section-header h2{ font-size:3rem; }
+      .callout h2{ font-size:2.4rem; }
 
-      .doc-text h2{
-        font-size:3rem;
-      }
-
-      .section-header h2{
-        font-size:3rem;
-      }
-
-      .nav-grid{
-        grid-template-columns:1fr;
-      }
+      .nav-grid,
+      .detail-grid{ grid-template-columns:1fr; }
 
     }
 
@@ -539,7 +478,6 @@
 <body>
 
   <div class="bg-grid"></div>
-
   <div class="blur-circle circle1"></div>
   <div class="blur-circle circle2"></div>
 
@@ -547,402 +485,460 @@
 
   <nav>
     <a href="index.html">
-      <div class="logo">
-        Lab<span>Maker</span>
-      </div>
+      <div class="logo">Lab<span>Maker</span></div>
     </a>
     <ul>
       <li><a href="index.html">Início</a></li>
       <li><a href="documentacao.html">Documentação</a></li>
     </ul>
-
   </nav>
 
   <!-- HERO -->
 
   <section class="doc-hero reveal">
-
     <div class="doc-hero-content">
-
       <div class="tag">
-
         <div class="mini-dot"></div>
-
         Configuração • Slicer
-
       </div>
-
-      <h1>
-        Fatiador
-      </h1>
-
+      <h1>Fatiador</h1>
       <p>
-        Descubra como o slicer transforma
-        modelos 3D em instruções precisas
+        Do arquivo STL ao G-code: entenda como o slicer
+        transforma modelos 3D em instruções precisas
         para a impressora.
       </p>
-
     </div>
-
   </section>
 
-  <!-- SECTION -->
+  <!-- ① STL vs G-CODE -->
 
   <section class="doc-section">
-
     <div class="doc-grid">
 
       <div class="doc-text reveal">
-
-        <span class="doc-label">
-          PROCESSAMENTO
-        </span>
-
-        <h2>
-          O que ele faz?
-        </h2>
-
+        <span class="doc-label">ARQUIVOS</span>
+        <h2>STL e G-code</h2>
         <p>
-          O slicer divide o modelo em centenas
-          de camadas para criar trajetórias
-          compreensíveis pela impressora.
+          O <strong>STL</strong> é o formato padrão dos modelos digitais 3D —
+          uma estátua virtual feita de milhares de triângulos. Ele descreve
+          "qual é o formato" da peça, mas não diz como fabricá-la.
         </p>
-
         <p>
-          Ele define velocidades, temperaturas,
-          suportes e o caminho do bico de extrusão.
+          O <strong>G-code</strong> é o idioma mecânico que a impressora
+          entende. Como coordenadas de GPS, ele instrui a máquina:
+          "mova-se para a direita, solte plástico, suba um milímetro".
         </p>
-
         <p>
-          No final, tudo é convertido em um
-          arquivo .gcode.
+          O slicer é a ponte entre os dois: corta o modelo em centenas
+          de fatias finas, planeja a rota do bico para cada uma e salva
+          tudo no arquivo .gcode.
         </p>
-
       </div>
 
       <div class="doc-visual reveal">
-
-        <img
-          src="https://i.all3dp.com/workers/images/fit=scale-down,w=1200,quality=79,gravity=0.5x0.5,format=auto/wp-content/uploads/2023/03/13221913/OrcaSlicer-interface.png"
-          alt="Software slicer"
-        >
-
+        <img src="assets/img/image.png" alt="STL (modelo 3D) sendo convertido em G-code para impressão">
       </div>
 
     </div>
-
   </section>
 
-  <!-- SOFTWARES -->
+  <hr class="section-divider">
+
+  <!-- ② O QUE O SLICER FAZ -->
+
+  <section class="doc-section">
+    <div class="doc-grid reverse">
+
+      <div class="doc-text reveal">
+        <span class="doc-label">PROCESSAMENTO</span>
+        <h2>O que ele faz?</h2>
+        <p>
+          O slicer divide o modelo em centenas de camadas horizontais
+          finas e cria trajetórias compreensíveis pela impressora.
+        </p>
+        <p>
+          Ele define velocidades, temperaturas, suportes e o caminho
+          exato do bico de extrusão — tudo antes de gerar o .gcode.
+        </p>
+        <p>
+          Mas antes de terminar, você precisa escolher as configurações
+          da peça. A seguir, conheça as mais importantes.
+        </p>
+      </div>
+
+      <div class="doc-visual reveal">
+        <img
+          src="https://i.all3dp.com/workers/images/fit=scale-down,w=1200,quality=79,gravity=0.5x0.5,format=auto/wp-content/uploads/2023/03/13221913/OrcaSlicer-interface.png"
+          alt="Interface do software slicer OrcaSlicer"
+        >
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ③ SOFTWARES -->
 
   <section class="doc-cards-section">
 
     <div class="section-header reveal">
-
-      <h2>
-        Softwares de Fatiamento
-      </h2>
-
+      <h2>Softwares de Fatiamento</h2>
       <p>
-        Existem diversas ferramentas para
-        preparar modelos para impressão 3D.
+        Existem diversas ferramentas para preparar
+        modelos para impressão 3D. Estas são as mais usadas.
       </p>
-
     </div>
 
     <div class="cards">
 
       <div class="card reveal">
-
         <div class="icon">🟢</div>
-
         <h3>Bambu Studio</h3>
-
         <p>
           Interface moderna, rápida e otimizada
           para impressoras Bambu Lab.
         </p>
-
       </div>
 
       <div class="card reveal">
-
         <div class="icon">🟠</div>
-
         <h3>Ultimaker Cura</h3>
-
         <p>
-          Um dos slicers mais populares
-          da comunidade maker.
+          Um dos slicers mais populares e com maior
+          comunidade no mundo maker.
         </p>
-
       </div>
 
       <div class="card reveal">
-
         <div class="icon">⚙️</div>
-
         <h3>PrusaSlicer</h3>
-
         <p>
           Open-source, poderoso e altamente
           configurável para usuários avançados.
         </p>
-
       </div>
 
     </div>
 
   </section>
 
-  <!-- CONFIG -->
+  <hr class="section-divider">
 
-  <section class="doc-section">
+  <!-- ④ FILAMENTOS -->
+
+  <section class="doc-cards-section">
 
     <div class="section-header reveal">
-
-      <h2>
-        Principais Configurações
-      </h2>
-
+      <h2>Tipos de Filamento</h2>
       <p>
-        Os parâmetros do slicer influenciam
-        diretamente qualidade, resistência
-        e tempo de impressão.
+        A "tinta" da impressora 3D é um fio de plástico em carretel chamado
+        filamento. Cada material derrete e se comporta de forma diferente.
       </p>
-
     </div>
 
     <div class="cards">
 
       <div class="card reveal">
-
-        <h3>Layer Height</h3>
-
+        <span class="pill pill-easy">MUITO FÁCIL</span>
+        <h3>PLA</h3>
         <p>
-          Define a altura das camadas.
-          Camadas menores geram mais detalhes.
+          <strong>190–210 °C bico &nbsp;•&nbsp; 50–60 °C mesa</strong>
         </p>
-
+        <p>
+          Feito de fontes renováveis (como amido de milho). Sem cheiro
+          forte, gruda bem na mesa e não exige impressora fechada.
+          A escolha obrigatória para iniciantes e peças decorativas.
+        </p>
       </div>
 
       <div class="card reveal">
-
-        <h3>Infill</h3>
-
+        <span class="pill pill-medium">MÉDIO</span>
+        <h3>PETG</h3>
         <p>
-          Controla a densidade interna
-          e a resistência da peça.
+          <strong>220–240 °C bico &nbsp;•&nbsp; 70–80 °C mesa</strong>
         </p>
-
+        <p>
+          O meio-termo: mais forte que o PLA e não encolhe tanto
+          quanto o ABS. Muito versátil para peças do dia a dia
+          que precisam de alguma resistência.
+        </p>
       </div>
 
       <div class="card reveal">
-
-        <h3>Retraction</h3>
-
+        <span class="pill pill-hard">DIFÍCIL</span>
+        <h3>ABS</h3>
         <p>
-          Evita fios indesejados durante
-          movimentos sem extrusão.
+          <strong>240–260 °C bico &nbsp;•&nbsp; 90–110 °C mesa</strong>
         </p>
-
+        <p>
+          Alta resistência térmica e mecânica — o mesmo plástico
+          das peças de Lego. Exige impressora fechada pois encolhe
+          e deforma com qualquer corrente de ar.
+        </p>
       </div>
 
     </div>
 
   </section>
 
-  <!-- MATERIAIS -->
+  <hr class="section-divider">
+
+  <!-- ⑤ TEMPERATURA -->
 
   <section class="doc-section">
+    <div class="doc-grid">
+
+      <div class="doc-text reveal">
+        <span class="doc-label">CALOR</span>
+        <h2>Temperatura</h2>
+        <p>
+          Para transformar o filamento sólido em algo moldável,
+          precisamos de calor em dois pontos distintos:
+        </p>
+        <p>
+          <strong>Bico (Nozzle):</strong> a "caneta quente" que derrete o
+          plástico. Para PLA, gira em torno de 200 °C. Frio demais trava
+          o filamento; quente demais escorre e destrói detalhes finos.
+        </p>
+        <p>
+          <strong>Mesa (Bed):</strong> a placa base onde o objeto é
+          construído. Mantê-la aquecida (~60 °C para PLA) garante que
+          a primeira camada cole bem e a peça não descole durante
+          a impressão.
+        </p>
+      </div>
+
+      <div class="doc-visual reveal">
+        <img src="assets/img/image1.png" alt="Diagrama de temperatura do bico e da mesa da impressora 3D">
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑥ CONFIGURAÇÕES PRINCIPAIS -->
+
+  <section class="doc-cards-section">
 
     <div class="section-header reveal">
-
-      <h2>
-        Configurações por Material
-      </h2>
-
+      <h2>Principais Configurações</h2>
+      <p>
+        Os parâmetros do slicer influenciam diretamente
+        qualidade, resistência e tempo de impressão.
+      </p>
     </div>
 
     <div class="cards">
 
       <div class="card reveal">
-
-        <h3>PLA</h3>
-
+        <h3>Layer Height</h3>
         <p>
-          190-210°C • Base 50-60°C •
-          Fácil de imprimir e ideal para iniciantes.
+          Define a altura de cada camada. Camadas menores
+          geram mais detalhes e acabamento mais suave,
+          mas aumentam o tempo de impressão.
         </p>
-
       </div>
 
       <div class="card reveal">
-
-        <h3>PETG</h3>
-
+        <h3>Paredes</h3>
         <p>
-          220-240°C • Base 70-80°C •
-          Material resistente e flexível.
+          Definem a casca externa do objeto. O recomendado é
+          <strong>2 a 3 paredes</strong> para objetos normais. Mais
+          paredes = peça mais resistente, porém mais material e tempo.
         </p>
-
       </div>
 
       <div class="card reveal">
-
-        <h3>ABS</h3>
-
+        <h3>Retraction</h3>
         <p>
-          240-260°C • Base 90-110°C •
-          Alta resistência térmica e mecânica.
+          Evita fios indesejados durante movimentos sem extrusão,
+          puxando o filamento de volta para dentro do bico.
         </p>
-
       </div>
 
     </div>
 
   </section>
 
-  <!-- FUNÇÕES -->
+  <hr class="section-divider">
+
+  <!-- ⑦ INFILL -->
 
   <section class="doc-section">
+    <div class="doc-grid reverse">
 
-    <div class="list-box reveal">
+      <div class="doc-text reveal">
+        <span class="doc-label">INFILL</span>
+        <h2>Preen&shy;chimento</h2>
+        <p>
+          Quase nenhuma peça é sólida por dentro. Fazer objetos 100%
+          preenchidos gasta plástico à toa e pode levar dias. Em vez
+          disso, o slicer cria uma estrutura geométrica interna — o infill.
+        </p>
+        <p>
+          <strong>Densidade:</strong> 15–20 % para decoração;
+          40–50 % para peças que suportam peso.
+        </p>
+        <p>
+          <strong>Padrões:</strong> Grade (Grid) forma quadrados simples e
+          rápidos. Giroide (Gyroid) usa ondas que distribuem a força
+          uniformemente em todas as direções.
+        </p>
+      </div>
 
-      <h3>
-        Funções do Slicer
-      </h3>
+      <div class="doc-visual reveal">
+        <img
+          class="auto-height"
+          src="assets/img/image2.png"
+          alt="Comparativo de densidade de preenchimento: 10%, 30% e 80%"
+        >
+      </div>
 
-      <ul>
+    </div>
+  </section>
 
-        <li>
-          Divide o modelo em camadas.
-        </li>
+  <hr class="section-divider">
 
-        <li>
-          Gera trajetórias para impressão.
-        </li>
+  <!-- ⑧ SUPORTES -->
 
-        <li>
-          Calcula tempo e uso de material.
-        </li>
+  <section class="doc-section">
+    <div class="doc-grid">
 
-        <li>
-          Adiciona suportes automaticamente.
-        </li>
+      <div class="doc-text reveal">
+        <span class="doc-label">SUPORTES</span>
+        <h2>Supports</h2>
+        <p>
+          A impressora não consegue depositar plástico solto no ar —
+          ela precisa sempre apoiar o material sobre a camada anterior.
+        </p>
+        <p>
+          Ao ativar "Suportes", o fatiador detecta automaticamente as
+          partes suspensas e cria andaimes finos abaixo delas.
+          Ao final da impressão, basta arrancar e descartar essa
+          estrutura com as mãos ou um alicate.
+        </p>
+      </div>
 
-        <li>
-          Cria o arquivo .gcode.
-        </li>
+      <div class="doc-visual reveal">
+        <img src="assets/img/image3.png" alt="Suportes sendo removidos de uma peça impressa em 3D">
+      </div>
 
-      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑨ VELOCIDADE -->
+
+  <section class="doc-cards-section">
+
+    <div class="section-header reveal">
+      <h2>Velocidade de Impressão</h2>
+      <p>
+        Medida em milímetros por segundo (mm/s), define quão rápido
+        os motores movem a cabeça de impressão.
+      </p>
+    </div>
+
+    <div class="detail-grid reveal">
+
+      <div class="detail-card">
+        <div class="detail-icon">⚡</div>
+        <h4>Alta Velocidade</h4>
+        <p>
+          Você ganha tempo, mas a impressora treme mais. Pode causar
+          perda de detalhes nas quinas, "fantasmas" (vibrações na parede)
+          e risco da peça descolar da mesa.
+        </p>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-icon">🎯</div>
+        <h4>Baixa Velocidade</h4>
+        <p>
+          Exige paciência, mas a impressora trabalha com delicadeza.
+          Garante acabamento impecável, paredes lisas e
+          quinas bem definidas.
+        </p>
+      </div>
 
     </div>
 
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ⑩ FUNÇÕES / RESUMO -->
+
+  <section class="doc-section">
+    <div class="list-box reveal">
+      <h3>Funções do Slicer</h3>
+      <ul>
+        <li>Converte o modelo STL em centenas de camadas horizontais finas.</li>
+        <li>Gera as trajetórias do bico de extrusão para cada camada.</li>
+        <li>Calcula tempo estimado de impressão e consumo de filamento.</li>
+        <li>Adiciona suportes automaticamente nas regiões suspensas.</li>
+        <li>Aplica configurações de temperatura, paredes, infill e velocidade.</li>
+        <li>Exporta o arquivo .gcode pronto para enviar à impressora.</li>
+      </ul>
+    </div>
   </section>
 
   <!-- NAVIGATION -->
 
   <section class="doc-navigation">
-
     <div class="nav-grid">
 
       <a href="desenho-3d.html" class="nav-card reveal">
-
-        <span class="nav-label">
-          ← PÁGINA ANTERIOR
-        </span>
-
-        <h3>
-          Desenho 3D
-        </h3>
-
-        <p>
-          Aprenda sobre modelagem
-          e criação de arquivos 3D.
-        </p>
-
+        <span class="nav-label">← PÁGINA ANTERIOR</span>
+        <h3>Desenho 3D</h3>
+        <p>Aprenda sobre modelagem e criação de arquivos 3D.</p>
       </a>
 
       <a href="gcode.html" class="nav-card reveal">
-
-        <span class="nav-label">
-          PRÓXIMA PÁGINA →
-        </span>
-
-        <h3>
-          G-code
-        </h3>
-
-        <p>
-          Entenda as instruções que
-          controlam a impressora.
-        </p>
-
+        <span class="nav-label">PRÓXIMA PÁGINA →</span>
+        <h3>G-code</h3>
+        <p>Entenda as instruções que controlam a impressora.</p>
       </a>
 
     </div>
-
   </section>
 
   <!-- FOOTER -->
 
   <footer>
-
     <div>
       <strong>LabMaker IFC</strong><br>
       Sala G02 • IFC Videira
     </div>
-
-    <div>
-      © 2026 • Laboratório Maker
-    </div>
-
+    <div>© 2026 • Laboratório Maker</div>
   </footer>
 
   <!-- ANIMATION -->
 
   <script>
 
-    const elements =
-    document.querySelectorAll(
-      '.reveal'
-    );
+    const elements = document.querySelectorAll('.reveal');
 
-    const observer =
-    new IntersectionObserver(entries => {
-
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-
         if(entry.isIntersecting){
-
           entry.target.style.opacity = '1';
-
-          entry.target.style.transform =
-          'translateY(0px)';
-
+          entry.target.style.transform = 'translateY(0px)';
         }
-
       });
-
     });
 
     elements.forEach(el => {
-
       el.style.opacity = '0';
-
-      el.style.transform =
-      'translateY(40px)';
-
-      el.style.transition =
-      '0.9s ease';
-
+      el.style.transform = 'translateY(40px)';
+      el.style.transition = '0.9s ease';
       observer.observe(el);
-
     });
 
   </script>
 
 </body>
-
 </html>
