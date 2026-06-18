@@ -3,812 +3,668 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Filamentos • LabMaker IFC</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: "Inter", sans-serif;
-        background: #fff;
-        color: #111;
-        overflow-x: hidden;
-      }
-
-      .logo {
-        font-size: 1.6rem;
-        font-weight: 800;
-        letter-spacing: -2px;
-      }
-
-      .logo span {
-        font-weight: 300; /* ou 400 se quiser menos diferença */
-      }
-
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
-
-      img {
-        max-width: 100%;
-        display: block;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: "Inter", sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+      a { text-decoration: none; color: inherit; }
+      img { max-width: 100%; display: block; }
 
       .bg-grid {
-        position: fixed;
-        inset: 0;
-
-        z-index: -2;
-
-        background-image:
-          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-
+        position: fixed; inset: 0; z-index: -2;
+        background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
         background-size: 40px 40px;
-
-        mask-image: radial-gradient(
-          circle at center,
-          black 35%,
-          transparent 100%
-        );
+        mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
       }
-
-      .blur-circle {
-        position: fixed;
-
-        width: 500px;
-        height: 500px;
-
-        border-radius: 50%;
-
-        background: #00000010;
-
-        filter: blur(120px);
-
-        z-index: -1;
-      }
-
-      .circle1 {
-        top: -200px;
-        left: -100px;
-      }
-
-      .circle2 {
-        bottom: -200px;
-        right: -100px;
-      }
+      .blur-circle { position: fixed; width: 500px; height: 500px; border-radius: 50%; background: #00000010; filter: blur(120px); z-index: -1; }
+      .circle1 { top: -200px; left: -100px; }
+      .circle2 { bottom: -200px; right: -100px; }
 
       nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-
-        width: 100%;
-
+        position: fixed; top: 0; left: 0; width: 100%;
         padding: 22px 8%;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        background: rgba(255, 255, 255, 0.7);
-
-        backdrop-filter: blur(12px);
-
-        border-bottom: 1px solid #eee;
-
-        z-index: 1000;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(255,255,255,0.7); backdrop-filter: blur(12px);
+        border-bottom: 1px solid #eee; z-index: 1000;
       }
+      .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: -2px; }
+      .logo span { font-weight: 300; }
+      nav ul { display: flex; gap: 35px; list-style: none; }
+      nav a { color: #111; transition: 0.3s; font-weight: 500; }
+      nav a:hover { color: #666; }
 
-      .logo {
-        font-size: 1.6rem;
-        font-weight: 800;
-        letter-spacing: -2px;
-      }
-
-      .logo span {
-        font-weight: 300;
-      }
-
-      nav ul {
-        display: flex;
-        gap: 35px;
-        list-style: none;
-      }
-
-      nav a {
-        color: #111;
-        transition: 0.3s;
-        font-weight: 500;
-      }
-
-      nav a:hover {
-        color: #666;
-      }
-
-      .doc-hero {
-        min-height: 95vh;
-
-        padding: 180px 8% 120px;
-
-        display: flex;
-        align-items: center;
-      }
-
-      .doc-hero-content {
-        max-width: 850px;
-      }
-
+      /* ── HERO ── */
+      .doc-hero { min-height: 95vh; padding: 180px 8% 120px; display: flex; align-items: center; }
+      .doc-hero-content { max-width: 850px; }
       .tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-
-        padding: 10px 18px;
-
-        border: 1px solid #e5e5e5;
-        border-radius: 999px;
-
-        margin-bottom: 35px;
-
-        background: #fafafa;
-
-        color: #666;
-
-        font-size: 0.9rem;
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 10px 18px; border: 1px solid #e5e5e5; border-radius: 999px;
+        margin-bottom: 35px; background: #fafafa; color: #666; font-size: 0.9rem;
       }
+      .mini-dot { width: 8px; height: 8px; border-radius: 50%; background: #111; }
+      .doc-hero h1 { font-size: 6rem; line-height: 0.92; letter-spacing: -5px; margin-bottom: 30px; }
+      .doc-hero p { font-size: 1.2rem; line-height: 1.9; color: #666; max-width: 700px; }
 
-      .mini-dot {
-        width: 8px;
-        height: 8px;
+      /* ── INTRO GRID ── */
+      .doc-section { padding: 120px 8%; }
+      .doc-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+      .doc-label { font-size: 0.8rem; letter-spacing: 2px; font-weight: 700; color: #777; }
+      .doc-text h2 { font-size: 4rem; line-height: 1; letter-spacing: -3px; margin: 20px 0 30px; }
+      .doc-text p { font-size: 1.05rem; line-height: 1.9; color: #666; margin-bottom: 20px; }
+      .doc-visual img { width: 100%; height: 500px; object-fit: cover; border-radius: 35px; border: 1px solid #ececec; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
 
-        border-radius: 50%;
-
-        background: #111;
-      }
-
-      .doc-hero h1 {
-        font-size: 6rem;
-
-        line-height: 0.92;
-
-        letter-spacing: -5px;
-
-        margin-bottom: 30px;
-      }
-
-      .doc-hero p {
-        font-size: 1.2rem;
-
-        line-height: 1.9;
-
-        color: #666;
-
-        max-width: 700px;
-      }
-
-      .doc-section {
-        padding: 120px 8%;
-      }
-
-      .doc-grid {
-        display: grid;
-
-        grid-template-columns: 1.1fr 1fr;
-
-        gap: 80px;
-
-        align-items: center;
-      }
-
-      .doc-label {
-        font-size: 0.8rem;
-
-        letter-spacing: 2px;
-
-        font-weight: 700;
-
-        color: #777;
-      }
-
-      .doc-text h2 {
-        font-size: 4rem;
-
-        line-height: 1;
-
-        letter-spacing: -3px;
-
-        margin: 20px 0 30px;
-      }
-
-      .doc-text p {
-        font-size: 1.05rem;
-
-        line-height: 1.9;
-
-        color: #666;
-
-        margin-bottom: 20px;
-      }
-
-      .doc-visual img {
-        width: 100%;
-        height: 500px;
-
-        object-fit: cover;
-
-        border-radius: 35px;
-
-        border: 1px solid #ececec;
-
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-      }
-
-      .cards-section {
-        padding: 120px 8%;
-      }
-
-      .section-header {
-        margin-bottom: 70px;
-      }
-
-      .section-header h2 {
-        font-size: 4rem;
-
-        letter-spacing: -3px;
-
-        margin-bottom: 20px;
-      }
-
-      .section-header p {
-        color: #666;
-
-        line-height: 1.8;
-
-        max-width: 700px;
-      }
-
-      .cards {
-        display: grid;
-
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
-        gap: 25px;
-      }
-
+      /* ── CARDS ── */
+      .cards-section { padding: 120px 8%; }
+      .section-header { margin-bottom: 70px; }
+      .section-header h2 { font-size: 4rem; letter-spacing: -3px; margin-bottom: 20px; }
+      .section-header p { color: #666; line-height: 1.8; max-width: 700px; }
+      .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
       .card {
-        padding: 35px;
-
-        border-radius: 30px;
-
-        background: #fafafa;
-
-        border: 1px solid #ececec;
-
-        transition: 0.4s;
-
-        position: relative;
-
-        overflow: hidden;
+        padding: 35px; border-radius: 30px; background: #fafafa; border: 1px solid #ececec;
+        transition: 0.4s; position: relative; overflow: hidden;
       }
-
-      .card:hover {
-        transform: translateY(-8px);
-
-        background: white;
-
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
-      }
-
-      .icon {
-        width: 65px;
-        height: 65px;
-
-        border-radius: 20px;
-
-        background: #111;
-
-        color: white;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 1.5rem;
-
-        margin-bottom: 25px;
-      }
-
-      .card h3 {
-        font-size: 1.6rem;
-
-        margin-bottom: 15px;
-
-        letter-spacing: -1px;
-      }
-
-      .card p {
-        color: #666;
-
-        line-height: 1.8;
-      }
-
-      .table-section {
-        padding: 120px 8%;
-      }
-
-      table {
-        width: 100%;
-
-        border-collapse: collapse;
-
-        background: #fafafa;
-
-        border-radius: 30px;
-
-        overflow: hidden;
-
-        border: 1px solid #ececec;
-      }
-
-      th {
-        text-align: left;
-
-        padding: 24px;
-
-        background: #111;
-
-        color: white;
-
-        font-size: 0.95rem;
-      }
-
-      td {
-        padding: 24px;
-
-        border-top: 1px solid #e8e8e8;
-
-        color: #666;
-
-        line-height: 1.7;
-      }
-
-      .tips-section {
-        padding: 120px 8%;
-      }
-
-      .tips-grid {
-        display: grid;
-
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-
-        gap: 25px;
-      }
-
-      .tip-box {
-        padding: 40px;
-
-        border-radius: 35px;
-
-        background: #fafafa;
-
-        border: 1px solid #ececec;
-      }
-
-      .tip-box h3 {
-        font-size: 2rem;
-
-        margin-bottom: 25px;
-
-        letter-spacing: -2px;
-      }
-
-      .tip-box ul {
-        padding-left: 20px;
-      }
-
-      .tip-box li {
-        color: #666;
-
-        line-height: 1.9;
-
-        margin-bottom: 12px;
-      }
-
-      .doc-navigation {
-        padding: 120px 8%;
-      }
-
-      .nav-grid {
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-
-        gap: 25px;
-      }
-
-      .nav-card {
-        padding: 40px;
-
-        border-radius: 35px;
-
-        background: #fafafa;
-
-        border: 1px solid #ececec;
-
-        transition: 0.4s;
-      }
-
-      .nav-card:hover {
-        transform: translateY(-8px);
-
-        background: white;
-
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
-      }
-
-      .nav-label {
-        font-size: 0.85rem;
-
-        color: #888;
-
-        margin-bottom: 20px;
-
-        display: block;
-
-        letter-spacing: 1px;
-
-        font-weight: 700;
-      }
-
-      .nav-card h3 {
-        font-size: 2rem;
-
-        letter-spacing: -2px;
-
-        margin-bottom: 15px;
-      }
-
-      .nav-card p {
-        color: #666;
-
-        line-height: 1.8;
-      }
-
-      footer {
-        padding: 70px 8%;
-
-        border-top: 1px solid #eee;
-
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        gap: 20px;
-
-        color: #666;
-      }
+      .card:hover { transform: translateY(-8px); background: white; box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
+      .icon { width: 65px; height: 65px; border-radius: 20px; background: #111; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 25px; }
+      .card h3 { font-size: 1.6rem; margin-bottom: 15px; letter-spacing: -1px; }
+      .card p { color: #666; line-height: 1.8; }
+      .card .card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+      .card-tag { font-size: 0.78rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; background: #f0f0f0; color: #444; letter-spacing: 0.5px; }
+      .card-tag.green { background: #e8f5e9; color: #2e7d32; }
+      .card-tag.blue  { background: #e3f2fd; color: #1565c0; }
+      .card-tag.red   { background: #fce4ec; color: #b71c1c; }
+      .card-tag.amber { background: #fff8e1; color: #e65100; }
+
+      /* ── DETAIL CARDS (pros/cons) ── */
+      .detail-section { padding: 0 8% 120px; }
+      .detail-section .section-header { margin-bottom: 50px; }
+      .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; }
+      .detail-card { padding: 40px; border-radius: 30px; background: #fafafa; border: 1px solid #ececec; }
+      .detail-card h3 { font-size: 1.8rem; letter-spacing: -1.5px; margin-bottom: 8px; }
+      .detail-card .subtitle { font-size: 0.9rem; color: #888; margin-bottom: 25px; }
+      .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+      .pros h4, .cons h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: #777; margin-bottom: 12px; text-transform: uppercase; }
+      .pros ul, .cons ul { list-style: none; }
+      .pros li, .cons li { font-size: 0.92rem; color: #555; line-height: 1.7; padding-left: 16px; position: relative; margin-bottom: 6px; }
+      .pros li::before { content: "+"; position: absolute; left: 0; color: #2e7d32; font-weight: 700; }
+      .cons li::before { content: "–"; position: absolute; left: 0; color: #b71c1c; font-weight: 700; }
+      .temp-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+      .temp-pill { font-size: 0.8rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: #111; color: #fff; }
+      .temp-pill.light { background: #f0f0f0; color: #333; }
+
+      /* ── TABLE ── */
+      .table-section { padding: 120px 8%; }
+      table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 30px; overflow: hidden; border: 1px solid #ececec; }
+      th { text-align: left; padding: 24px; background: #111; color: white; font-size: 0.95rem; }
+      td { padding: 20px 24px; border-top: 1px solid #e8e8e8; color: #666; line-height: 1.7; font-size: 0.95rem; }
+      td:first-child { font-weight: 600; color: #111; }
+
+      /* ── BRANDS SECTION ── */
+      .brands-section { padding: 120px 8%; background: #fafafa; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+      .brands-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+      .brand-card { padding: 45px; border-radius: 35px; background: white; border: 1px solid #ececec; }
+      .brand-card h3 { font-size: 2.2rem; letter-spacing: -2px; margin-bottom: 12px; }
+      .brand-card .brand-sub { color: #888; font-size: 0.95rem; margin-bottom: 25px; }
+      .brand-card p { color: #666; line-height: 1.8; font-size: 1rem; }
+      .brand-list { margin-top: 25px; display: flex; flex-wrap: wrap; gap: 8px; }
+      .brand-pill { font-size: 0.82rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: #111; color: white; }
+
+      /* ── TIPS ── */
+      .tips-section { padding: 120px 8%; }
+      .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+      .tip-box { padding: 40px; border-radius: 35px; background: #fafafa; border: 1px solid #ececec; }
+      .tip-box h3 { font-size: 2rem; margin-bottom: 25px; letter-spacing: -2px; }
+      .tip-box ul { padding-left: 20px; }
+      .tip-box li { color: #666; line-height: 1.9; margin-bottom: 12px; }
+
+      /* ── NAVIGATION ── */
+      .doc-navigation { padding: 120px 8%; }
+      .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+      .nav-card { padding: 40px; border-radius: 35px; background: #fafafa; border: 1px solid #ececec; transition: 0.4s; }
+      .nav-card:hover { transform: translateY(-8px); background: white; box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
+      .nav-label { font-size: 0.85rem; color: #888; margin-bottom: 20px; display: block; letter-spacing: 1px; font-weight: 700; }
+      .nav-card h3 { font-size: 2rem; letter-spacing: -2px; margin-bottom: 15px; }
+      .nav-card p { color: #666; line-height: 1.8; }
+
+      footer { padding: 70px 8%; border-top: 1px solid #eee; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; color: #666; }
 
       @media (max-width: 1000px) {
-        nav ul {
-          display: none;
-        }
-
-        .doc-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .doc-hero h1 {
-          font-size: 4rem;
-        }
-
-        .doc-text h2,
-        .section-header h2 {
-          font-size: 3rem;
-        }
-
-        .nav-grid {
-          grid-template-columns: 1fr;
-        }
-
-        table {
-          display: block;
-          overflow-x: auto;
-        }
+        nav ul { display: none; }
+        .doc-grid, .brands-grid { grid-template-columns: 1fr; }
+        .doc-hero h1 { font-size: 4rem; }
+        .doc-text h2, .section-header h2 { font-size: 3rem; }
+        .nav-grid { grid-template-columns: 1fr; }
+        table { display: block; overflow-x: auto; }
+        .pros-cons { grid-template-columns: 1fr; }
       }
     </style>
   </head>
-
   <body>
     <div class="bg-grid"></div>
-
     <div class="blur-circle circle1"></div>
     <div class="blur-circle circle2"></div>
 
     <nav>
-      <a href="index.html">
-        <div class="logo">Lab<span>Maker</span></div>
-      </a>
+      <a href="index.html"><div class="logo">Lab<span>Maker</span></div></a>
       <ul>
         <li><a href="index.html">Início</a></li>
         <li><a href="documentacao.html">Documentação</a></li>
       </ul>
     </nav>
 
+    <!-- HERO -->
     <section class="doc-hero reveal">
       <div class="doc-hero-content">
         <div class="tag">
           <div class="mini-dot"></div>
-
           Materiais • Filamentos
         </div>
-
-        <h1>
-          Filamentos<br />
-          para Impressão 3D
-        </h1>
-
+        <h1>Filamentos<br />para Impressão 3D</h1>
         <p>
           Conheça os materiais mais utilizados na impressão 3D e descubra como
           cada filamento influencia resistência, acabamento e qualidade final.
+          De PLA a filamentos de engenharia — escolha o certo para cada projeto.
         </p>
       </div>
     </section>
 
+    <!-- INTRO -->
     <section class="doc-section">
       <div class="doc-grid">
         <div class="doc-text reveal">
-          <span class="doc-label"> MATERIAIS </span>
-
+          <span class="doc-label">MATERIAIS</span>
           <h2>Escolha o material certo</h2>
-
           <p>
-            Cada filamento possui propriedades específicas de resistência,
-            flexibilidade e temperatura.
+            Filamentos são a matéria-prima da impressão 3D FDM. Cada material
+            possui propriedades distintas de resistência, flexibilidade e
+            temperatura que definem diretamente a qualidade e a aplicação final
+            da peça.
           </p>
-
           <p>
-            A escolha correta impacta diretamente no desempenho da peça
-            impressa.
+            A escolha errada compromete o resultado: um PLA pode ser perfeito
+            para um protótipo visual, mas insuficiente para uma peça exposta ao
+            calor. Conhecer as diferenças é o primeiro passo para imprimir bem.
           </p>
-
           <p>
-            Desde protótipos simples até peças técnicas e funcionais, o material
-            define a aplicação final.
+            Desde iniciantes até indústrias, empresas como a <strong>3D Fila</strong>
+            e a <strong>Bambu Lab</strong> oferecem linhas completas de filamentos
+            para as mais variadas necessidades.
           </p>
         </div>
-
         <div class="doc-visual reveal">
-          <img
-            src="https://wishbox.net.br/wp-content/uploads/2016/05/1-filamentos-para-impressao-3d.jpg"
-            alt="Filamentos para impressão 3D"
-          />
+          <img src="https://wishbox.net.br/wp-content/uploads/2016/05/1-filamentos-para-impressao-3d.jpg" alt="Filamentos para impressão 3D" />
         </div>
       </div>
     </section>
 
+    <!-- TIPOS COMUNS -->
     <section class="cards-section">
       <div class="section-header reveal">
-        <h2>Tipos Comuns</h2>
-
-        <p>
-          Os principais materiais utilizados atualmente em impressoras 3D FDM.
-        </p>
+        <h2>Tipos Principais</h2>
+        <p>Os materiais mais utilizados em impressoras 3D FDM — cada um com seu perfil de uso ideal.</p>
       </div>
-
       <div class="cards">
+
         <div class="card reveal">
           <div class="icon">🌱</div>
-
           <h3>PLA</h3>
-
-          <p>Fácil de imprimir, biodegradável e perfeito para iniciantes.</p>
+          <p>Fácil de imprimir, biodegradável e perfeito para iniciantes. Excelente acabamento superficial e grande variedade de variações estéticas.</p>
+          <div class="card-tags">
+            <span class="card-tag green">Iniciante</span>
+            <span class="card-tag">190–230°C</span>
+            <span class="card-tag blue">Decorativo</span>
+          </div>
         </div>
 
         <div class="card reveal">
           <div class="icon">⚙️</div>
-
           <h3>PETG</h3>
-
-          <p>Excelente resistência ao impacto e ótima durabilidade.</p>
+          <p>Combina resistência ao impacto com facilidade de impressão. Durável, baixo odor e boa adesão entre camadas. Ideal para peças funcionais.</p>
+          <div class="card-tags">
+            <span class="card-tag blue">Funcional</span>
+            <span class="card-tag">220–260°C</span>
+            <span class="card-tag amber">Intermediário</span>
+          </div>
         </div>
 
         <div class="card reveal">
           <div class="icon">🔥</div>
-
           <h3>ABS</h3>
-
-          <p>Material resistente e utilizado em peças funcionais e técnicas.</p>
+          <p>Alta resistência mecânica e térmica. Utilizado em peças funcionais, protótipos industriais e componentes sujeitos a esforços. Requer impressora fechada.</p>
+          <div class="card-tags">
+            <span class="card-tag red">Avançado</span>
+            <span class="card-tag">220–270°C</span>
+            <span class="card-tag blue">Industrial</span>
+          </div>
         </div>
 
         <div class="card reveal">
           <div class="icon">🌀</div>
-
           <h3>TPU</h3>
-
-          <p>Filamento flexível ideal para peças elásticas e resistentes.</p>
+          <p>Filamento flexível com alta resistência ao desgaste e impacto. Retorna à forma original após deformação. Ideal para capas, vedações e amortecedores.</p>
+          <div class="card-tags">
+            <span class="card-tag amber">Flexível</span>
+            <span class="card-tag">220–240°C</span>
+            <span class="card-tag blue">Proteção</span>
+          </div>
         </div>
 
         <div class="card reveal">
           <div class="icon">💪</div>
-
           <h3>Nylon</h3>
-
-          <p>Alta resistência mecânica e excelente durabilidade.</p>
+          <p>Alta resistência mecânica e excelente durabilidade. Variedades reforçadas com fibra de carbono (PA6-CF, PAHT-CF) atingem desempenho de engenharia.</p>
+          <div class="card-tags">
+            <span class="card-tag red">Técnico</span>
+            <span class="card-tag">250–300°C</span>
+            <span class="card-tag blue">Industrial</span>
+          </div>
         </div>
 
         <div class="card reveal">
           <div class="icon">☀️</div>
-
           <h3>ASA</h3>
-
-          <p>Material resistente aos raios UV e aplicações externas.</p>
+          <p>Semelhante ao ABS, mas com resistência superior aos raios UV e às intempéries. Indicado para peças externas, sinalização e componentes automotivos.</p>
+          <div class="card-tags">
+            <span class="card-tag amber">Externo</span>
+            <span class="card-tag">240–270°C</span>
+            <span class="card-tag blue">Durável</span>
+          </div>
         </div>
+
       </div>
     </section>
 
+    <!-- TABELA COMPARATIVA -->
     <section class="table-section">
       <div class="section-header reveal">
         <h2>Comparação</h2>
-
-        <p>Compare propriedades importantes entre os principais materiais.</p>
+        <p>Compare as propriedades essenciais dos principais filamentos para tomar a decisão certa.</p>
       </div>
-
       <table class="reveal">
         <thead>
           <tr>
             <th>Material</th>
-            <th>Temperatura</th>
+            <th>Temp. Bico</th>
+            <th>Temp. Mesa</th>
             <th>Resistência</th>
             <th>Flexibilidade</th>
+            <th>Dificuldade</th>
           </tr>
         </thead>
-
         <tbody>
           <tr>
-            <td>PLA</td>
-            <td>190-210°C</td>
+            <td>PLA / PLA Matte</td>
+            <td>190–230°C</td>
+            <td>35–65°C</td>
             <td>Baixa</td>
             <td>Rígido</td>
+            <td>Fácil</td>
           </tr>
-
           <tr>
-            <td>PETG</td>
-            <td>220-240°C</td>
+            <td>PETG / PETG HF</td>
+            <td>220–260°C</td>
+            <td>65–90°C</td>
             <td>Média-Alta</td>
             <td>Semi-rígido</td>
+            <td>Fácil–Médio</td>
           </tr>
-
           <tr>
             <td>ABS</td>
-            <td>240-260°C</td>
+            <td>220–270°C</td>
+            <td>80–120°C</td>
             <td>Alta</td>
             <td>Rígido</td>
+            <td>Médio–Difícil</td>
           </tr>
-
           <tr>
-            <td>TPU</td>
-            <td>220-240°C</td>
+            <td>TPU / TPU Flex</td>
+            <td>220–240°C</td>
+            <td>35–60°C</td>
             <td>Alta</td>
             <td>Flexível</td>
+            <td>Médio</td>
           </tr>
-
           <tr>
-            <td>Nylon</td>
-            <td>250-280°C</td>
+            <td>ASA</td>
+            <td>240–270°C</td>
+            <td>80–110°C</td>
+            <td>Alta</td>
+            <td>Rígido</td>
+            <td>Médio–Difícil</td>
+          </tr>
+          <tr>
+            <td>Nylon (PA6-CF)</td>
+            <td>260–290°C</td>
+            <td>80–100°C</td>
             <td>Muito Alta</td>
             <td>Semi-flexível</td>
+            <td>Difícil</td>
+          </tr>
+          <tr>
+            <td>PC (Policarbonato)</td>
+            <td>260–300°C</td>
+            <td>90–110°C</td>
+            <td>Muito Alta</td>
+            <td>Rígido</td>
+            <td>Difícil</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <section class="tips-section">
+    <!-- DETALHES: PLA / PETG / ABS / TPU -->
+    <section class="detail-section">
       <div class="section-header reveal">
-        <h2>Armazenamento</h2>
-
-        <p>
-          Umidade e temperatura influenciam diretamente na qualidade da
-          impressão.
-        </p>
+        <h2>Detalhes dos Materiais</h2>
+        <p>Vantagens, desvantagens e aplicações práticas dos filamentos mais comuns.</p>
       </div>
+      <div class="detail-grid">
 
-      <div class="tips-grid">
-        <div class="tip-box reveal">
-          <h3>Cuidados</h3>
-
-          <ul>
-            <li>Armazene em ambiente seco</li>
-            <li>Use sílica ou dessecantes</li>
-            <li>Evite exposição ao sol</li>
-            <li>Proteja contra poeira</li>
-            <li>Mantenha em embalagens fechadas</li>
-          </ul>
+        <div class="detail-card reveal">
+          <h3>PLA</h3>
+          <p class="subtitle">Ácido Polilático — o mais popular da impressão 3D</p>
+          <p style="color:#666;line-height:1.8;font-size:0.95rem;">Fácil de configurar, biodegradável e disponível em dezenas de variações: Matte (fosco), Silk (brilhante), Madeira, Rainbow, Duo e mais. Ideal para protótipos e objetos decorativos.</p>
+          <div class="temp-row">
+            <span class="temp-pill">🌡 Bico: 190–230°C</span>
+            <span class="temp-pill light">Mesa: 35–65°C</span>
+            <span class="temp-pill light">Vel: até 300 mm/s</span>
+          </div>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>Vantagens</h4>
+              <ul>
+                <li>Fácil impressão</li>
+                <li>Excelente acabamento</li>
+                <li>Baixo warping</li>
+                <li>Muitas variações estéticas</li>
+                <li>Biodegradável</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>Desvantagens</h4>
+              <ul>
+                <li>Baixa resistência térmica</li>
+                <li>Frágil sob impacto</li>
+                <li>Não indicado para peças funcionais expostas ao calor</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <div class="tip-box reveal">
-          <h3>Dicas Técnicas</h3>
+        <div class="detail-card reveal">
+          <h3>PETG</h3>
+          <p class="subtitle">Polietileno Tereftalato Glicol — o equilíbrio perfeito</p>
+          <p style="color:#666;line-height:1.8;font-size:0.95rem;">Une a facilidade do PLA à resistência do ABS. Baixo odor, boa adesão entre camadas e resistência química. A versão High Speed permite produções rápidas sem perda de qualidade.</p>
+          <div class="temp-row">
+            <span class="temp-pill">🌡 Bico: 220–260°C</span>
+            <span class="temp-pill light">Mesa: 65–90°C</span>
+            <span class="temp-pill light">Vel: 45–500 mm/s</span>
+          </div>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>Vantagens</h4>
+              <ul>
+                <li>Boa resistência ao impacto</li>
+                <li>Baixo odor</li>
+                <li>Resistência química</li>
+                <li>Excelente adesão de camada</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>Desvantagens</h4>
+              <ul>
+                <li>Absorve umidade</li>
+                <li>Pode apresentar stringing</li>
+                <li>Temperatura superior ao PLA</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
+        <div class="detail-card reveal">
+          <h3>ABS</h3>
+          <p class="subtitle">Acrilonitrila Butadieno Estireno — resistência e funcionalidade</p>
+          <p style="color:#666;line-height:1.8;font-size:0.95rem;">Material técnico com alta resistência mecânica e térmica. Permite acabamento com acetona para superfícies lisas. Recomendado para carcaças, suportes e componentes industriais.</p>
+          <div class="temp-row">
+            <span class="temp-pill">🌡 Bico: 220–270°C</span>
+            <span class="temp-pill light">Mesa: 80–120°C</span>
+            <span class="temp-pill light">Câmara: 45–70°C</span>
+          </div>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>Vantagens</h4>
+              <ul>
+                <li>Alta resistência mecânica</li>
+                <li>Boa resistência ao calor</li>
+                <li>Acabamento com acetona</li>
+                <li>Lixável e pintável</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>Desvantagens</h4>
+              <ul>
+                <li>Tende ao warping</li>
+                <li>Requer impressora fechada</li>
+                <li>Emite odor durante impressão</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>TPU</h3>
+          <p class="subtitle">Poliuretano Termoplástico — quando flexibilidade é essencial</p>
+          <p style="color:#666;line-height:1.8;font-size:0.95rem;">Filamento elástico que retorna à forma original após deformação. Excelente para capas protetoras, amortecedores, vedações e peças sujeitas a vibração. Impressão mais lenta que materiais rígidos.</p>
+          <div class="temp-row">
+            <span class="temp-pill">🌡 Bico: 220–240°C</span>
+            <span class="temp-pill light">Mesa: 35–60°C</span>
+            <span class="temp-pill light">Vel: 20–60 mm/s</span>
+          </div>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>Vantagens</h4>
+              <ul>
+                <li>Alta flexibilidade</li>
+                <li>Resistência ao desgaste</li>
+                <li>Absorção de impactos</li>
+                <li>Não requer câmara</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>Desvantagens</h4>
+              <ul>
+                <li>Impressão lenta</li>
+                <li>Requer ajustes de extrusão</li>
+                <li>Sensível à umidade</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>ASA</h3>
+          <p class="subtitle">Acrilonitrila Estireno Acrilato — para uso externo</p>
+          <p style="color:#666;line-height:1.8;font-size:0.95rem;">Evolução do ABS com resistência superior aos raios UV e às intempéries. Não amarela com exposição solar. Indicado para peças externas como sinalização, componentes automotivos e equipamentos expostos ao tempo.</p>
+          <div class="temp-row">
+            <span class="temp-pill">🌡 Bico: 240–270°C</span>
+            <span class="temp-pill light">Mesa: 80–110°C</span>
+            <span class="temp-pill light">Câmara: 40–60°C</span>
+          </div>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>Vantagens</h4>
+              <ul>
+                <li>Resistência UV excelente</li>
+                <li>Não amarela</li>
+                <li>Alta durabilidade externa</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>Desvantagens</h4>
+              <ul>
+                <li>Pode empenar</li>
+                <li>Requer controle térmico</li>
+                <li>Impressora bem calibrada</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card reveal">
+          <h3>Engenharia</h3>
+          <p class="subtitle">Nylon CF, PC, PET-CF — desempenho avançado</p>
+          <p style="color:#666;line-height:1.8;font-size:0.95rem;">Filamentos como PA6-CF (nylon + fibra de carbono), PAHT-CF e PC (policarbonato) oferecem resistência mecânica e térmica para aplicações industriais, robótica, aeronáutica e componentes estruturais.</p>
+          <div class="temp-row">
+            <span class="temp-pill">🌡 Bico: 250–300°C</span>
+            <span class="temp-pill light">Mesa: 80–110°C</span>
+            <span class="temp-pill light">Câmara recomendada</span>
+          </div>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>Vantagens</h4>
+              <ul>
+                <li>Resistência mecânica elevada</li>
+                <li>Baixo peso (CF)</li>
+                <li>Estabilidade dimensional</li>
+                <li>Alta resistência térmica</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>Desvantagens</h4>
+              <ul>
+                <li>Desgaste abrasivo no bico</li>
+                <li>Custo elevado</li>
+                <li>Impressão complexa</li>
+                <li>Sensível à umidade</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MARCAS -->
+    <section class="brands-section">
+      <div class="section-header reveal">
+        <h2>Marcas de Referência</h2>
+        <p>Conheça os fabricantes que abastecem o mercado com filamentos de qualidade para todos os perfis.</p>
+      </div>
+      <div class="brands-grid">
+        <div class="brand-card reveal">
+          <h3>3D Fila</h3>
+          <p class="brand-sub">Fabricante nacional • Brasil</p>
+          <p>Empresa brasileira especializada em filamentos para o mercado nacional. Ampla variedade de materiais, desde PLA básico até filamentos de engenharia, com linha ECO de reaproveitamento de material para reduzir desperdícios.</p>
+          <div class="brand-list">
+            <span class="brand-pill">PLA Matte</span>
+            <span class="brand-pill">PLA Silk</span>
+            <span class="brand-pill">PETG XT</span>
+            <span class="brand-pill">ABS Premium</span>
+            <span class="brand-pill">TPU Flex</span>
+            <span class="brand-pill">ASA WP</span>
+            <span class="brand-pill">PLA CF</span>
+            <span class="brand-pill">ECO</span>
+          </div>
+        </div>
+        <div class="brand-card reveal">
+          <h3>Bambu Lab</h3>
+          <p class="brand-sub">Referência global • Alta velocidade</p>
+          <p>Reconhecida mundialmente por impressoras e filamentos de alto desempenho. Materiais projetados para impressão em alta velocidade, com excelente consistência dimensional e acabamento profissional.</p>
+          <div class="brand-list">
+            <span class="brand-pill">PLA Basic</span>
+            <span class="brand-pill">PLA Matte</span>
+            <span class="brand-pill">PETG HF</span>
+            <span class="brand-pill">ABS</span>
+            <span class="brand-pill">ASA</span>
+            <span class="brand-pill">TPU 95A HF</span>
+            <span class="brand-pill">PA6-CF</span>
+            <span class="brand-pill">PC</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARMAZENAMENTO E DICAS -->
+    <section class="tips-section">
+      <div class="section-header reveal">
+        <h2>Armazenamento e Dicas</h2>
+        <p>Umidade, temperatura e manuseio influenciam diretamente na qualidade da impressão.</p>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-box reveal">
+          <h3>Armazenamento</h3>
           <ul>
-            <li>Seque materiais higroscópicos</li>
-            <li>Verifique o diâmetro do filamento</li>
-            <li>Limpe o bico regularmente</li>
-            <li>Use temperaturas adequadas</li>
-            <li>Teste configurações antes da peça final</li>
+            <li>Guarde em local seco e ventilado</li>
+            <li>Use sílica gel ou dessecantes na embalagem</li>
+            <li>Evite exposição direta ao sol</li>
+            <li>Proteja contra poeira com sacos lacrados</li>
+            <li>Seque filamentos higroscópicos antes de usar (Nylon, PETG, TPU)</li>
+            <li>Mantenha em temperatura ambiente estável</li>
+          </ul>
+        </div>
+        <div class="tip-box reveal">
+          <h3>Configuração</h3>
+          <ul>
+            <li>Calibre a mesa antes de cada impressão</li>
+            <li>Use temperaturas adequadas para cada material</li>
+            <li>Ajuste fluxo e velocidade conforme o filamento</li>
+            <li>Limpe o bico regularmente — especialmente após filamentos abrasivos (CF)</li>
+            <li>Para ABS e ASA, use impressora com câmara fechada</li>
+            <li>Teste configurações em peças simples antes da impressão final</li>
+          </ul>
+        </div>
+        <div class="tip-box reveal">
+          <h3>Escolha do Material</h3>
+          <ul>
+            <li><strong>Decorativo / Protótipo visual:</strong> PLA, PLA Matte, PLA Silk</li>
+            <li><strong>Peça funcional resistente:</strong> PETG, ABS</li>
+            <li><strong>Uso externo / UV:</strong> ASA</li>
+            <li><strong>Flexível / proteção:</strong> TPU</li>
+            <li><strong>Alta performance / industrial:</strong> Nylon CF, PC, PET-CF</li>
+            <li><strong>Alta velocidade:</strong> PLA Basic Bambu, PETG HF</li>
           </ul>
         </div>
       </div>
     </section>
 
+    <!-- NAVIGATION -->
     <section class="doc-navigation">
       <div class="nav-grid">
         <a href="gcode.html" class="nav-card reveal">
-          <span class="nav-label"> ← PÁGINA ANTERIOR </span>
-
+          <span class="nav-label">← PÁGINA ANTERIOR</span>
           <h3>G-code</h3>
-
-          <p>
-            Explore os comandos que controlam todos os movimentos da impressora.
-          </p>
+          <p>Explore os comandos que controlam todos os movimentos da impressora.</p>
         </a>
-
         <a href="pos-impressao.html" class="nav-card reveal">
-          <span class="nav-label"> PRÓXIMA PÁGINA → </span>
-
+          <span class="nav-label">PRÓXIMA PÁGINA →</span>
           <h3>Pós-impressão</h3>
-
           <p>Aprenda técnicas de acabamento, limpeza e tratamento das peças.</p>
         </a>
       </div>
     </section>
 
     <footer>
-      <div>
-        <strong>LabMaker IFC</strong><br />
-        Sala G02 • IFC Videira
-      </div>
-
+      <div><strong>LabMaker IFC</strong><br />Sala G02 • IFC Videira</div>
       <div>© 2026 • Laboratório Maker</div>
     </footer>
 
     <script>
       const elements = document.querySelectorAll(".reveal");
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.style.opacity = "1";
-
             entry.target.style.transform = "translateY(0px)";
           }
         });
       });
-
       elements.forEach((el) => {
         el.style.opacity = "0";
-
         el.style.transform = "translateY(40px)";
-
         el.style.transition = "0.9s ease";
-
         observer.observe(el);
       });
     </script>
